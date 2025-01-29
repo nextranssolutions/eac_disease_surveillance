@@ -1,0 +1,41 @@
+body, html {
+    height: 100%;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .centered-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px 0;
+  }
+  .card-deck {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px 0;
+  }
+  .slider {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px 0;
+  }
+  .custom-width {
+    width: 90% !important;
+}
+  @media (min-width: 992px) { /* Large screens */
+    .custom-width {
+        width: 90%  !important;
+    }
+}
+@media (max-width: 991px) { /* Medium and smaller screens */
+    .custom-width {
+        width: 100%  !important;
+    }
+}

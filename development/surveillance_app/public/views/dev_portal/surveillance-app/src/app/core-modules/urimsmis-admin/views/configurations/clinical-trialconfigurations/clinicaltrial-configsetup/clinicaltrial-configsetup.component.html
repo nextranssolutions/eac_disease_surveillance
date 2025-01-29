@@ -1,0 +1,108 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="#">Home</a>
+        </li>
+        <li class="active">{{parameter_name | translate}}</li>
+        </ul>
+
+    </div>
+
+
+ <div class="page-content">
+    <div class="page-header">
+        <h1>
+        {{parameter_name | translate}}
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            overview &amp; stats
+        </small>
+        </h1>
+    </div>
+
+
+  <div class="container-fluid">
+    <dx-tab-panel class="fullpage-tab" id="Navigation Tab" [stylingMode]="stylingMode" [tabsPosition]="tabsPosition"
+        [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true">
+
+        <dxi-item title="{{ 'clinical_trial_personnel' | translate }}" icon="fa fa-th-list">
+            
+            <app-clinical-trialpersonnel></app-clinical-trialpersonnel>
+        </dxi-item>
+
+        <dxi-item title="{{ 'study_sites' | translate }}" icon="fa fa-th-list">
+            <app-study-sites></app-study-sites>
+
+        </dxi-item>
+
+        <dxi-item title="{{ 'clinical_study_status' | translate }}" icon="fa fa-th-list">
+           
+            <app-clinicalstudy-status></app-clinicalstudy-status>
+        </dxi-item>
+
+          <dxi-item title="{{ 'clinical_report_types' | translate }}" icon="fa fa-th-list">
+           
+            <app-clinicalreport-types></app-clinicalreport-types>
+        </dxi-item>
+
+        <dxi-item title="{{'clinical_trial_designs' | translate }}" icon="fa fa-th-list">
+           
+            <app-clinicaltrial-designs></app-clinicaltrial-designs>
+        </dxi-item> 
+
+        <dxi-item title="{{ 'clinical_disease_conditions' | translate }}" icon="fa fa-th-list">
+            <app-clinicaldisease-conditions></app-clinicaldisease-conditions>
+        </dxi-item> 
+        <dxi-item title="{{ 'clinical_study_purposes' | translate }}" icon="fa fa-th-list">
+            <app-clinicalstudy-purposes> </app-clinicalstudy-purposes>
+        </dxi-item> 
+
+        <dxi-item title="{{ 'clinical_recruit_statuses' | translate }}" icon="fa fa-th-list">
+            <app-clinicalrecruit-statuses></app-clinicalrecruit-statuses>
+        </dxi-item> 
+        <dxi-item title="{{ 'clinical_intervention_assignment' | translate }}" icon="fa fa-th-list">
+            <app-clinicalintervention-assignment></app-clinicalintervention-assignment>
+        </dxi-item> 
+        <dxi-item title="{{ 'clinical_intervention_allocation' | translate }}" icon="fa fa-th-list">
+            <app-clinicalintervent-allocation></app-clinicalintervent-allocation>
+        </dxi-item> 
+        <dxi-item title="{{ 'clinical_intervention_types' | translate }}" icon="fa fa-th-list">
+            <app-clinicalintervent-types></app-clinicalintervent-types>
+        </dxi-item> 
+        <dxi-item title="{{ 'clinical_masking_binding' | translate }}" icon="fa fa-th-list">
+            <app-clinicalmasking-binding></app-clinicalmasking-binding>
+        </dxi-item>
+        <dxi-item title="{{ 'clinical_masking_used' | translate }}" icon="fa fa-th-list">
+            <app-clinicalmasking-used></app-clinicalmasking-used>
+        </dxi-item>
+        <dxi-item title="{{ 'clinical_nature_controls' | translate }}" icon="fa fa-th-list">
+            <app-clinicalnature-controls></app-clinicalnature-controls>
+        </dxi-item>
+        <dxi-item title="{{ 'sponsors_nature' | translate }}" icon="fa fa-th-list">
+            <app-sponsors-nature></app-sponsors-nature>
+        </dxi-item>
+        <dxi-item title="{{ 'sponsors_levels' | translate }}" icon="fa fa-th-list">
+            <app-sponsor-levels></app-sponsor-levels>
+        </dxi-item>
+        <dxi-item title="{{ 'age_groups' | translate }}" icon="fa fa-th-list">
+            <app-age-groups></app-age-groups>
+        </dxi-item>
+        <dxi-item title="{{ 'clinical_outcomes_types' | translate }}" icon="fa fa-th-list">
+            <app-clinicaloutcomes-types></app-clinicaloutcomes-types>
+        </dxi-item>
+        <dxi-item title="{{ 'clinical_allocation_sequence' | translate }}" icon="fa fa-th-list">
+            <app-clinicalallocation-sequence></app-clinicalallocation-sequence>
+        </dxi-item>
+        <dxi-item title="{{ 'clinical_sequence_generation' | translate }}" icon="fa fa-th-list">
+            <app-clinicalsequence-generation></app-clinicalsequence-generation>
+        </dxi-item>
+        <dxi-item title="{{ 'funding_source_types' | translate }}" icon="fa fa-th-list">
+            <app-fundingsource-types></app-fundingsource-types>
+        </dxi-item>
+        
+    </dx-tab-panel>
+   </div>
+ </div>
+</div>

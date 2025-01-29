@@ -1,0 +1,11 @@
+{
+    "name": "WorkflowManagement",
+    "alias": "workflowmanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\WorkflowManagement\\App\\Providers\\WorkflowManagementServiceProvider"
+    ],
+    "files": []
+}

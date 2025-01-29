@@ -1,0 +1,11 @@
+{
+    "name": "SysAdministration",
+    "alias": "sysadministration",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SysAdministration\\App\\Providers\\SysAdministrationServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,46 @@
+<div class="content-wrapper">
+    <div class="content-header">
+        <!-- Title and Breadcrumb -->
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h4 class="m-0">{{'system_manual_configurations' | translate}}</h4>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <dx-tab-panel id="supplierPanel" [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true" [tabsPosition]="tabsPosition">
+
+                <dxi-item title="{{'system_guidelines_detail' | translate}}" icon="group">
+                    <app-systemguidelines-dash></app-systemguidelines-dash>
+                </dxi-item>
+
+                <dxi-item title="{{'systems_functionalities' | translate}}" icon="group">
+                    <app-systems-functionalities></app-systems-functionalities>
+                </dxi-item>
+
+                <dxi-item title= "{{'guidelinesoptions' | translate}}" icon="group">
+                    <app-guidelinesoptions></app-guidelinesoptions>
+                </dxi-item> 
+                
+                <dxi-item title="{{'signinsignup_guidelines' | translate}}" icon="group">
+                    <app-signin-signup-guidelines></app-signin-signup-guidelines>
+                </dxi-item>
+              
+                <dxi-item title= "{{'termsconditions_details' | translate}}" icon="group">
+                    <app-termsconditions-details></app-termsconditions-details>
+                </dxi-item>
+                
+            </dx-tab-panel>
+
+            
+        </div>
+    </section>
+
+
+
+</div>

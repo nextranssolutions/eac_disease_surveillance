@@ -1,0 +1,58 @@
+<dx-button text="{{ 'add_new' | translate }} {{ parameter_name | translate}}" type="default" icon="fa fa-plus"
+    [elementAttr]="{ class: '' }" (onClick)="hasReadpermissions=false;onAddProcessConfig()">
+</dx-button>
+
+<dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="col-lg-12 table row-border hover"
+    (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="processConfigData"
+    [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="false"
+    keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+    <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+        [allowExportSelectedData]="true">
+    </dxo-export>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+    <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+    <dxo-paging [enabled]="true">
+        <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+            [allowedPageSizes]="[50,100]"></dxo-pager>
+    </dxo-paging>
+
+    <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+        [allowSorting]="false" cellTemplate="cellTemplate">
+        <div *dxTemplate="let data of 'cellTemplate'">
+            <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+        </div>
+    </dxi-column>
+    <!-- <dxi-column *ngIf="table_name == 'cfg_regulated_productstypes'" dataField="regulated_productstype_id">
+        <dxo-lookup [dataSource]="productTypesData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column> -->
+
+
+     <dxi-column *ngIf="table_name == 'cfg_application_sections'" dataField="regulatory_function_id" caption="{{ 'regulated_function' | translate }}">
+        <dxo-lookup [dataSource]="regFunctionData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="name" caption="{{ 'name' | translate }}"></dxi-column>
+    <dxi-column *ngIf="table_name == 'cfg_application_sections'" dataField="regulatory_subfunction_id" caption="{{ 'controlled_drugssubstances' | translate }}">
+        <dxo-lookup [dataSource]="regSubFunctionData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+
+    <dxi-column *ngIf="table_name == 'cfg_application_sections'" dataField="is_active" caption="{{ 'is_active' | translate }}">
+        <dxo-lookup [dataSource]="isActiveData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="description" caption="{{ 'description' | translate }}"></dxi-column>
+    <dxi-column dataField="code" caption="{{ 'code' | translate }}"></dxi-column>
+    <dxi-column dataField="is_enabled" caption="{{ 'is_enabled' | translate }}" [dataType]="'boolean'" [width]="100">
+        <dxo-editing [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true"></dxo-editing>
+    </dxi-column>
+
+
+
+
+
+
+

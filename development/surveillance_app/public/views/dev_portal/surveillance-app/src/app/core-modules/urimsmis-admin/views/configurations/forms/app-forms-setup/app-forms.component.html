@@ -1,0 +1,48 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="#">Home</a>
+            </li>
+            <li class="active">{{parameter_name | translate}}</li>
+        </ul>
+
+    </div>
+
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                {{parameter_name | translate}}
+                <small>
+                    <i class="ace-icon fa fa-angle-double-right"></i>
+
+                </small>
+            </h1>
+        </div>
+
+
+        <div class="container-fluid">
+            <dx-tab-panel class="fullpage-tab" id="Navigation Tab" [stylingMode]="stylingMode"
+                [tabsPosition]="tabsPosition" [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true">
+
+                <dxi-item title="{{ 'form_types' | translate }}" icon="fa fa-clone">
+                    <app-form-types></app-form-types>
+                </dxi-item>
+
+                <dxi-item title="{{ 'form_fields' | translate }}" icon="fa fa-th-list">
+                    <app-form-fields></app-form-fields>
+                </dxi-item>
+                <dxi-item title="{{ 'general_application_forms' | translate }}" icon="fa fa-file-image-o">
+                    <app-general-application-form></app-general-application-form>
+                </dxi-item>
+                <dxi-item title="{{ 'data_entry_forms' | translate }}" icon="fa fa-folder">
+                    <app-data-entry-form-setup></app-data-entry-form-setup>
+                </dxi-item>
+
+
+            </dx-tab-panel>
+        </div>
+    </div>
+</div>

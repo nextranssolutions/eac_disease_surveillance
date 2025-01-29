@@ -1,0 +1,263 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="#">{{'home' | translate}}</a>
+            </li>
+            <li class="active">{{'trader_account' | translate}}</li>
+        </ul>
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                {{'trader_account' | translate}}
+                <small>
+                    <i class="ace-icon fa fa-angle-double-right"></i>
+
+                </small>
+            </h1>
+        </div>
+
+        <div class="row col-lg-12">
+            <!-- Adding a ActiveUserAccounts< -->
+            <dx-button text="{{'add_trader_account' | translate}}" type="default" icon="fa fa-plus"
+                [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="onAddActiveUserAccountsClick()">
+            </dx-button>
+            <!-- <dx-button text="Reset User Counter/Details" type="danger" icon="fa fa-refresh"
+            [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="onReloadUserCounter()">
+            </dx-button> -->
+            <dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="table row-border hover"
+                (onExporting)="onExporting($event)" [dataSource]="traderAccountData" [remoteOperations]='true'
+                [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="true" [wordWrapEnabled]="true"
+                keyExpr="id" (onToolbarPreparing)="onAdvanceSearch($event)">
+                <!-- Replace [dataSource]="ActiveUserAccounts" with your appropriate data source -->
+
+                <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+                <dxo-search-panel [visible]="true">
+                </dxo-search-panel>
+                <dxo-paging [enabled]="true">
+                </dxo-paging>
+                <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+                    [allowedPageSizes]="[50,100,200]">
+                </dxo-pager>
+                <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                    [allowExportSelectedData]="true">
+                </dxo-export>
+
+
+                <dxo-selection mode="multiple"></dxo-selection>
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+                <dxi-column [width]="200" caption="{{'action' | translate}}" name="command-editing"
+                    [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate">
+                    <div *dxTemplate="let data of 'cellTemplate'">
+                        <dx-menu (onItemClick)="permitActiveUserAccountsActionColClick($event,data)"
+                            [items]="permitActiveExpertAccountsMenuItems"></dx-menu>
+                    </div>
+                </dxi-column>
+
+
+                <dxi-column dataField="traderaccount_types" caption="{{'traderaccount_type' | translate}}"></dxi-column>
+                <dxi-column dataField="trader_categories" caption="{{'trader_category' | translate}}"></dxi-column>
+                <dxi-column dataField="identification_no" caption="{{'trader_no' | translate}}"></dxi-column>
+                <dxi-column dataField="name" caption="{{'name' | translate}}"></dxi-column>
+
+                <dxi-column dataField="contact_person" caption="{{'contact_person' | translate}}"></dxi-column>
+                <dxi-column dataField="contact_person_email"
+                    caption="{{'contact_person_email' | translate}}"></dxi-column>
+                <dxi-column dataField="contact_person_telephone"
+                    caption="{{'contact_person_telephone' | translate}}"></dxi-column>
+                <dxi-column dataField="tpin_no" caption="{{'tpin_no' | translate}}"></dxi-column>
+                <dxi-column dataField="pacra_reg_no" caption="{{'pacra_reg_no' | translate}}"></dxi-column>
+                <dxi-column dataField="countries" caption="{{'country' | translate}}"></dxi-column>
+
+                <dxi-column dataField="regions" caption="{{'region' | translate}}"></dxi-column>
+                <dxi-column dataField="districts" caption="{{'district' | translate}}"></dxi-column>
+                <dxi-column dataField="physical_address" caption="{{'physical_address' | translate}}"></dxi-column>
+
+                <dxi-column dataField="postal_address" caption="{{'postal_address' | translate}}"></dxi-column>
+                <dxi-column dataField="telephone_no" caption="{{'telephone_no' | translate}}"></dxi-column>
+                <dxi-column dataField="fax" caption="{{'fax' | translate}}"></dxi-column>
+                <dxi-column dataField="email_address" caption="{{'email_address' | translate}}"></dxi-column>
+
+                <dxi-column dataField="website" caption="{{'website' | translate}}"></dxi-column>
+                <dxi-column dataField="mobile_no" caption="{{'mobile_no' | translate}}"></dxi-column>
+                <dxi-column dataField="status" caption="{{'status' | translate}}"></dxi-column>
+
+                <dxo-paging [pageSize]="200"></dxo-paging>
+            </dx-data-grid>
+        </div>
+    </div>
+
+
+
+    <dx-popup [(visible)]="addPopupVisible" [width]="funcpopWidth(85)" [height]="funcpopHeight(65)" [showTitle]="true"
+        title="{{'trader_account' | translate}}">
+        <div *dxTemplate="let data of 'content'">
+            <dx-scroll-view>
+                <form (ngSubmit)="onsaveTraderAccountsDetails()" [formGroup]="userAccountFrm">
+                    <div class="profile-card">
+
+                        <fieldset class="profile-section">
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <label>{{'traderaccount_type' | translate}}</label>
+                                    <dx-select-box [dataSource]="userAccountTypeData"
+                                        formControlName="traderaccount_type_id" valueExpr="id" displayExpr="name"
+                                        [readOnly]="is_readonly" [searchEnabled]="true">
+                                    </dx-select-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'trader_category' | translate}}</label>
+                                    <dx-select-box [dataSource]="traderCategoryData"
+                                        formControlName="trader_category_id" valueExpr="id" displayExpr="name"
+                                        [readOnly]="is_readonly" [searchEnabled]="true">
+                                    </dx-select-box>
+                                </div>
+
+                                <!-- <div class="col-lg-4">
+                                <label>{{'trader_no' | translate}}</label>
+                                <dx-select-box [dataSource]="userAccountTypeData"
+                                                    formControlName="identification_no" valueExpr="id"
+                                                    displayExpr="name" [readOnly]="is_readonly" [searchEnabled]="true">
+                                </dx-select-box>
+                            </div> -->
+
+                                <div class="col-lg-6">
+                                    <label>{{'name' | translate}}</label>
+                                    <dx-text-box formControlName="name" [readOnly]="is_readonly" placeholder=""
+                                        [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'contact_person' | translate}}</label>
+                                    <dx-text-box formControlName="contact_person" [readOnly]="is_readonly"
+                                        placeholder="" [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'contact_person_email' | translate}}</label>
+                                    <dx-text-box formControlName="contact_person_email" [readOnly]="is_readonly"
+                                        placeholder="" [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'contact_person_telephone' | translate}}</label>
+                                    <dx-text-box formControlName="contact_person_telephone" [readOnly]="is_readonly"
+                                        placeholder="" [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'tpin_no' | translate}}</label>
+                                    <dx-text-box formControlName="tpin_no" [readOnly]="is_readonly" placeholder=""
+                                        [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'pacra_reg_no' | translate}}</label>
+                                    <dx-text-box formControlName="pacra_reg_no" [readOnly]="is_readonly" placeholder=""
+                                        [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label>{{'country' | translate}}</label>
+                                    <dx-select-box [dataSource]="countryData" formControlName="country_id"
+                                        valueExpr="id" displayExpr="name" [readOnly]="is_readonly"
+                                        [searchEnabled]="true">
+                                    </dx-select-box>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label>{{'region' | translate}}</label>
+                                    <dx-select-box [dataSource]="regionData" formControlName="region_id" valueExpr="id"
+                                        displayExpr="name" [readOnly]="is_readonly" [searchEnabled]="true">
+                                    </dx-select-box>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label>{{'district' | translate}}</label>
+                                    <dx-select-box [dataSource]="districtData" formControlName="district_id"
+                                        valueExpr="id" displayExpr="name" [readOnly]="is_readonly"
+                                        [searchEnabled]="true">
+                                    </dx-select-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'physical_address' | translate}}</label>
+                                    <dx-text-box formControlName="physical_address" [readOnly]="is_readonly"
+                                        placeholder="" [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'postal_address' | translate}}</label>
+                                    <dx-text-box formControlName="postal_address" [readOnly]="is_readonly"
+                                        placeholder="" [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'telephone_no' | translate}}</label>
+                                    <dx-text-box formControlName="telephone_no" [readOnly]="is_readonly" placeholder=""
+                                        [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'fax' | translate}}</label>
+                                    <dx-text-box formControlName="fax" [readOnly]="is_readonly" placeholder=""
+                                        [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'email_address' | translate}}</label>
+                                    <dx-text-box formControlName="email_address" [readOnly]="is_readonly" placeholder=""
+                                        [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'website' | translate}}</label>
+                                    <dx-text-box formControlName="website" [readOnly]="is_readonly" placeholder=""
+                                        [showClearButton]="true"></dx-text-box>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label>{{'mobile_no' | translate}}</label>
+                                    <dx-text-box formControlName="mobile_no" [readOnly]="is_readonly" placeholder=""
+                                        [showClearButton]="true"></dx-text-box>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>{{'status' | translate}}</label>
+                                    <dx-select-box [dataSource]="accountStatusData" formControlName="status_id"
+                                        valueExpr="id" displayExpr="name" [readOnly]="is_readonly"
+                                        [searchEnabled]="true">
+                                    </dx-select-box>
+                                </div>
+
+                            </div><!-- /.row -->
+
+                        </fieldset>
+
+                        <fieldset class="profile-section">
+
+                        </fieldset>
+
+                    </div>
+                    <div class="button-container">
+                        <!-- <dx-button text="Enable Edit" type="default" icon="fa fa-edit" [elementAttr]="{ class: 'pull-left' }"
+                        (onClick)="onActionEditDetails()">
+                    </dx-button> -->
+                        <dx-button text="Save Trader Account Details" type="default" icon="fa fa-plus"
+                            [elementAttr]="{ class: 'pull-left' }" (onClick)="onsaveTraderAccountsDetails()">
+                        </dx-button>
+                        <dx-button text="Cancel" type="danger" icon="fa fa-times" [elementAttr]="{ class: 'pull-left' }"
+                            (onClick)="addPopupVisible = false">
+                        </dx-button>
+                    </div>
+                </form>
+            </dx-scroll-view>
+        </div>
+
+    </dx-popup>

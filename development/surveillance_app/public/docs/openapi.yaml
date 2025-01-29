@@ -1,0 +1,3803 @@
+openapi: 3.0.3
+info:
+  title: 'CONTINENTAL REGULATORY EXPERTS SOLUTION (E-CRES) '
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/user:
+    get:
+      summary: ''
+      operationId: getApiUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/audittrailmanagement:
+    get:
+      summary: ''
+      operationId: getApiV1Audittrailmanagement
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/audittrailmanagement/onsaveAuditTrailData:
+    post:
+      summary: ''
+      operationId: postApiAudittrailmanagementOnsaveAuditTrailData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/audittrailmanagement/getAuditTrailInfo:
+    get:
+      summary: ''
+      operationId: getApiAudittrailmanagementGetAuditTrailInfo
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/audittrailmanagement/onDeleteAuditTrailInfo:
+    post:
+      summary: ''
+      operationId: postApiAudittrailmanagementOnDeleteAuditTrailInfo
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/audittrailmanagement/getAuditUserLogoutInfo:
+    get:
+      summary: ''
+      operationId: getApiAudittrailmanagementGetAuditUserLogoutInfo
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/audittrailmanagement/getUserPasswordChangeInfo:
+    get:
+      summary: ''
+      operationId: getApiAudittrailmanagementGetUserPasswordChangeInfo
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/audittrailmanagement/getAuditFailedLoginsInfo:
+    get:
+      summary: ''
+      operationId: getApiAudittrailmanagementGetAuditFailedLoginsInfo
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/audittrailmanagement/getUserMaliciousLoginsInfo:
+    get:
+      summary: ''
+      operationId: getApiAudittrailmanagementGetUserMaliciousLoginsInfo
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/audittrailmanagement/getUserAccessLogsInfo:
+    get:
+      summary: ''
+      operationId: getApiAudittrailmanagementGetUserAccessLogsInfo
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/audittrailmanagement/getUserPasswordRequestInfo:
+    get:
+      summary: ''
+      operationId: getApiAudittrailmanagementGetUserPasswordRequestInfo
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/audittrailmanagement/onGetAuditTrailPrevCurrentData:
+    get:
+      summary: ''
+      operationId: getApiAudittrailmanagementOnGetAuditTrailPrevCurrentData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/authentication/onUserLogin:
+    post:
+      summary: ''
+      operationId: postApiAuthenticationOnUserLogin
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/authentication/funcUserLogOut:
+    post:
+      summary: ''
+      operationId: postApiAuthenticationFuncUserLogOut
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/authentication/request-password-reset:
+    post:
+      summary: ''
+      operationId: postApiAuthenticationRequestPasswordReset
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email_address:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: kkoss@example.net
+              required:
+                - email_address
+      security: []
+  /api/authentication/reset-password:
+    post:
+      summary: ''
+      operationId: postApiAuthenticationResetPassword
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: ''
+                  example: facere
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters.'
+                  example: '82&)+RBst9aB-G&#!<f'
+              required:
+                - token
+                - password
+      security: []
+  /api/authentication/onLoadUserCountryOfOriginCountData:
+    get:
+      summary: ''
+      operationId: getApiAuthenticationOnLoadUserCountryOfOriginCountData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/configurations/onLoadConfigurationData:
+    get:
+      summary: ''
+      operationId: getApiConfigurationsOnLoadConfigurationData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/configurations/onLoadTranslationManagement:
+    get:
+      summary: ''
+      operationId: getApiConfigurationsOnLoadTranslationManagement
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/configurations/onLoadInformationSharingConfig:
+    get:
+      summary: ''
+      operationId: getApiConfigurationsOnLoadInformationSharingConfig
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/configurations/onEnableConfigurationsDetails:
+    post:
+      summary: ''
+      operationId: postApiConfigurationsOnEnableConfigurationsDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/configurations/onSavingLanguageTranslationManagement:
+    post:
+      summary: ''
+      operationId: postApiConfigurationsOnSavingLanguageTranslationManagement
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/configurations/onsaveConfigData:
+    post:
+      summary: ''
+      operationId: postApiConfigurationsOnsaveConfigData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/configurations/onDeleteConfigData:
+    post:
+      summary: ''
+      operationId: postApiConfigurationsOnDeleteConfigData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/configurations/onDeleteConfigurationsDetails:
+    post:
+      summary: ''
+      operationId: postApiConfigurationsOnDeleteConfigurationsDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/dashboardmanagement:
+    get:
+      summary: ''
+      operationId: getApiV1Dashboardmanagement
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/dashboardmanagement/funcFetchPublicDetailsCounter:
+    get:
+      summary: ''
+      operationId: getApiDashboardmanagementFuncFetchPublicDetailsCounter
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/dashboardmanagement/onGetAdminactiveTasksAsignmentsData:
+    get:
+      summary: ''
+      operationId: getApiDashboardmanagementOnGetAdminactiveTasksAsignmentsData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/dashboardmanagement/onLoadWorkflowData:
+    get:
+      summary: ''
+      operationId: getApiDashboardmanagementOnLoadWorkflowData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/documentmanagement:
+    get:
+      summary: ''
+      operationId: getApiV1Documentmanagement
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/onaplicationDocumentUpload:
+    post:
+      summary: ''
+      operationId: postApiDocumentmanagementOnaplicationDocumentUpload
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/onLoaddocumentTypeRequirements:
+    get:
+      summary: ''
+      operationId: getApiDocumentmanagementOnLoaddocumentTypeRequirements
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/onLoadonLoadDocumentDataConfig:
+    get:
+      summary: ''
+      operationId: getApiDocumentmanagementOnLoadonLoadDocumentDataConfig
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/onSaveDMSSitedetails:
+    post:
+      summary: ''
+      operationId: postApiDocumentmanagementOnSaveDMSSitedetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/onSaveDMSProcessDocumentdefinationdetails:
+    post:
+      summary: ''
+      operationId: postApiDocumentmanagementOnSaveDMSProcessDocumentdefinationdetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/onSaveDMSNonStructuredDocdefinationdetails:
+    post:
+      summary: ''
+      operationId: postApiDocumentmanagementOnSaveDMSNonStructuredDocdefinationdetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/saveDMSNoStructuredDocDefinationDetails:
+    post:
+      summary: ''
+      operationId: postApiDocumentmanagementSaveDMSNoStructuredDocDefinationDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/OnSaveDocumentRequirementsDef:
+    post:
+      summary: ''
+      operationId: postApiDocumentmanagementOnSaveDocumentRequirementsDef
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/onLoadApplicationUploadeddocument:
+    get:
+      summary: ''
+      operationId: getApiDocumentmanagementOnLoadApplicationUploadeddocument
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/getApplicationDocumentDownloadurl:
+    get:
+      summary: ''
+      operationId: getApiDocumentmanagementGetApplicationDocumentDownloadurl
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/onDeleteUploadedDocumentDetails:
+    post:
+      summary: ''
+      operationId: postApiDocumentmanagementOnDeleteUploadedDocumentDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/documentmanagement/onLoaddocumentPreviewUploadedData:
+    get:
+      summary: ''
+      operationId: getApiDocumentmanagementOnLoaddocumentPreviewUploadedData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/expertsprofilemanagement:
+    get:
+      summary: ''
+      operationId: getApiV1Expertsprofilemanagement
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onGetAppointedExpertsInformation:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnGetAppointedExpertsInformation
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onGetExpertsProfileInformation:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnGetExpertsProfileInformation
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsConfigData:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsConfigData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsProfilesStatusCounters:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsProfilesStatusCounters
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsEvaluationPerformanceCounter:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsEvaluationPerformanceCounter
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadEoiMyApplicationsCounters:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadEoiMyApplicationsCounters
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onFuncSaveExpertsProfileInformation:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnFuncSaveExpertsProfileInformation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onFuncUpdateExpertsProfileInformation:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnFuncUpdateExpertsProfileInformation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onFuncSaveExpertsEvaluationInformation:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnFuncSaveExpertsEvaluationInformation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadEexpertsPerformanceEvalDashData:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadEexpertsPerformanceEvalDashData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/getUserInformation:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileGetUserInformation
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsprofiledetails:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsprofiledetails
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsEOIDashboardData:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsEOIDashboardData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadexpertEvaluationChecklistDetails:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadexpertEvaluationChecklistDetails
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSavingexpertEvaluationChecklistDetails:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSavingexpertEvaluationChecklistDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveExpertsRegulatoryCompetence:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveExpertsRegulatoryCompetence
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveExpertsLanguageProficiency:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveExpertsLanguageProficiency
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveExpertsEducationInformation:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveExpertsEducationInformation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveEmploymentRecord:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveEmploymentRecord
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSavePublishingInvolvement:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSavePublishingInvolvement
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveDocumentUpload:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveDocumentUpload
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveEoiApplicationRegulatoryCompetence:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveEoiApplicationRegulatoryCompetence
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveEoiApplicationLanguageProficiency:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveEoiApplicationLanguageProficiency
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveEoiApplicationEducationInformation:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveEoiApplicationEducationInformation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveEoiApplicationEmploymentRecord:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveEoiApplicationEmploymentRecord
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveEoiApplicationPublishingInvolvement:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveEoiApplicationPublishingInvolvement
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveEoiApplicationDocumentUpload:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveEoiApplicationDocumentUpload
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onFuncSaveEoiApplication:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnFuncSaveEoiApplication
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onGetExpertsImportationInformation:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnGetExpertsImportationInformation
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onGetActiveExpertsProfilesInformation:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnGetActiveExpertsProfilesInformation
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSaveRegisteredExpertsReprting:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSaveRegisteredExpertsReprting
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadUploadedExpertsREgistration:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadUploadedExpertsREgistration
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onsendExpertsRegUploadedDetails:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnsendExpertsRegUploadedDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onDeleteExpertsUploadedDetails:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnDeleteExpertsUploadedDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onDeleteExpertProfileDetails:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnDeleteExpertProfileDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onSyncSaveExpertsUploadedDetails:
+    post:
+      summary: ''
+      operationId: postApiExpertsprofileOnSyncSaveExpertsUploadedDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadonExpertsProfileregistrationData:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadonExpertsProfileregistrationData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsRegistrationStatusCounters:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsRegistrationStatusCounters
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/getProcessessFilteredUsers:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileGetProcessessFilteredUsers
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsRegulatoryCompetencies:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsRegulatoryCompetencies
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsLanguageProficiency:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsLanguageProficiency
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsEducationInformation:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsEducationInformation
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsEmploymentRecord:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsEmploymentRecord
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsPublishingInvolvement:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsPublishingInvolvement
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadExpertsDocumentUploads:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadExpertsDocumentUploads
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expertsprofile/onLoadEOIApplicationSummaryRegisterData:
+    get:
+      summary: ''
+      operationId: getApiExpertsprofileOnLoadEOIApplicationSummaryRegisterData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadExpressionOfInterestConfig:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadExpressionOfInterestConfig
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadExpressionOfInterestStatusCounters:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadExpressionOfInterestStatusCounters
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadEoiGenInfoData:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadEoiGenInfoData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onSaveEoiGenInfo:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnSaveEoiGenInfo
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onSaveEoiScopeofWorkRegulatoryFunction:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnSaveEoiScopeofWorkRegulatoryFunction
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onSaveEoiEligibilityCriteria:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnSaveEoiEligibilityCriteria
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onSaveEoiQualifications:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnSaveEoiQualifications
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onSaveEoiPublicationInformation:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnSaveEoiPublicationInformation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onSaveEoiSupportingDocuments:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnSaveEoiSupportingDocuments
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onSaveEoiLanguageProficiency:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnSaveEoiLanguageProficiency
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadTasksAllocationConfig:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadTasksAllocationConfig
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onInitiateExpressionOfInterestSApplication:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnInitiateExpressionOfInterestSApplication
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onInitiateExpressionOfInterestEvaluation:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnInitiateExpressionOfInterestEvaluation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadmyexpressionOfInteretsApplications:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadmyexpressionOfInteretsApplications
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadExpresssionOfInteretsEvaluations:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadExpresssionOfInteretsEvaluations
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadEoiScopeofWorkRegulatoryFunction:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadEoiScopeofWorkRegulatoryFunction
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadEoiEligibilityCriteria:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadEoiEligibilityCriteria
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadEoiQualifications:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadEoiQualifications
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadEoiLanguageProficiency:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadEoiLanguageProficiency
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadEoiSupportingDocuments:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadEoiSupportingDocuments
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadApplicationExpertsRegulatoryCompetencies:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadApplicationExpertsRegulatoryCompetencies
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadApplicationExpertsLanguageProficiency:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadApplicationExpertsLanguageProficiency
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadApplicationExpertsEducationInformation:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadApplicationExpertsEducationInformation
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadApplicationExpertsEmploymentRecord:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadApplicationExpertsEmploymentRecord
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadApplicationExpertsPublishingInvolvement:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadApplicationExpertsPublishingInvolvement
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadApplicationExpertsDocumentUploads:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadApplicationExpertsDocumentUploads
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadExpertsApplicationListDashData:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadExpertsApplicationListDashData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadExpertsAppointmentListDashData:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadExpertsAppointmentListDashData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadexpertEvaluationAppChecklistDetails:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadexpertEvaluationAppChecklistDetails
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onSavingexpertEvaluationChecklistDetails:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnSavingexpertEvaluationChecklistDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onSaveExpertsApplEvaluationRecommendation:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnSaveExpertsApplEvaluationRecommendation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onSaveExpertsAppointmentRecommendation:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnSaveExpertsAppointmentRecommendation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onSaveApplEvaluationConclusions:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnSaveApplEvaluationConclusions
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onDeleteExpressionOfInterestDetails:
+    post:
+      summary: ''
+      operationId: postApiExpressionofinterestOnDeleteExpressionOfInterestDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onApprovedExpressionofInterests:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnApprovedExpressionofInterests
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadNumbreofExpressionApplication:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadNumbreofExpressionApplication
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadsummaryOfActivePendingReports:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadsummaryOfActivePendingReports
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/expressionofinterest/onLoadEOIPostingSummaryRegisterData:
+    get:
+      summary: ''
+      operationId: getApiExpressionofinterestOnLoadEOIPostingSummaryRegisterData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/onLoadExpertsPublicationManagement:
+    get:
+      summary: ''
+      operationId: getApiInformationsharingOnLoadExpertsPublicationManagement
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/onLoadExpertsResourceManagement:
+    get:
+      summary: ''
+      operationId: getApiInformationsharingOnLoadExpertsResourceManagement
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/onLoadInformationSharingConfig:
+    get:
+      summary: ''
+      operationId: getApiInformationsharingOnLoadInformationSharingConfig
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/onLoadKnowledgeCenterManagementData:
+    get:
+      summary: ''
+      operationId: getApiInformationsharingOnLoadKnowledgeCenterManagementData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/funcFetchKnowledgeCenterCounter:
+    get:
+      summary: ''
+      operationId: getApiInformationsharingFuncFetchKnowledgeCenterCounter
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/funcFetchExpertPublicationsCounter:
+    get:
+      summary: ''
+      operationId: getApiInformationsharingFuncFetchExpertPublicationsCounter
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/funcFetchResourcesCounter:
+    get:
+      summary: ''
+      operationId: getApiInformationsharingFuncFetchResourcesCounter
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/onSaveExpertsPublicationManagement:
+    post:
+      summary: ''
+      operationId: postApiInformationsharingOnSaveExpertsPublicationManagement
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/onSaveResourceManagement:
+    post:
+      summary: ''
+      operationId: postApiInformationsharingOnSaveResourceManagement
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/onFuncSaveKnowledgeCenterData:
+    post:
+      summary: ''
+      operationId: postApiInformationsharingOnFuncSaveKnowledgeCenterData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/onDeleteInfoSharingData:
+    post:
+      summary: ''
+      operationId: postApiInformationsharingOnDeleteInfoSharingData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/informationsharing/onloadapplicationWorkflowSubmissionCommetns:
+    get:
+      summary: ''
+      operationId: getApiInformationsharingOnloadapplicationWorkflowSubmissionCommetns
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  '/api/onLoadTranslation/{locale}':
+    get:
+      summary: ''
+      operationId: getApiOnLoadTranslationLocale
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: locale
+        description: ''
+        example: af_ZA
+        required: true
+        schema:
+          type: string
+  /api/v1/notificationsmanagement:
+    get:
+      summary: ''
+      operationId: getApiV1Notificationsmanagement
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/notificationmanagement/onsaveNotificationProcesses:
+    post:
+      summary: ''
+      operationId: postApiNotificationmanagementOnsaveNotificationProcesses
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/notificationmanagement/onLoadNotificationProcesses:
+    get:
+      summary: ''
+      operationId: getApiNotificationmanagementOnLoadNotificationProcesses
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/otp:
+    get:
+      summary: ''
+      operationId: getApiV1Otp
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/otp/requestOtp:
+    post:
+      summary: ''
+      operationId: postApiOtpRequestOtp
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/otp/requestLoginOtp:
+    post:
+      summary: ''
+      operationId: postApiOtpRequestLoginOtp
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/publicinfomanagement:
+    get:
+      summary: ''
+      operationId: getApiV1Publicinfomanagement
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/publicinfomanagement/onSearchExpertsProfileInformation:
+    post:
+      summary: ''
+      operationId: postApiPublicinfomanagementOnSearchExpertsProfileInformation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/publicinfomanagement/getSystemNavigationItems:
+    get:
+      summary: ''
+      operationId: getApiPublicinfomanagementGetSystemNavigationItems
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/publicinfomanagement/getOrganisationServices:
+    get:
+      summary: ''
+      operationId: getApiPublicinfomanagementGetOrganisationServices
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/publicinfomanagement/onLoadExpertsPublicationManagement:
+    get:
+      summary: ''
+      operationId: getApiPublicinfomanagementOnLoadExpertsPublicationManagement
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/publicinfomanagement/onLoadExpertsResourceManagement:
+    get:
+      summary: ''
+      operationId: getApiPublicinfomanagementOnLoadExpertsResourceManagement
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/publicinfomanagement/onLoadKnowledgeCenterManagementData:
+    get:
+      summary: ''
+      operationId: getApiPublicinfomanagementOnLoadKnowledgeCenterManagementData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/publicinfomanagement/onLoadPublicInfoConfig:
+    get:
+      summary: ''
+      operationId: getApiPublicinfomanagementOnLoadPublicInfoConfig
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/reports/onPrintPerformanceEvaluationetails:
+    get:
+      summary: ''
+      operationId: getApiReportsOnPrintPerformanceEvaluationetails
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/reports/onPrintEOIExpertsLetterOfAppointment:
+    get:
+      summary: 'Show the form for creating a new resource.'
+      operationId: showTheFormForCreatingANewResource
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/reportsandanalytics:
+    get:
+      summary: ''
+      operationId: getApiV1Reportsandanalytics
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/sysadministration/onLoadSystemAdministrationData:
+    get:
+      summary: ''
+      operationId: getApiSysadministrationOnLoadSystemAdministrationData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/sysadministration/onsaveSysAdminData:
+    post:
+      summary: ''
+      operationId: postApiSysadministrationOnsaveSysAdminData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/sysadministration/onDeleteSystemAdministrationDetails:
+    post:
+      summary: ''
+      operationId: postApiSysadministrationOnDeleteSystemAdministrationDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/sysadministration/onSaveNotSlidesInformation:
+    post:
+      summary: ''
+      operationId: postApiSysadministrationOnSaveNotSlidesInformation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/sysadministration/getAppUserGroupNavigationMenus:
+    get:
+      summary: ''
+      operationId: getApiSysadministrationGetAppUserGroupNavigationMenus
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/sysadministration/onSaveSystemGuideline:
+    post:
+      summary: ''
+      operationId: postApiSysadministrationOnSaveSystemGuideline
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/sysadministration/onLoadSystemGuideline:
+    get:
+      summary: ''
+      operationId: getApiSysadministrationOnLoadSystemGuideline
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/sysadministration/onLoadSystemManualGuidelines:
+    get:
+      summary: ''
+      operationId: getApiSysadministrationOnLoadSystemManualGuidelines
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/sysadministration/onLoadsystemGuidelinesProcesses:
+    get:
+      summary: ''
+      operationId: getApiSysadministrationOnLoadsystemGuidelinesProcesses
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/sysadministration/onLoadsystemGuidelinesFunctionaliites:
+    get:
+      summary: ''
+      operationId: getApiSysadministrationOnLoadsystemGuidelinesFunctionaliites
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/sysadministration/onLoadsystemSignInUpGuidelines:
+    get:
+      summary: ''
+      operationId: getApiSysadministrationOnLoadsystemSignInUpGuidelines
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/sysintegrationapi:
+    get:
+      summary: ''
+      operationId: getApiV1Sysintegrationapi
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/tasksallocationmanagement:
+    get:
+      summary: ''
+      operationId: getApiV1Tasksallocationmanagement
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onLoadTasksAllocationStatusCounters:
+    get:
+      summary: ''
+      operationId: getApiTaskallocationmanagementOnLoadTasksAllocationStatusCounters
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onLoadExpertsTasksAllocationStatusCounters:
+    get:
+      summary: ''
+      operationId: getApiTaskallocationmanagementOnLoadExpertsTasksAllocationStatusCounters
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onLoadWorkfAllocationRegisterInfoData:
+    get:
+      summary: ''
+      operationId: getApiTaskallocationmanagementOnLoadWorkfAllocationRegisterInfoData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onSaveTasksAllocationRegisterInfo:
+    post:
+      summary: ''
+      operationId: postApiTaskallocationmanagementOnSaveTasksAllocationRegisterInfo
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onLoadTasksAllocationConfig:
+    get:
+      summary: ''
+      operationId: getApiTaskallocationmanagementOnLoadTasksAllocationConfig
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onDeleteTasksAllocationDetails:
+    post:
+      summary: ''
+      operationId: postApiTaskallocationmanagementOnDeleteTasksAllocationDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onSaveworkallocationsAssignments:
+    post:
+      summary: ''
+      operationId: postApiTaskallocationmanagementOnSaveworkallocationsAssignments
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onLoadmyexpressionOfInteretsApplications:
+    get:
+      summary: ''
+      operationId: getApiTaskallocationmanagementOnLoadmyexpressionOfInteretsApplications
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onLoadworkallocationsAssignmentsData:
+    get:
+      summary: ''
+      operationId: getApiTaskallocationmanagementOnLoadworkallocationsAssignmentsData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/OnLoadworkfAllocationSummaryRegisterData:
+    get:
+      summary: ''
+      operationId: getApiTaskallocationmanagementOnLoadworkfAllocationSummaryRegisterData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/OnLoadExpertsAllocationSummaryRegisterData:
+    get:
+      summary: ''
+      operationId: getApiTaskallocationmanagementOnLoadExpertsAllocationSummaryRegisterData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onLoadExpertsWorkfassignmentRegisterInfoData:
+    get:
+      summary: ''
+      operationId: getApiTaskallocationmanagementOnLoadExpertsWorkfassignmentRegisterInfoData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onLoadExpertsClaimsRegisterInfoData:
+    get:
+      summary: ''
+      operationId: getApiTaskallocationmanagementOnLoadExpertsClaimsRegisterInfoData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onLoadClaimsRequestsRegisterCounters:
+    get:
+      summary: ''
+      operationId: getApiTaskallocationmanagementOnLoadClaimsRequestsRegisterCounters
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onSaveExpertsClaimrequests:
+    post:
+      summary: ''
+      operationId: postApiTaskallocationmanagementOnSaveExpertsClaimrequests
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onSaveTaskAssignmentAcceptanceDetails:
+    post:
+      summary: ''
+      operationId: postApiTaskallocationmanagementOnSaveTaskAssignmentAcceptanceDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/taskallocationmanagement/onSaveReportRreviewrecomendation:
+    post:
+      summary: ''
+      operationId: postApiTaskallocationmanagementOnSaveReportRreviewrecomendation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/usermanagement:
+    get:
+      summary: ''
+      operationId: getApiV1Usermanagement
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onLoadUserData:
+    get:
+      summary: ''
+      operationId: getApiUsermanagementOnLoadUserData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onLoadUserAccountStatusCounters:
+    get:
+      summary: ''
+      operationId: getApiUsermanagementOnLoadUserAccountStatusCounters
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onGetUserInformation:
+    get:
+      summary: ''
+      operationId: getApiUsermanagementOnGetUserInformation
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onGetExpertInformation:
+    get:
+      summary: ''
+      operationId: getApiUsermanagementOnGetExpertInformation
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onsaveUserData:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnsaveUserData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onDeleteUserData:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnDeleteUserData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onUserAccountRegistration:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnUserAccountRegistration
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onUserPasswordRequestRecovery:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnUserPasswordRequestRecovery
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onsaveUserGroupDetails:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnsaveUserGroupDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onUserSubscriptionRequest:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnUserSubscriptionRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onUserAccountApproval:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnUserAccountApproval
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onconfirmInitiateSelectionAndAppoitment:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnconfirmInitiateSelectionAndAppoitment
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onUpdateUserProfileInformation:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnUpdateUserProfileInformation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onUserAccountRejection:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnUserAccountRejection
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onGetSingleUserProfileDetails:
+    get:
+      summary: ''
+      operationId: getApiUsermanagementOnGetSingleUserProfileDetails
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onUserChangePassword:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnUserChangePassword
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/usermanagement/onCheckUserPWDRequestDetails:
+    post:
+      summary: ''
+      operationId: postApiUsermanagementOnCheckUserPWDRequestDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/workflowmanagement:
+    get:
+      summary: ''
+      operationId: getApiV1Workflowmanagement
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/getUserNavigationItems:
+    get:
+      summary: ''
+      operationId: getApiWorkflowGetUserNavigationItems
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/getAllNavigationItems:
+    get:
+      summary: ''
+      operationId: getApiWorkflowGetAllNavigationItems
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/getWorkflowConfigs:
+    get:
+      summary: ''
+      operationId: getApiWorkflowGetWorkflowConfigs
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/getAppNavigationMenus:
+    get:
+      summary: ''
+      operationId: getApiWorkflowGetAppNavigationMenus
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/onsaveWorkflowConfigData:
+    post:
+      summary: ''
+      operationId: postApiWorkflowOnsaveWorkflowConfigData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/onsaveNavigationItemsConfigData:
+    post:
+      summary: ''
+      operationId: postApiWorkflowOnsaveNavigationItemsConfigData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/onDeleteWorkflowsDetails:
+    post:
+      summary: ''
+      operationId: postApiWorkflowOnDeleteWorkflowsDetails
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/onLoadworkflowStageData:
+    get:
+      summary: ''
+      operationId: getApiWorkflowOnLoadworkflowStageData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/onLoadWorkflowData:
+    get:
+      summary: ''
+      operationId: getApiWorkflowOnLoadWorkflowData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/onLoadWorkflowTransitionData:
+    get:
+      summary: ''
+      operationId: getApiWorkflowOnLoadWorkflowTransitionData
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/onLoadWorkflowStatusActions:
+    get:
+      summary: ''
+      operationId: getApiWorkflowOnLoadWorkflowStatusActions
+      description: ''
+      parameters: []
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Access Denied'
+                properties:
+                  message:
+                    type: string
+                    example: 'Access Denied'
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/onApplicationProcessSubmission:
+    post:
+      summary: ''
+      operationId: postApiWorkflowOnApplicationProcessSubmission
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/workflow/onSaveImageInformation:
+    post:
+      summary: ''
+      operationId: postApiWorkflowOnSaveImageInformation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''

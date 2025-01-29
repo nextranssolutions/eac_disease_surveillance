@@ -1,0 +1,148 @@
+<!-- <div class="content-wrapper"> -->
+    <!-- <div class="content-header">
+        <div class="container-fluid"> -->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h5 class="m-0">{{ parameter_name | translate }}</h5>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/admin-ecres/app-dashboard">{{ 'Home' | translate
+                                }}</a></li>
+                        <li class="breadcrumb-item active">{{ parameter_name | translate }}</li>
+                    </ol>
+                </div>
+            </div>
+        <!-- </div>
+    </div> -->
+    <section class="content">
+        <!-- <div class="container-fluid"> -->
+            <dx-button text="{{ 'add' | translate }} {{ 'system_labels' | translate }}" type="default" icon="fa fa-save"
+                [elementAttr]="{ }"
+                (onClick)="hasReadpermissions=false;onAddNewSystemLabel()">
+            </dx-button>
+            <form role="form" enctype="multipart/form-data" role="form" [formGroup]="filterLanguageFrm">
+
+                <div class="col-lg-6">
+                    <label>{{ 'Select Languages for Translation' | translate }}</label>
+                    <dx-select-box (onSelectionChanged)="onLanguageSelection($event)" [dataSource]="SystemLangaugesData"
+                        formControlName="system_language_id" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                    </dx-select-box>
+                </div>
+            </form>
+
+            <dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="table row-border hover"
+                (onExporting)="onExporting($event)" [wordWrapEnabled]="true"
+                (onSaving)="onSavingLanguageTranslationManagement($event)" [dataSource]="translationMnaagementData"
+                [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true"
+                [columnHidingEnabled]="false" [keyExpr]="['id', 'system_language_id']"  (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+                <dxo-editing mode="batch" [allowUpdating]="true" [allowAdding]="false" [allowDeleting]="false"
+                    [selectTextOnEditStart]="selectTextOnEditStart">
+                </dxo-editing>
+                <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                    [allowExportSelectedData]="true">
+                </dxo-export>
+                <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+                <dxo-search-panel [visible]="true">
+                </dxo-search-panel>
+                <dxo-paging [enabled]="true">
+                    <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)"
+                        [showPageSizeSelector]="true" [allowedPageSizes]="[20,50,100]"></dxo-pager>
+                </dxo-paging>
+                <dxi-column [allowEditing]="false" [width]="200" dataField="default_language"
+                    caption="{{ 'Default Language' | translate }}"></dxi-column>
+
+                <dxi-column [allowEditing]="false" dataField="system_label"
+                    caption="{{ 'System Label' | translate }}"></dxi-column>
+                <dxi-column [allowEditing]="false" dataField="default_translation"
+                    caption="{{ 'Default Label Translation/defination' | translate }}"></dxi-column>
+                <dxi-column [width]="200" dataField="system_language_id" caption="{{ 'Language' | translate }}">
+                    <dxo-lookup [dataSource]="SystemLangaugesData" displayExpr="name" valueExpr="id">
+                    </dxo-lookup>
+                </dxi-column>
+
+                <dxi-column dataField="translation" caption="{{ 'Translation' | translate }}"></dxi-column>
+
+                <dxo-selection mode="multiple"></dxo-selection>
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+                <dxo-paging [pageSize]="20"></dxo-paging>
+
+            </dx-data-grid>
+
+        <!-- </div> -->
+
+    </section>
+
+<!-- </div> -->
+
+
+<dx-popup class="popup" [width]="funcpopWidth(65)" [height]="funcpopHeight(65)" [showTitle]="true"
+    title="{{ parameter_name | translate }}" [dragEnabled]="false" [hideOnOutsideClick]="false"
+    [(visible)]="isnewproduct">
+    <div *dxTemplate="let data of 'content'">
+        <dx-scroll-view>
+
+            <form role="form" enctype="multipart/form-data" role="form" [formGroup]="createNewDataFrm"
+                (ngSubmit)="onFUncSaveSystemLabels()">
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <label>{{ 'language' | translate }}</label>
+                        <dx-select-box [dataSource]="SystemLangaugesData" formControlName="system_language_id"
+                            valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <label>{{ 'name' | translate }}</label>
+                        <dx-text-box formControlName="name" [showClearButton]="true">
+
+                        </dx-text-box>
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <label>{{ 'code' | translate }}</label>
+                        <dx-text-box formControlName="code" [showClearButton]="true">
+
+                        </dx-text-box>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label>{{ 'translation' | translate }}</label>
+                        <dx-text-area formControlName="translation">
+
+                        </dx-text-area>
+                    </div>
+
+                    <div class="col-lg-12">
+
+                        <label>{{ 'description' | translate }}</label>
+                        <dx-text-area formControlName="description">
+
+                        </dx-text-area>
+                    </div>
+
+                </div>
+
+            </form>
+            <div class="col-lg-8 pull-right">
+
+            </div><br>
+            <div class="col-lg-4 pull-right">
+                <dx-button text="{{ 'save' | translate }} {{ 'system_labels' | translate }}" type="default"
+                    icon="fa fa-save" [elementAttr]="{ id: 'elementId', class: 'pull-right' }"
+                    (onClick)="onFUncSaveSystemLabels()">
+                </dx-button>
+
+            </div>
+        </dx-scroll-view>
+    </div>
+</dx-popup>
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

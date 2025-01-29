@@ -1,0 +1,157 @@
+<!-- <div class="content-wrapper"> -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h5 class="m-0">{{ parameter_name | translate }}</h5>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a routerLink="/admin-ecres/app-dashboard">{{ 'Home' | translate
+                            }}</a></li>
+                    <li class="breadcrumb-item active">{{ parameter_name | translate }}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+
+        <dx-button text="{{ 'add' | translate }} {{ parameter_name | translate}}" type="default" icon="fa fa-save"
+            [elementAttr]="{ id: 'elementId', class: 'pull-right' }"
+            (onClick)="hasReadpermissions=false;onAddNewRecord()">
+        </dx-button>
+
+        <dx-data-grid [allowColumnReordering]="true" (onCellPrepared)="onCellPrepared($event)"
+            class="table row-border hover" (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="signinSignupGuideData"
+            [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="false"
+            keyExpr="id">
+
+            <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                [allowExportSelectedData]="true">
+            </dxo-export>
+            <dxo-filter-row [visible]="false"></dxo-filter-row>
+            <dxo-search-panel [visible]="true">
+            </dxo-search-panel>
+            <dxo-paging [enabled]="true">
+                <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+                    [allowedPageSizes]="[20,50,100]"></dxo-pager>
+            </dxo-paging>
+            <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing"
+                [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate">
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+                </div>
+            </dxi-column>
+            <dxi-column dataField="guideline_option_id" caption="{{ 'guideline_option' | translate }}">
+                <dxo-lookup [dataSource]="guidelineOptionsData" displayExpr="name" valueExpr="id">
+                </dxo-lookup>
+            </dxi-column>
+
+            <dxi-column [allowEditing]="false" dataField="guideline_step_no"
+                caption="{{ 'guideline_step_no' | translate }}"></dxi-column>
+            <dxi-column [allowEditing]="false" dataField="guideline_label"
+                caption="{{ 'guideline_label' | translate }}"></dxi-column>
+            <dxi-column [allowEditing]="false" dataField="guideline_description"
+                caption="{{ 'guideline_description' | translate }}"></dxi-column>
+
+            <dxi-column dataField="is_enabled" caption="{{ 'is_enabled' | translate }}"></dxi-column>
+
+            <dxo-selection mode="multiple"></dxo-selection>
+            <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+            <dxo-paging [pageSize]="20"></dxo-paging>
+
+        </dx-data-grid>
+
+    </div>
+
+</section>
+
+<!-- </div> -->
+
+<dx-popup class="popup" [width]="funcpopWidth(65)" [height]="funcpopHeight(45)" [showTitle]="true"
+    title="{{ parameter_name | translate }}" [dragEnabled]="false" [hideOnOutsideClick]="false"
+    [(visible)]="isnewrecord">
+    <div *dxTemplate="let data of 'content'">
+        <dx-scroll-view>
+
+            <form role="form" enctype="multipart/form-data" role="form" [formGroup]="createNewDataFrm"
+                (ngSubmit)="onFuncSaveRecordData()">
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <label>{{ 'guideline_option' | translate }}</label>
+                        <dx-select-box [dataSource]="guidelineOptionsData" formControlName="guideline_option_id"
+                            valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <label>{{ 'guideline_step_no' | translate }}</label>
+                        <dx-text-box formControlName="guideline_step_no" [showClearButton]="true">
+
+                        </dx-text-box>
+                    </div>
+
+                    <div class="col-lg-12">
+
+                        <label>{{ 'guideline_label' | translate }}</label>
+                        <dx-text-area formControlName="guideline_label">
+
+                        </dx-text-area>
+                    </div>
+                    <div class="col-lg-12">
+
+                        <label>{{ 'guideline_description' | translate }}</label>
+                        <dx-text-area formControlName="guideline_description">
+
+                        </dx-text-area>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label>{{ "is_enabled" | translate }}</label>
+                        <dx-select-box [searchEnabled]="true" formControlName="is_enabled"
+                            [dataSource]="regStatusOptions" valueExpr="value" displayExpr="text">
+                        </dx-select-box>
+                    </div>
+                </div>
+            </form>
+            <div class="col-lg-8 pull-right">
+
+            </div><br>
+            <div class="col-lg-4 pull-right">
+                <dx-button text="{{ 'save' | translate }} {{ parameter_name | translate }}" type="default"
+                    icon="fa fa-save" [elementAttr]="{ id: 'elementId', class: 'pull-right' }"
+                    (onClick)="onFuncSaveRecordData()">
+                </dx-button>
+
+            </div>
+        </dx-scroll-view>
+    </div>
+</dx-popup>
+
+<dx-popup [visible]="deletePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+  title="{{ 'delete_confirmation_of '+parameter_name | translate }}" (onHidden)="deletePopupVisible = false">
+
+  <div>
+    <p class="confirmation-text">
+      {{ 'are_you_sure_you_want_to_delete' | translate }}
+      "<strong>{{config_record}}</strong>"?
+    </p>
+    <div class="button-container">
+      <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="onDeleteDetails()">
+      </dx-button>
+      <dx-button text="{{ 'no' | translate }}" (onClick)="deletePopupVisible = false">
+      </dx-button>
+    </div>
+  </div>
+
+</dx-popup>
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

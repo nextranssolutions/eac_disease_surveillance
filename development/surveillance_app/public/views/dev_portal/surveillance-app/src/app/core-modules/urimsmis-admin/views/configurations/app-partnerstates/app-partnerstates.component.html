@@ -1,0 +1,60 @@
+<!-- <div class="content-wrapper"> -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">{{ parameter_name | translate }}</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/admin-ecres/app-dashboard">{{ 'home' | translate }}</a></li>
+            <li class="breadcrumb-item active">{{ parameter_name | translate }}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="content">
+
+    <div class="container-fluid">
+      <dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="table row-border hover" (onExporting)="onExporting($event)" [wordWrapEnabled]="true"
+        [dataSource]="countriesinfoData" [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true"
+        [columnHidingEnabled]="false" keyExpr="id">
+
+        <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                [allowExportSelectedData]="true">
+            </dxo-export>
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-paging [enabled]="true">
+          <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+            [allowedPageSizes]="[50,100]"></dxo-pager>
+        </dxo-paging>
+
+        <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+          [allowSorting]="false" cellTemplate="cellTemplate">
+          <div *dxTemplate="let data of 'cellTemplate'">
+            <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+          </div>
+        </dxi-column>
+
+        <dxi-column dataField="name" caption="{{ 'member_state_name' | translate }}"></dxi-column>
+        <dxi-column *ngIf="table_name == 'par_countries'" [width]="100" dataField="is_member_state"
+          caption="{{ 'IS Member State' | translate }}">
+
+        </dxi-column>
+        <dxi-column dataField="description" caption="{{ 'description' | translate }}"></dxi-column>
+        <dxi-column dataField="code" caption="{{ 'member_state_country_code' | translate }}"></dxi-column>
+        <dxo-selection mode="multiple"></dxo-selection>
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+        <dxo-paging [pageSize]="500"></dxo-paging>
+
+      </dx-data-grid>
+
+    </div>
+
+  </section>
+
+<!-- </div> -->

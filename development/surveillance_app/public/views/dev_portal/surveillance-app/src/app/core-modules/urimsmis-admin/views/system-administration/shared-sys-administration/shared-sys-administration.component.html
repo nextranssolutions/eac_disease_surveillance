@@ -1,0 +1,347 @@
+
+<!-- <div class="content-header">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h5 class="m-0">{{ parameter_name | translate }}</h5>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/admin-ecres/app-dashboard">{{ 'home' | translate }}</a></li>
+          <li class="breadcrumb-item active">{{ parameter_name | translate }}</li>
+        </ol>
+      </div>
+    </div>
+</div> -->
+
+<div class="main-content-inner">
+  <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+      <li>
+        <i class="ace-icon fa fa-home home-icon"></i>
+        <a href="#"><a routerLink="/admin-mis/app-dashboard">{{ 'home' | translate }}</a></a>
+      </li>
+      <li class="active">{{ parameter_name | translate }}</li>
+    </ul>
+
+  </div>
+
+
+  <div class="page-content">
+
+  <div class="page-header">
+    <h1>
+      {{ parameter_name | translate }}
+      <small>
+        <i class="ace-icon fa fa-angle-double-right"></i>
+        overview &amp; stats
+      </small>
+    </h1>
+  </div>
+
+ <section class="content">
+
+ 
+    <dx-button text="{{ 'add_new' | translate }} {{ parameter_name | translate}}" type="default" icon="fa fa-save"
+      [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="hasReadpermissions=false;onAddNewRecord()">
+    </dx-button>
+
+    <dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="table row-border hover"
+      (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="sysadmin" [remoteOperations]="true"
+      [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="false" keyExpr="id" 
+
+      (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+      <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+        [allowExportSelectedData]="true">
+      </dxo-export>
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+      <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+      <dxo-paging [enabled]="true">
+        <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+          [allowedPageSizes]="[50,100]"></dxo-pager>
+      </dxo-paging>
+
+      <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+        [allowSorting]="false" cellTemplate="cellTemplate">
+        <div *dxTemplate="let data of 'cellTemplate'">
+          <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+        </div>
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_systems_functionalities'" dataField="process_id"
+        caption="{{ 'process_name' | translate }}">
+        <dxo-lookup [dataSource]="systemProcessesData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="name" caption="{{ 'name' | translate }}"></dxi-column>
+      <dxi-column dataField="description" caption="{{ 'description' | translate }}"></dxi-column>
+      <dxi-column dataField="code" caption="{{ 'code' | translate }}"></dxi-column>
+      <!-- Change to Account type id column -->
+
+      <dxo-selection mode="multiple"></dxo-selection>
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+      <dxo-paging [pageSize]="500"></dxo-paging>
+
+    </dx-data-grid>
+
+ 
+
+</section>
+
+<!-- </div> -->
+
+<dx-popup class="popup" [width]="funcpopWidth(65)" [height]="funcpopHeight(65)" [showTitle]="true"
+  title="{{ parameter_name | translate }}" [dragEnabled]="false" [hideOnOutsideClick]="false" [(visible)]="isnewrecord">
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view>
+
+      <form role="form" enctype="multipart/form-data" role="form" [formGroup]="createNewDataFrm"
+        (ngSubmit)="onFuncSaveRecordData()">
+
+        <div class="row">
+
+          <div class="col-lg-12" *ngIf="table_name == 'cfg_systems_functionalities'">
+            <label>{{ 'process_name' | translate }}</label>
+            <dx-select-box formControlName="process_id" [showClearButton]="true" [dataSource]="systemProcessesData"
+              valueExpr="id" [searchEnabled]="true" displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div class="col-lg-12">
+            <label>{{ 'name' | translate }}</label>
+            <dx-text-box formControlName="name" [showClearButton]="true">
+
+            </dx-text-box>
+          </div>
+          <div class="col-lg-12">
+
+            <label>{{ 'description' | translate }}</label>
+            <dx-text-area formControlName="description">
+
+            </dx-text-area>
+          </div>
+
+          <div class="col-lg-12">
+
+            <label>{{ 'code' | translate }}</label>
+            <dx-text-box formControlName="code" [showClearButton]="true">
+
+            </dx-text-box>
+          </div>
+          <!-- Change to Account type id column -->
+
+        </div>
+      </form>
+      <div class="col-lg-8 pull-right">
+
+      </div><br>
+      <div class="col-lg-4 pull-right">
+        <dx-button text="{{ 'save' | translate }} {{ parameter_name | translate }}" type="default" icon="fa fa-save"
+          [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="onFuncSaveRecordData()">
+        </dx-button>
+
+      </div>
+    </dx-scroll-view>
+  </div>
+</dx-popup>
+
+<dx-popup [visible]="deletePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+  title="{{ 'delete_confirmation_of' | translate }} {{parameter_name | translate }}" (onHidden)="deletePopupVisible = false">
+
+  <div>
+    <p class="confirmation-text">
+      {{ 'are_you_sure_you_want_to_delete' | translate }}
+      "<strong>{{config_record}}</strong>"?
+    </p>
+    <div class="button-container">
+      <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="onDeleteSystemAdministrationDetails()">
+      </dx-button>
+      <dx-button text="{{ 'no' | translate }}" (onClick)="deletePopupVisible = false">
+      </dx-button>
+    </div>
+  </div>
+
+</dx-popup>
+<!-- DevExtreme TabPanel for Permissions -->
+<div *ngIf="table_name == 'usr_users_groups'" class="col-lg-6">
+  <dx-popup [visible]="tabPanelPopupVisible" [width]="funcpopWidth(85)" [height]="funcpopHeight(60)" [showTitle]="true"
+    title="{{'user_permissions' | translate}}" (onHidden)="tabPanelPopupVisible = false">
+    <dx-tab-panel id="tabPanel" [loop]="true" [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true"
+      [(selectedIndex)]="selectedTabIndex" (onTitleClick)="funcUserRolesTabClick($event)" [iconPosition]="iconPosition" [tabsPosition]="tabsPosition">
+
+      <!-- DevExtreme Group Name -->
+      <dxi-item title="UserGroup" icon="group">
+        <form (ngSubmit)="onUpdateUserPermissionSubmit()" [formGroup]="createNewDataFrm" formControlName="description">
+
+          <div class="row">
+
+            <div class="col-lg-6">
+              <label>{{ 'institution_type' | translate }}</label>
+              <dx-select-box formControlName="institution_type_id" [showClearButton]="true" [searchEnabled]="true"
+                [dataSource]="instutitionTypesData" [readOnly]=" true" valueExpr="id" displayExpr="name">
+              </dx-select-box>
+            </div>
+
+            <div class="col-lg-6">
+              <label>{{ 'account_type?' | translate }}</label>
+              <dx-select-box formControlName="account_type_id" [readOnly]=" true" [showClearButton]="true"
+                [dataSource]="accountTypesData" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+              </dx-select-box>
+            </div>
+
+            <div class="col-lg-6">
+
+              <label>{{ 'name' | translate }}</label>
+              <dx-text-box formControlName="name" [readOnly]=" true" [showClearButton]="true">
+
+              </dx-text-box>
+            </div>
+            <div class="col-lg-12">
+
+              <label>{{ 'description' | translate }}</label>
+              <dx-text-area [readOnly]=" true" formControlName="description">
+
+              </dx-text-area>
+            </div>
+
+            <div class="col-lg-6">
+
+              <label>{{ 'code' | translate }}</label>
+              <dx-text-box formControlName="code" [readOnly]=" true" [showClearButton]="true">
+
+              </dx-text-box>
+            </div>
+
+            <div class="col-lg-6">
+              <dx-check-box [readOnly]=" true" formControlName="is_super_admin">
+              </dx-check-box><a>is_super_admin</a>
+
+            </div>
+          </div>
+        </form>
+
+        <div class="col-lg-12">
+          <dx-button text="{{ 'next_nav_permission' | translate }}" type="default" icon="fa fa-arrow-right"
+            (onClick)="onNextNavigationItems('NavigationPermission')">
+          </dx-button>
+        </div>
+      </dxi-item>
+
+      <dxi-item title="Navigation Permission" icon="map">
+        <dx-tree-list id="navigations" (onCellPrepared)="onRolesCellPrepared($event)"
+          (onSaving)="onSavingUserNavigationPermissions($event)" class="table row-border hover" dataStructure="tree"
+          [wordWrapEnabled]="true" [dataSource]="AppNavigationMenus" itemsExpr="children" keyExpr="id"
+          parentIdExpr="parent_id" [expandedRowKeys]="[1, 2]" [selectedRowKeys]="[1, 29, 42]">
+          <dxo-editing mode="batch" [allowUpdating]="true" [allowAdding]="false" [allowDeleting]="false"
+            [selectTextOnEditStart]="selectTextOnEditStart">
+          </dxo-editing>
+          <dxo-header-filter [visible]="true"></dxo-header-filter>
+          <dxo-selection mode="multiple"></dxo-selection>
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+          <dxi-column width="150" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+            [allowSorting]="false" cellTemplate="cellTemplateAction">
+            <div *dxTemplate="let data of 'cellTemplateAction'">
+              <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+
+            </div>
+          </dxi-column>
+
+          <dxi-column dataField="navigation_type_id" caption="Navigation Type">
+            <dxo-lookup [dataSource]="navigationTypesData" displayExpr="name" valueExpr="id">
+            </dxo-lookup>
+          </dxi-column>
+          <dxi-column dataField="name" caption="{{ 'name' | translate }}">
+
+          </dxi-column>
+          <dxi-column dataField="description" caption="{{ 'description' | translate }}">
+
+          </dxi-column>
+
+          <dxi-column dataField="iconsCls" caption="iconsCls">
+
+          </dxi-column>
+          <dxi-column dataField="user_access_levels_id" caption="Access Level">
+            <dxo-lookup [dataSource]="userAccessLevels" displayExpr="name" valueExpr="id">
+            </dxo-lookup>
+          </dxi-column>
+          <dxo-selection mode="multiple"></dxo-selection>
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+        </dx-tree-list>
+        <div class="col-lg-12 row">
+          <div class="col-lg-3">
+            <dx-button text="{{ 'previous_group_details' | translate }}" type="danger" icon="fa fa-arrow-right"
+              (onClick)="onNextNavigationItems('UserGroup')">
+            </dx-button>
+          </div>
+          <div class="col-lg-3">
+            <dx-button text="{{ 'next_workflow_permissions' | translate }}" type="default" icon="fa fa-arrow-right"
+              (onClick)="onNextNavigationItems('WorkflowPermission')">
+            </dx-button>
+          </div>
+        </div>
+      </dxi-item>
+
+      <dxi-item title="Workflow Permission" icon="map">
+        <dx-data-grid (onCellPrepared)="onCellPrepared($event)" (onSaving)="onSavingUserWorkflowPermissions($event)"
+          class="table row-border hover" (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="workflowPermissionData"
+          [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="false"
+          keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)"
+          >
+          <dxo-header-filter [visible]="true"></dxo-header-filter>
+          <dxo-search-panel [visible]="true"></dxo-search-panel>
+          <dxo-editing mode="batch" [allowUpdating]="true" [allowAdding]="false" [allowDeleting]="false"
+            [selectTextOnEditStart]="selectTextOnEditStart">
+          </dxo-editing>
+          <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+          <dxo-paging [enabled]="true">
+            <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+              [allowedPageSizes]="[50,100]"></dxo-pager>
+          </dxo-paging>
+
+          <dxi-column [allowEditing]="false" [groupIndex]="0" dataField="workflow_name" caption="Workflow">
+            
+          </dxi-column>
+          <dxi-column [allowEditing]="false" dataField="workflow_stage" caption="Workflow Stage">
+          </dxi-column>
+          <dxi-column dataField="user_access_levels_id" caption="Access Level">
+            <dxo-lookup [dataSource]="userAccessLevels" displayExpr="name" valueExpr="id">
+            </dxo-lookup>
+          </dxi-column>
+
+          <dxo-selection mode="multiple"></dxo-selection>
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+          <dxo-paging [pageSize]="500"></dxo-paging>
+
+        </dx-data-grid>
+
+      </dxi-item>
+    </dx-tab-panel>
+  </dx-popup>
+</div>
+
+
+<dx-popup [visible]="enablePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+  title="{{ enabledisable_tracer | translate }}" (onHidden)="enablePopupVisible = false">
+
+  <div>
+    <p class="confirmation-text">
+      {{ enabledisable_tracerdescription | translate }}
+      "<strong>{{config_record}}</strong>"?
+    </p>
+    <div class="button-container">
+      <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="iniateEnableDisableRecord()">
+      </dx-button>
+      <dx-button text="{{ 'no' | translate }}" (onClick)="enablePopupVisible = false">
+      </dx-button>
+    </div>
+  </div>
+
+</dx-popup>
+
+</div>
+</div>
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+  [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

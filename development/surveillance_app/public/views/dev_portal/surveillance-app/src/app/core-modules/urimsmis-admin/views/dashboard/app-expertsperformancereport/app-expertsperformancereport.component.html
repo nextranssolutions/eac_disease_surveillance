@@ -1,0 +1,97 @@
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <span class="m-0">{{ "experts_performance_evaluation_report" | translate }}</span>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="./ecres">{{ "home" | translate }}</a></li>
+                        <li class="breadcrumb-item active"> {{ "experts_performance_evaluation" | translate }}
+                        <li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                
+                <!-- <div class="col-lg-9 pull-rightguideline">
+                    <app-adminsystemguudelines-details [dashboard_type_id]="dashboard_type_id" [process_id]="process_id"
+                        [systems_functionality_id]="systems_functionality_id" />
+                </div> -->
+            </div>
+
+            <dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="table row-border hover"
+                (onExporting)="onExporting($event)" [dataSource]="expertsPerformanceEvalDashData"
+                [remoteOperations]='true' [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="true"
+                [wordWrapEnabled]="true" keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+                <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+                <dxo-search-panel [visible]="true">
+                </dxo-search-panel>
+                <dxo-paging [enabled]="true">
+                </dxo-paging>
+                <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+                    [allowedPageSizes]="[50,100,200]">
+                </dxo-pager>
+                <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                [allowExportSelectedData]="true">
+                </dxo-export>
+
+                <dxo-selection mode="multiple"></dxo-selection>
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+                <dxi-column [width]=150 caption="Actions" name="command-editing" [allowFiltering]="false"
+                    [allowSorting]="false" cellTemplate="cellTemplateSingle">
+                    <div *dxTemplate="let d of 'cellTemplateSingle'">
+                        <dx-button text="{{getTranslation(d.data.action)}}" (click)="singleApplicationActionColClick(d.data)"
+                            type="default" icon="{{d.data.iconCls}}">
+                        </dx-button>
+                    </div>
+                </dxi-column>
+               
+                <dxi-column dataField="id" caption="{{'id' | translate}}" [visible]="false"></dxi-column>
+
+                <dxi-column dataField="appworkflow_status" [width]="150" caption="{{ 'appworkflow_status' | translate }}"
+                    cellTemplate="appworkflow_status">
+                    <div *dxTemplate="let d of 'appworkflow_status'">
+                        <div class="truncate-text" title="{{d.data.appworkflow_status}}">
+                            {{d.data.appworkflow_status | translate}}
+                        </div>
+                    </div>
+                </dxi-column>
+
+
+                <dxi-column dataField="app_reference_no" caption="{{'reference_no' | translate}}"></dxi-column>
+                <dxi-column dataField="experts_profile_no" caption="{{'experts_profile_no' | translate}}"></dxi-column>
+                <dxi-column dataField="expert_name" caption="{{'expert_name' | translate}}"></dxi-column>
+                
+                <dxi-column dataField="date_of_evaluation" caption="{{'date_of_evaluation' | translate}}"></dxi-column>
+                <dxi-column dataField="evaluation_initiated_by"
+                    caption="{{'evaluation_initiated_by' | translate}}"></dxi-column><dxi-column dataField="category_ofexpertise" caption="{{'coreregulatory_function' | translate}}">
+
+                </dxi-column>
+                <dxi-column dataField="coreregulatory_function" caption="{{'coreregulatory_function' | translate}}">
+
+                </dxi-column>
+                <dxi-column dataField="area_of_expertise" caption="{{'area_of_expertise' | translate}}">
+
+                </dxi-column>
+                <dxi-column dataField="date_of_appointement"
+                    caption="{{'date_of_appointement' | translate}}"></dxi-column>
+                <dxi-column dataField="period_served" caption="{{'period_served' | translate}}"></dxi-column>
+              
+
+                <dxo-paging [pageSize]="200"></dxo-paging>
+            </dx-data-grid>
+        </div>
+    </section>
+
+
+    <dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }"
+        [(visible)]="loadingVisible" [showIndicator]="true" [showPane]="true" [shading]="true"
+        [message]="spinnerMessage" [hideOnOutsideClick]="false">
+    </dx-load-panel>

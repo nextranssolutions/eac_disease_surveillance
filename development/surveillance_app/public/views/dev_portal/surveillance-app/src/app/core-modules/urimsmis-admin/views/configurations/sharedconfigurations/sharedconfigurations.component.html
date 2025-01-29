@@ -1,0 +1,442 @@
+  <h5 class="m-0">{{ parameter_name | translate }}</h5>
+
+
+  <div class="row col-lg-12">
+    <dx-button text="{{ 'add_new' | translate }} {{ parameter_name | translate }}" type="default" icon="fa fa-save"
+      [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="hasReadpermissions=false;onAddNewProduct()">
+    </dx-button>
+
+    <dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="table row-border hover"
+      (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="countriesinfoData"
+      [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="false"
+      keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+      <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+        [allowExportSelectedData]="true">
+      </dxo-export>
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+      <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+      <dxo-paging [enabled]="true">
+        <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+          [allowedPageSizes]="[20,50,100]"></dxo-pager>
+      </dxo-paging>
+
+      <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+        [allowSorting]="false" cellTemplate="cellTemplate">
+        <div *dxTemplate="let data of 'cellTemplate'">
+          <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+        </div>
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_institutions_type'" dataField="country_id"
+        caption="{{ 'country' | translate }}">
+        <dxo-lookup [dataSource]="Countries" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+
+      <dxi-column *ngIf="table_name == 'cfg_bankbranches'" dataField="bank_id"
+        caption="{{ 'bank' | translate }}">
+        <dxo-lookup [dataSource]="bankData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+
+      <dxi-column *ngIf="table_name == 'cfg_exchange_rates'" dataField="currency_id"
+        caption="{{ 'currency' | translate }}">
+        <dxo-lookup [dataSource]="currencyData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_exchange_rates'" dataField="exchange_rate" caption="{{ 'exchange_rate' | translate }}">
+      </dxi-column>
+      
+      <dxi-column *ngIf="table_name == 'cfg_cost_sub_categories'" dataField="cost_category_id"
+      caption="{{ 'cost_category' | translate }}">
+      <dxo-lookup [dataSource]="categoriesData" displayExpr="name" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
+    <dxi-column *ngIf="table_name == 'cfg_cost_categories' || table_name == 'cfg_cost_sub_categories'" dataField="fee_type_id"
+        caption="{{ 'fee_type' | translate }}">
+        <dxo-lookup [dataSource]="feeTypesData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_cost_sub_categories'" dataField="product_type_id"
+        caption="{{ 'product_type' | translate }}">
+        <dxo-lookup [dataSource]="productTypesData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_cities'" dataField="country_id" caption="{{ 'country' | translate }}">
+        <dxo-lookup [dataSource]="Countries" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'not_slides_informations'" dataField="title" caption="{{ 'title' | translate }}">
+      </dxi-column>
+     
+      <dxi-column *ngIf="table_name == 'not_slides_informations'" dataField="content"
+        caption="{{ 'content' | translate }}">
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_areasof_expertises'" dataField="regulatory_function_id"
+        caption="{{ 'country' | translate }}">
+        <dxo-lookup [dataSource]="regulatoryFunctionData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+
+      <dxi-column *ngIf="table_name == 'cfg_institutions'" dataField="country_id" caption="{{ 'country' | translate }}">
+        <dxo-lookup [dataSource]="Countries" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_institutions_department'" dataField="institution_id"
+        caption="{{ 'institution_department' | translate }}">
+        <dxo-lookup [dataSource]="institutionData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_institutions'" dataField="institution_type_id"
+        caption="{{ 'institution_type' | translate }}">
+        <dxo-lookup [dataSource]="institutionTypesData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="name" caption="{{ 'name' | translate }}"></dxi-column>
+      <dxi-column *ngIf="table_name == 'txn_applicationinvoicedata_queries'" dataField="regulatory_function_id"
+        caption="{{ 'regulatory_function' | translate }}">
+        <dxo-lookup [dataSource]="regulatoryFunctionData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'txn_applicationinvoicedata_queries'" dataField="regulatory_subfunction_id"
+        caption="{{ 'regulatory_subfunction' | translate }}">
+        <dxo-lookup [dataSource]="regulatorySubFunctionData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+
+      <dxi-column *ngIf="table_name == 'txn_applicationinvoicedata_queries'" dataField="product_type_id"
+        caption="{{ 'product_type' | translate }}">
+        <dxo-lookup [dataSource]="productTypesData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'txn_applicationinvoicedata_queries'" dataField="data_query" caption="{{ 'data_query' | translate }}"></dxi-column>
+      
+      <dxi-column *ngIf="table_name == 'wkf_applicationinvoicedata_queries'" dataField="regulatory_function_id"
+      caption="{{ 'regulatory_function' | translate }}">
+      <dxo-lookup [dataSource]="regulatoryFunctionData" displayExpr="name" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
+    <dxi-column *ngIf="table_name == 'wkf_applicationinvoicedata_queries'" dataField="regulatory_subfunction_id"
+      caption="{{ 'regulatory_subfunction' | translate }}">
+      <dxo-lookup [dataSource]="regulatorySubFunctionData" displayExpr="name" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
+
+    <dxi-column *ngIf="table_name == 'wkf_applicationinvoicedata_queries'" dataField="product_type_id"
+      caption="{{ 'product_type' | translate }}">
+      <dxo-lookup [dataSource]="productTypesData" displayExpr="name" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>  
+    
+    <dxi-column *ngIf="table_name == 'wkf_applicationinvoicedata_queries'" dataField="data_query" caption="{{ 'data_query' | translate }}"></dxi-column>
+      
+      <dxi-column dataField="description" caption="{{ 'description' | translate }}"></dxi-column>
+      <dxi-column dataField="code" caption="{{ 'code' | translate }}"></dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_currencies'" dataField="is_paying_currency" caption="{{ 'is_paying_currency' | translate }}">
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_currencies'" dataField="is_local_currency" caption="{{ 'is_local_currency' | translate }}">
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_currencies'" dataField="costcurrency_definition" caption="{{ 'costcurrency_definition' | translate }}">
+      </dxi-column>
+      <dxi-column dataField="iso_acyronym" caption="{{ 'iso_code' | translate }}"></dxi-column>
+
+      <dxi-column *ngIf="table_name == 'par_countries'" [width]="100" dataField="is_member_state"
+        caption="{{ 'is_member_state' | translate }}">
+
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_disclaimer_statements'" [width]="100" dataField="disclaimer_statement"
+        caption="{{ 'disclaimer_statement' | translate }}">
+
+      </dxi-column>
+
+
+      <dxi-column *ngIf="table_name == 'cfg_generic_names'" [width]="100" dataField="is_tracer_item"
+        caption="{{ 'is_tracer_item' | translate }}">
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'cfg_navigation_routerlinks'" [width]="100" dataField="routerLink"
+        caption="{{ 'navigations_routers_links' | translate }}">
+
+      </dxi-column>
+      <dxi-column *ngIf="table_name == 'dms_docrequirements_appstatus'" [width]="100"
+        dataField="document_requirement_id" caption="{{ 'dms_docrequirements_appstatus' | translate }}">
+        <dxo-lookup [dataSource]="docrequirementsData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="ip" *ngIf="table_name == 'firewall_ips'" caption="{{ 'ip' | translate }}"></dxi-column>
+      <dxi-column dataField="blocked" *ngIf="table_name == 'firewall_ips'"
+        caption="{{ 'blocked' | translate }}"></dxi-column>
+      <dxi-column [width]="100" dataField="is_enabled" caption="{{ 'enabled_disabledoption' | translate }}">
+      </dxi-column>
+
+      <dxo-selection mode="multiple"></dxo-selection>
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+      <dxo-paging [pageSize]="10"></dxo-paging>
+
+    </dx-data-grid>
+
+  </div>
+<!-- </div> -->
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+  [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>
+
+<dx-popup class="popup" [width]="funcpopWidth(75)" [height]="440" [showTitle]="true" [@flyInOut]
+  title="{{ 'add_new' | translate }} {{parameter_name | translate }}" [dragEnabled]="false" [hideOnOutsideClick]="true"
+  [(visible)]="isnewproduct">
+
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view>
+
+      <form role="form" enctype="multipart/form-data" role="form" [formGroup]="createNewDataFrm"
+        (ngSubmit)="onFuncSaveCountriesData()">
+
+        <div class="row">
+          <div *ngIf="table_name == 'cfg_institutions_type'" class="col-lg-6">
+            <label>{{ 'country' | translate }}</label>
+            <dx-select-box [dataSource]="Countries" formControlName="country_id" valueExpr="id" [searchEnabled]="true"
+              displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_cost_categories'" class="col-lg-6">
+            <label>{{ 'fee_type' | translate }}</label>
+            <dx-select-box [dataSource]="feeTypesData" formControlName="fee_type_id" valueExpr="id" [searchEnabled]="true"
+              displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_cost_sub_categories'" class="col-lg-6">
+            <label>{{ 'cost_category' | translate }}</label>
+            <dx-select-box [dataSource]="categoriesData" formControlName="cost_category_id" valueExpr="id" [searchEnabled]="true"
+              displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_cost_sub_categories'" class="col-lg-6">
+            <label>{{ 'product_types' | translate }}</label>
+            <dx-select-box [dataSource]="productTypesData" formControlName="product_type_id" valueExpr="id" [searchEnabled]="true"
+              displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_institutions'" class="col-lg-6">
+            <label>{{ 'country' | translate }}</label>
+            <dx-select-box [dataSource]="Countries" formControlName="country_id" valueExpr="id" [searchEnabled]="true"
+              displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_areasof_expertises'" class="col-lg-6">
+            <label>{{ 'reasof_expertises' | translate }}</label>
+            <dx-select-box [dataSource]="regulatoryFunctionData" formControlName="regulatory_function_id" valueExpr="id"
+              [searchEnabled]="true" displayExpr="name">
+            </dx-select-box>
+          </div>
+
+          <div *ngIf="table_name == 'cfg_institutions'" class="col-lg-6">
+            <label>{{ 'institution_type' | translate }}</label>
+            <dx-select-box [dataSource]="institutionTypesData" formControlName="institution_type_id" valueExpr="id"
+              [searchEnabled]="true" displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_institutions_department'" class="col-lg-6">
+            <label>{{ 'institution' | translate }}</label>
+            <dx-select-box [dataSource]="Countries" formControlName="institution_id" valueExpr="id"
+              [searchEnabled]="true" displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_cities'" class="col-lg-6">
+            <label>{{ 'country' | translate }}</label>
+            <dx-select-box [dataSource]="Countries" formControlName="country_id" valueExpr="id" [searchEnabled]="true"
+              displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div class="col-lg-6">
+
+            <label>{{ 'name' | translate }}</label>
+            <dx-text-box formControlName="name" [showClearButton]="true">
+
+            </dx-text-box>
+          </div>
+
+          <div *ngIf="table_name == 'txn_applicationinvoicedata_queries'" class="col-lg-6">
+            <label>{{ 'regulatory_function' | translate }}</label>
+            <dx-select-box formControlName="regulatory_function_id" [showClearButton]="true" [dataSource]="regulatoryFunctionData"
+              valueExpr="value" displayExpr="text">
+            </dx-select-box>
+          </div>
+
+          <div *ngIf="table_name == 'txn_applicationinvoicedata_queries'" class="col-lg-6">
+            <label>{{ 'regulatory_subfunction' | translate }}</label>
+            <dx-select-box formControlName="regulatory_subfunction_id" [showClearButton]="true" [dataSource]="regulatorySubFunctionData"
+              valueExpr="value" displayExpr="text">
+            </dx-select-box>
+          </div>
+
+          <div *ngIf="table_name == 'txn_applicationinvoicedata_queries'" class="col-lg-6">
+            <label>{{ 'product_type' | translate }}</label>
+            <dx-select-box formControlName="product_type_id" [showClearButton]="true" [dataSource]="productTypesData"
+              valueExpr="value" displayExpr="text">
+            </dx-select-box>
+          </div>
+
+          <div *ngIf="table_name == 'txn_applicationinvoicedata_queries'" class="col-lg-12">
+            <label>{{ 'data_query' | translate }}</label>
+            <dx-text-area formControlName="data_query">
+            </dx-text-area>
+          </div>
+
+          <div *ngIf="table_name == 'wkf_applicationinvoicedata_queries'" class="col-lg-6">
+            <label>{{ 'regulatory_function' | translate }}</label>
+            <dx-select-box formControlName="regulatory_function_id" [showClearButton]="true" [dataSource]="regulatoryFunctionData"
+              valueExpr="value" displayExpr="text">
+            </dx-select-box>
+          </div>
+
+          <div *ngIf="table_name == 'wkf_applicationinvoicedata_queries'" class="col-lg-6">
+            <label>{{ 'regulatory_subfunction' | translate }}</label>
+            <dx-select-box formControlName="regulatory_subfunction_id" [showClearButton]="true" [dataSource]="regulatorySubFunctionData"
+              valueExpr="value" displayExpr="text">
+            </dx-select-box>
+          </div>
+
+          <div *ngIf="table_name == 'wkf_applicationinvoicedata_queries'" class="col-lg-6">
+            <label>{{ 'product_type' | translate }}</label>
+            <dx-select-box formControlName="product_type_id" [showClearButton]="true" [dataSource]="productTypesData"
+              valueExpr="value" displayExpr="text">
+            </dx-select-box>
+          </div>
+
+          <div *ngIf="table_name == 'wkf_applicationinvoicedata_queries'" class="col-lg-12">
+            <label>{{ 'data_query' | translate }}</label>
+            <dx-text-area formControlName="data_query">
+            </dx-text-area>
+          </div>
+
+          <div class="col-lg-6">
+            <label>{{ 'code' | translate }}</label>
+            <dx-text-box formControlName="code" [showClearButton]="true">
+            </dx-text-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_currencies'" class="col-lg-6">
+            <label>{{ 'is_paying_currency' | translate }}</label>
+            <dx-select-box formControlName="is_paying_currency" [showClearButton]="true" [dataSource]="regStatusOptions"
+              valueExpr="value" displayExpr="text">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_currencies'" class="col-lg-6">
+            <label>{{ 'is_local_currency' | translate }}</label>
+            <dx-select-box formControlName="is_local_currency" [showClearButton]="true" [dataSource]="regStatusOptions"
+              valueExpr="value" displayExpr="text">
+            </dx-select-box>
+          </div>
+          <div class="col-lg-6">
+            <label>{{ 'iso_code' | translate }}</label>
+            <dx-text-box formControlName="iso_acyronym" [showClearButton]="true">
+
+            </dx-text-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_currencies'" class="col-lg-6">
+            <label>{{ 'costcurrency_defination' | translate }}</label>
+            <dx-text-box formControlName="costcurrency_defination" [showClearButton]="true">
+
+            </dx-text-box>
+          </div>
+          <div class="col-lg-6" *ngIf="table_name == 'cfg_navigation_routerlinks'">
+            <label>{{ 'router_link' | translate }}</label>
+            <dx-text-box formControlName="routerLink" [showClearButton]="true">
+
+            </dx-text-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_countries'" class="col-lg-6">
+            <label>{{ 'is_member_state' | translate }}</label>
+            <dx-select-box formControlName="is_member_state" [showClearButton]="true" [dataSource]="regStatusOptions"
+              valueExpr="value" displayExpr="text">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'cfg_disclaimer_statements'" class="col-lg-6">
+            <label>{{ 'disclaimer_statement' | translate }}</label>
+            <dx-text-area formControlName="disclaimer_statement">
+
+            </dx-text-area>
+          </div>
+          <div *ngIf="table_name == 'dms_docrequirements_appstatus'" class="col-lg-6">
+            <label>{{ 'dms_docrequirements_appstatus' | translate }}</label>
+            <dx-select-box formControlName="document_requirement_id" [showClearButton]="true"
+              [dataSource]="docrequirementsData" valueExpr="id" displayExpr="name">
+            </dx-select-box>
+          </div>
+
+          <div class="col-lg-12">
+
+            <label>{{ 'description' | translate }}</label>
+            <dx-text-area formControlName="description">
+
+            </dx-text-area>
+          </div>
+          <div class="col-lg-6" *ngIf="table_name == 'firewall_ips'">
+
+            <label>{{ 'ip' | translate }}</label>
+            <dx-text-box formControlName="ip" [showClearButton]="true"></dx-text-box>
+          </div>
+          <div class="col-lg-6" *ngIf="table_name == 'firewall_ips'">
+
+            <label>{{ 'blocked' | translate }}</label>
+            <dx-check-box formControlName="blocked"></dx-check-box>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <label>{{ "is_enabled" | translate }}</label>
+          <dx-select-box [searchEnabled]="true" formControlName="is_enabled" [dataSource]="regStatusOptions"
+            valueExpr="value" displayExpr="text">
+          </dx-select-box>
+        </div>
+
+      </form>
+      <div class="col-lg-8 pull-right">
+
+      </div><br>
+      <div class="col-lg-4 pull-right">
+        <dx-button text="{{ 'save' | translate }} {{ parameter_name | translate }}" type="default" icon="fa fa-save"
+          [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="onFuncSaveCountriesData()">
+        </dx-button>
+
+      </div>
+    </dx-scroll-view>
+  </div>
+</dx-popup>
+
+<dx-popup [visible]="deletePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+  title="{{ 'delete_confirmation_of'+parameter_name | translate }}" (onHidden)="deletePopupVisible = false">
+
+  <div>
+    <p class="confirmation-text">
+      {{ 'are_you_sure_you_want_to_delete' | translate }}
+      "<strong>{{config_record}}</strong>"?
+    </p>
+    <div class="button-container">
+      <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="onDeleteConfigurationsDetails()">
+      </dx-button>
+      <dx-button text="{{ 'no' | translate }}" (onClick)="deletePopupVisible = false">
+      </dx-button>
+    </div>
+  </div>
+
+</dx-popup>
+
+<dx-popup [visible]="enablePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+  title="{{ enabledisable_tracer | translate }}" (onHidden)="enablePopupVisible = false">
+
+  <div>
+    <p class="confirmation-text">
+      {{ enabledisable_tracerdescription | translate }}
+      "<strong>{{config_record}}</strong>"?
+    </p>
+    <div class="button-container">
+      <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="iniateEnableDisableRecord()">
+      </dx-button>
+      <dx-button text="{{ 'no' | translate }}" (onClick)="enablePopupVisible = false">
+      </dx-button>
+    </div>
+  </div>
+
+</dx-popup>

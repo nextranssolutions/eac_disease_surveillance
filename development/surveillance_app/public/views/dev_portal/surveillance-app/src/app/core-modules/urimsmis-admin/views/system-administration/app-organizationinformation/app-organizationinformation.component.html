@@ -1,0 +1,174 @@
+<!-- <div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid"> -->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h4 class="m-0">{{ parameter_name | translate }}</h4>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/admin-ecres/app-dashboard">{{ 'Home' | translate
+                                }}</a></li>
+                        <li class="breadcrumb-item active">{{ parameter_name | translate }}</li>
+                    </ol>
+                </div>
+            </div>
+        <!-- </div>
+    </div> -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <dx-button text="{{ 'add' | translate }} {{ parameter_name | translate}}" type="default" icon="fa fa-save"
+                [elementAttr]="{  }"
+                (onClick)="hasReadpermissions=false;onAddNewRecord()">
+            </dx-button>
+
+            <dx-data-grid [allowColumnReordering]="true" class="table row-border hover" [wordWrapEnabled]="true"
+                [dataSource]="systemInformationData" [remoteOperations]="true" [showBorders]="true"
+                [allowColumnResizing]="true" [columnHidingEnabled]="false" keyExpr="id"
+                (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+                <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                    [allowExportSelectedData]="true">
+                </dxo-export>
+                <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+                <dxo-search-panel [visible]="true">
+                </dxo-search-panel>
+                <dxo-paging [enabled]="true">
+                    <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)"
+                        [showPageSizeSelector]="true" [allowedPageSizes]="[20,50,100]"></dxo-pager>
+                </dxo-paging>
+                <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing"
+                    [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate">
+                    <div *dxTemplate="let data of 'cellTemplate'">
+                        <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+                    </div>
+                </dxi-column>
+
+                <dxi-column [allowEditing]="false" dataField="system_name"
+                    caption="{{ 'name' | translate }}"></dxi-column>
+                <dxi-column [allowEditing]="false" dataField="image_path"
+                    caption="{{ 'logo' | translate }}"></dxi-column>
+                <dxi-column [allowEditing]="false" dataField="system_acronym"
+                    caption="{{ 'system_acroname' | translate }}"></dxi-column>
+                <dxi-column [allowEditing]="false" dataField="organisation_name"
+                    caption="{{ ' organization_name' | translate }}"></dxi-column>
+
+                <dxi-column dataField="physical_address" caption="{{ 'physical_address' | translate }}"></dxi-column>
+                <dxi-column dataField="country" caption="{{ 'country' | translate }}"></dxi-column>
+                <dxi-column dataField="email_address" caption="{{ 'email_address' | translate }}"></dxi-column>
+                <dxo-selection mode="multiple"></dxo-selection>
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+                <dxo-paging [pageSize]="20"></dxo-paging>
+
+            </dx-data-grid>
+
+        </div>
+
+    </section>
+
+
+
+    <dx-popup class="popup" [width]="funcpopWidth(65)" [height]="funcpopHeight(65)" [showTitle]="true"
+        title="{{ parameter_name | translate }}" [dragEnabled]="false" [hideOnOutsideClick]="false"
+        [(visible)]="isnewinformation">
+        <div *dxTemplate="let data of 'content'">
+            <dx-scroll-view>
+
+                <form role="form" enctype="multipart/form-data" role="form" [formGroup]="createNewDataFrm"
+                    (ngSubmit)="onFuncSaveRecordData()">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+
+                            <label>{{ 'system_name' | translate }}</label>
+                            <dx-text-box formControlName="system_name" [showClearButton]="true">
+
+                            </dx-text-box>
+                        </div>
+
+
+                        <div class="col-lg-6">
+
+                            <label>{{ 'system_acroname' | translate }}</label>
+                            <dx-text-box formControlName="system_acronym" [showClearButton]="true">
+
+                            </dx-text-box>
+                        </div>
+
+                        <div class="col-lg-6">
+
+                            <label>{{ 'organization_name' | translate }}</label>
+                            <dx-text-box formControlName="organisation_name" [showClearButton]="true">
+
+                            </dx-text-box>
+                        </div>
+
+                        <div class="col-lg-6">
+
+                            <label>{{ 'physical_address' | translate }}</label>
+                            <dx-text-box formControlName="physical_address" [showClearButton]="true">
+
+                            </dx-text-box>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label>{{ 'country' | translate }}</label>
+                            <dx-select-box [dataSource]="countryData" formControlName="country" [showClearButton]="true"
+                                valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                            </dx-select-box>
+                        </div>
+
+
+                        <div class="col-lg-6">
+
+                            <label>{{ 'email_address' | translate }}</label>
+                            <dx-text-box formControlName="email_address" [showClearButton]="true">
+
+                            </dx-text-box>
+                        </div>
+
+                        <dx-file-uploader [selectButtonText]="'Select Image'" labelText="{{'logo_image' |translate}}"
+                            accept="image/*" [uploadMode]="'useButtons'" (onUploaded)="onImageUploaded($event)">
+                        </dx-file-uploader>
+                        <!-- <dx-text-area formControlName="image_path" [readOnly]="true"></dx-text-area> -->
+
+
+                    </div>
+                </form>
+
+                <div class="col-lg-4 pull-right">
+                    <dx-button text="{{ 'save' | translate }} {{ parameter_name | translate }}" type="default"
+                        icon="fa fa-save" [elementAttr]="{ id: 'elementId', class: 'pull-right' }"
+                        (onClick)="onFuncSaveRecordData()">
+                    </dx-button>
+
+                </div>
+            </dx-scroll-view>
+        </div>
+    </dx-popup>
+
+    <dx-popup [visible]="deletePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+        title="{{ 'delete_confirmation_of'| translate }} {{parameter_name | translate }}" (onHidden)="deletePopupVisible = false">
+
+        <div>
+            <p class="confirmation-text">
+                {{ 'are_you_sure_you_want_to_delete' | translate }}
+                "<strong>{{config_record}}</strong>"?
+            </p>
+            <div class="button-container">
+                <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="onDeleteDetails()">
+                </dx-button>
+                <dx-button text="{{ 'no' | translate }}" (onClick)="deletePopupVisible = false">
+                </dx-button>
+            </div>
+        </div>
+
+    </dx-popup>
+
+    <dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }"
+        [(visible)]="loadingVisible" [showIndicator]="true" [showPane]="true" [shading]="true"
+        [message]="spinnerMessage" [hideOnOutsideClick]="false">
+    </dx-load-panel>
+<!-- </div> -->

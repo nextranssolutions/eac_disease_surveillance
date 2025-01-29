@@ -1,0 +1,62 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="#">Home</a>
+        </li>
+        <li class="active">{{parameter_name | translate}}</li>
+        </ul>
+
+    </div>
+
+
+ <div class="page-content">
+    <div class="page-header">
+        <h1>
+        {{parameter_name | translate}}
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            overview &amp; stats
+        </small>
+        </h1>
+    </div>
+
+
+  <div class="container-fluid">
+    <dx-tab-panel class="fullpage-tab" id="Navigation Tab" [stylingMode]="stylingMode" [tabsPosition]="tabsPosition"
+        [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true">
+
+        <dxi-item title="{{ 'control_drugs_types' | translate }}" icon="fa fa-th-list">
+            
+            <app-ctrl-drugstype></app-ctrl-drugstype>
+        </dxi-item>
+
+        <dxi-item title="{{ 'controlled_drugs_conversion_configuration' | translate }}" icon="fa fa-th-list">
+            <app-ctrl-drugsconvfact></app-ctrl-drugsconvfact>
+
+        </dxi-item>
+
+        <dxi-item title="{{ 'annual_ceilling_configuration' | translate }}" icon="fa fa-th-list">
+           
+            <app-annual-ceilconf></app-annual-ceilconf>
+        </dxi-item>
+
+          <dxi-item title="{{ 'controlled_drugs_substances' | translate }}" icon="fa fa-th-list">
+           
+            <app-ctrl-drugssubstances></app-ctrl-drugssubstances>
+        </dxi-item>
+
+        <dxi-item title="{{'controlled_drugs_base_salts' | translate }}" icon="fa fa-th-list">
+           
+            <app-ctrl-drugsbasesalts></app-ctrl-drugsbasesalts>
+        </dxi-item> 
+
+        <dxi-item title="{{ 'controlled_drugs_salts' | translate }}" icon="fa fa-th-list">
+            <app-ctrl-drugssalts></app-ctrl-drugssalts>
+        </dxi-item> 
+
+    </dx-tab-panel>
+   </div>
+ </div>
+</div>

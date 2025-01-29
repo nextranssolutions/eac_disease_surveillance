@@ -1,0 +1,39 @@
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h5 class="m-0">{{ parameter_name | translate }}</h5>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/admin-ecres/app-dashboard">{{ 'home' | translate
+                                }}</a></li>
+                        <li class="breadcrumb-item active">{{ parameter_name | translate }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <dx-tab-panel id="Navigation Tab" [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true" [tabsPosition]="tabsPosition">
+                <dxi-item title="{{ 'disclaimer_statements' | translate }}" icon="fa fa-cog">
+                    <app-disclaimer-statements></app-disclaimer-statements>
+                </dxi-item>
+
+                <dxi-item title="{{ 'disclaimer_statement_types' | translate }}" icon="fa fa-cog">
+                    <app-disclaimer-statement-types></app-disclaimer-statement-types>
+                </dxi-item>
+
+                <dxi-item title="{{ 'gender' | translate }}" icon="fa fa-cog">
+                    <app-app-gender></app-app-gender>
+                </dxi-item>
+
+            </dx-tab-panel>
+        </div>
+    </section>
+
+    

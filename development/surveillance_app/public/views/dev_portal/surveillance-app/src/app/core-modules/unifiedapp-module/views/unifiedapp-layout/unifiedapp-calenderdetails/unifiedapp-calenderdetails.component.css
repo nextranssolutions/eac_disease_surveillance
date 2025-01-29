@@ -1,0 +1,43 @@
+.calendar-container {
+    width: 100% !important; /* Ensure it takes the full width of the parent */
+    box-sizing: border-box !important; /* To include padding and border in width */
+  }
+
+  #calendarContainer {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddd; /* Subtle border around the calendar */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px; /* Padding inside the calendar container */
+    background-color: #f9f9f9; /* Light background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .dx-calendar {
+    font-family: 'Arial', sans-serif !important; /* Clean font */
+    font-size: 14px !important; /* Slightly smaller font for compact look */
+    color: #333 !important; /* Dark text color for readability */
+  }
+  
+  .dx-calendar .dx-calendar-selected-date {
+    background-color: #007bff !important; /* Highlight selected date */
+    color: #fff !important;
+    border-radius: 50% !important; /* Circle around selected date */
+  }
+  
+  .dx-calendar .dx-calendar-cell-hovered {
+    background-color: #e9ecef !important; /* Highlight hovered date */
+    cursor: pointer !important;
+  }
+  
+  .dx-calendar .dx-calendar-today-button {
+    border-radius: 4px; /* Rounded button */
+    background-color: #007bff !important; /* Blue background */
+    color: white !important;
+    font-weight: bold !important;
+  }
+  
+  .dx-calendar .dx-widget {
+    border-radius: 8px !important;
+  }
+  

@@ -1,0 +1,372 @@
+<div class="page-header">
+    <h3>
+        {{ parameter_name | translate }}
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+        </small>
+    </h3>
+ </div><!-- /.page-header -->
+
+
+<dx-button text="{{ 'add_new' | translate }} {{ parameter_name | translate }}" type="default" icon="fa fa-save"
+    [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="hasReadpermissions=false;onAddWorkFlowItem()">
+</dx-button>
+
+<dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="col-lg-12 table row-border hover"
+    (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="workflowItemsData"
+    [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="true"
+    keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+    <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+        [allowExportSelectedData]="true">
+    </dxo-export>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+
+    <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+    <dxo-paging [enabled]="true">
+        <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+            [allowedPageSizes]="[50,100]"></dxo-pager>
+    </dxo-paging>
+
+    <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+        [allowSorting]="false" cellTemplate="cellTemplate">
+        <div *dxTemplate="let data of 'cellTemplate'">
+            <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+        </div>
+    </dxi-column>
+    <dxi-column [groupIndex]="0"
+        *ngIf="table_name == 'wf_workflow_definition' || table_name == 'wf_workflowstatuses_actions' || table_name =='wf_statuses_actions' || table_name == 'wf_workflow_statuses' || table_name == 'wf_workflowsubmission_actions' || table_name == 'wf_workflow_actionstypes' "
+        dataField="process_id" caption="{{ 'process_name' | translate }}">
+        <dxo-lookup [dataSource]="processData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column *ngIf="table_name != 'wf_workflow_transitions' && table_name != 'wf_workflowstatuses_interfaces' "
+        dataField="name" caption="{{ 'name' | translate }}"></dxi-column>
+
+    <dxi-column *ngIf="table_name == 'wf_workflow_transitions'" dataField="workflow_action_id"
+        caption="{{ 'workflow_action' | translate }}">
+        <dxo-lookup [dataSource]="workflowSubmissionActionsData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column *ngIf="table_name == 'wkf_workflow_stages'" dataField="stage_status_id"
+        caption="{{ 'stage_status' | translate }}">
+        <dxo-lookup [dataSource]="workflowStageStatusesData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column [groupIndex]="0"
+        *ngIf="table_name == 'wkf_workflow_stages'  || table_name == 'wf_workflow_transitions' "
+        dataField="workflow_id" caption="{{ 'workflow_name' | translate }}">
+        <dxo-lookup [dataSource]="workflowData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+   
+    <dxi-column *ngIf="table_name == 'wf_workflow_interfaces' " dataField="regulatory_function_id"
+    caption="{{'regulatory_functions' | translate}}">
+    <dxo-lookup [dataSource]="regulatoryFunctionsData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column *ngIf=" table_name == 'wkf_workflows' ||  table_name == 'wf_workflow_interfaces'" dataField="regulatory_subfunction_id"
+    caption="{{'regulatory_subfunctions' | translate}}">
+    <dxo-lookup [dataSource]="regulatorySubFunctionsData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column *ngIf=" table_name == 'wf_workflow_interfaces'" dataField="routerlink"
+    caption="{{'routerlink' | translate}}">
+    </dxi-column>
+   
+    <dxi-column
+        *ngIf="table_name == 'wf_workflow_transitions' || table_name == 'wf_workflowstatuses_actions' || table_name == 'wf_workflowsubmission_actions' || table_name == 'wf_workflowstatuses_interfaces'"
+        dataField="workflow_status_id" caption="{{ 'current_workflow_status' | translate }}">
+        <dxo-lookup [dataSource]="workflowStatusData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    
+    <dxi-column *ngIf="table_name == 'wf_workflowstatuses_actions'" dataField="statuses_action_id"
+        caption="{{ 'statuses_action' | translate }}">
+        <dxo-lookup [dataSource]="statusesActionData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column *ngIf="table_name == 'wf_workflowstatuses_actions'" dataField="is_default_action"
+        caption="{{ 'is_default_action' | translate }}">
+        <dxo-lookup [dataSource]="confirmationData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column *ngIf="table_name != 'wf_workflow_transitions' && table_name !='wf_workflowstatuses_interfaces'"
+        dataField="description" caption="{{ 'description' | translate }}"></dxi-column>
+    <!-- <dxi-column *ngIf="table_name == 'wf_workflow_interfaces'" dataField="routerLink"
+        caption="{{ 'navigations_routers_links' | translate }}">
+
+    </dxi-column> -->
+    <dxi-column *ngIf="table_name == 'wf_statuses_actions'" dataField="action"
+        caption="{{ 'action' | translate }}"></dxi-column>
+
+    <dxi-column dataField="code"
+        *ngIf="table_name != 'wf_workflow_transitions' && table_name !='wf_workflowstatuses_interfaces'"
+        caption="{{ 'code' | translate }}"></dxi-column>
+    <dxi-column dataField="iso_acyronym"
+        *ngIf="table_name != 'wf_workflow_transitions' && table_name != 'wf_workflow_actionstypes' && table_name !='wf_workflowstatuses_interfaces'"
+        caption="{{ 'iso_code' | translate }}"></dxi-column>
+
+    <dxi-column *ngIf="table_name == 'wf_workflow_transitions'" dataField="prevworkflow_stage_id"
+        caption="{{ 'current_stage' | translate }}">
+        <dxo-lookup [dataSource]="workflowAllStageData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column *ngIf="table_name == 'wf_workflow_transitions'" dataField="nextworkflow_stage_id"
+        caption="{{ 'next_stage' | translate }}">
+        <dxo-lookup [dataSource]="workflowAllStageData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+
+    <dxi-column *ngIf="table_name == 'wf_workflow_transitions'" dataField="nextworkflow_status_id"
+        caption="{{ 'next_workflow_status' | translate }}">
+        <dxo-lookup [dataSource]="workflowStatusData" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+
+    <dxi-column *ngIf="table_name == 'wf_workflowstatuses_interfaces'" dataField="system_interface_id"
+        caption="{{'system_interface' | translate}}">
+        <dxo-lookup [dataSource]="systemInterfacesData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column *ngIf="table_name == 'wf_workflowstatuses_interfaces'" dataField="dashboard_type_id"
+        caption="{{'dashboard_type' | translate}}">
+        <dxo-lookup [dataSource]="dashboardTypeData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+
+    <dxi-column *ngIf="table_name != 'wf_workflow_actionstypes' && table_name != 'wf_workflowstatuses_interfaces'"
+        dataField="order_no" caption="{{ 'order_no' | translate }}">
+    </dxi-column>
+
+  
+   
+    <dxo-selection mode="multiple"></dxo-selection>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+    <dxo-paging [pageSize]="100"></dxo-paging>
+
+</dx-data-grid>
+
+
+<dx-popup class="popup" [width]="funcpopWidth(65)" [height]="funcpopHeight(75)" [showTitle]="true"
+    title="{{ parameter_name | translate }}" [dragEnabled]="false" [hideOnOutsideClick]="false"
+    [(visible)]="onAddWorkFlowItemVisible">
+    <div *dxTemplate="let data of 'content'">
+        <dx-scroll-view>
+
+
+            <form role="form" enctype="multipart/form-data" role="form" [formGroup]="workflowItemsFrm"
+                (ngSubmit)="onFuncSaveWorlflowData()">
+
+                <div class="row">
+                    <div class="col-lg-6" *ngIf="table_name != 'wf_workflow_transitions'">
+
+                        <label>{{ 'name' | translate }}</label>
+                        <dx-text-box formControlName="name" [showClearButton]="true">
+
+                        </dx-text-box>
+                    </div>
+
+                    <div class="col-lg-6"
+                        *ngIf="table_name == 'wf_workflow_definition'  || table_name == 'wf_workflowstatuses_actions' || table_name == 'wf_statuses_actions' || table_name == 'wf_workflow_statuses' || table_name == 'wf_workflowsubmission_actions' || table_name === 'wf_workflow_actionstypes' ">
+
+                        <label for="unitName">{{ 'process_name' | translate }}</label>
+                        <dx-select-box (onSelectionChanged)="onValueChangeprocesses($event)" [dataSource]="processData"
+                            formControlName="process_id" [showClearButton]="true" valueExpr="id" [searchEnabled]="true"
+                            displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflow_transitions'">
+                        <label for="unitName">{{ 'process_name' | translate }}</label>
+                        <dx-select-box (onSelectionChanged)="onValueChangeprocesses($event)" [dataSource]="processData"
+                            formControlName="process_id" [showClearButton]="true" valueExpr="id" [searchEnabled]="true"
+                            displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6"
+                        *ngIf="table_name == 'wkf_workflow_stages' || table_name == 'wf_workflow_transitions'">
+                        <label for="unitName">{{ 'workflow_name' | translate }}</label>
+                        <dx-select-box (onSelectionChanged)="onValueChangeWorkflows($event)" [dataSource]="workflowData"
+                            formControlName="workflow_id" [showClearButton]="true" valueExpr="id" [searchEnabled]="true"
+                            displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflowstatuses_interfaces'">
+                        <label for="unitName">{{ 'workflow_defination' | translate }}</label>
+                        <dx-select-box (onSelectionChanged)="onValueChangeWorkflowDefinations($event)"
+                            [dataSource]="workflowProcessData" formControlName="workflow_id" [showClearButton]="true"
+                            valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+
+                   
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflow_interfaces'">
+                        <label for="unitName">{{ 'regulatory_function' | translate }}</label>
+                        <dx-select-box [dataSource]="regulatoryFunctionsData" formControlName="regulatory_function_id"
+                        (onSelectionChanged)="onRegulatoryFunctionChange($event)" [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6" *ngIf="table_name == 'wkf_workflows' || table_name == 'wf_workflow_interfaces'">
+                        <label for="unitName">{{ 'regulatory_subfunction' | translate }}</label>
+                        <dx-select-box [dataSource]="regulatorySubFunctionsData" formControlName="regulatory_subfunction_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflow_interfaces'">
+                        <label for="unitName">{{ 'routerlink' | translate }}</label>
+                        <dx-text-box formControlName="routerlink" [showClearButton]="true">
+
+                        </dx-text-box>
+                    </div>
+
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflowstatuses_interfaces'">
+                        <label for="unitName">{{ 'dashboard_type' | translate }}</label>
+                        <dx-select-box [dataSource]="dashboardTypeData" formControlName="dashboard_type_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+                    
+                    <div *ngIf="table_name == 'wf_statuses_actions'" class="col-lg-6">
+                        <label>{{ 'action' | translate }}</label>
+                        <dx-text-box formControlName="action" [showClearButton]="true"> </dx-text-box>
+                    </div>
+
+                    <div class="col-lg-6" *ngIf="table_name != 'wf_workflow_transitions'">
+                        <label>{{ 'code' | translate }}</label>
+                        <dx-text-box formControlName="code" [showClearButton]="true">
+                        </dx-text-box>
+                    </div>
+
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflow_transitions'">
+                        <label for="unitName">{{ 'current_stage' | translate }}</label>
+                        <dx-select-box [dataSource]="workflowStageData" formControlName="prevworkflow_stage_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6"
+                        *ngIf="table_name == 'wf_workflow_transitions'  || table_name == 'wf_workflowstatuses_actions' || table_name == 'wf_workflowsubmission_actions' || table_name == 'wf_workflowstatuses_interfaces'">
+                        <label for="unitName">{{ 'current_application_status' | translate }}</label>
+                        <dx-select-box [dataSource]="workflowStatusData" formControlName="workflow_status_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflowsubmission_actions'">
+                        <label for="unitName">{{ 'action_type' | translate }}</label>
+                        <dx-select-box [dataSource]="actionTypeData" formControlName="workflow_actionstype_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflow_transitions' ">
+                        <label for="unitName">{{ 'workflow_submissionaction' | translate }}</label>
+                        <dx-select-box [dataSource]="workflowSubmissionActionsData" formControlName="workflow_action_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflow_transitions'">
+                        <label for="unitName">{{ 'next_stage_name' | translate }}</label>
+                        <dx-select-box [dataSource]="workflowStageData" formControlName="nextworkflow_stage_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflow_transitions' ">
+                        <label for="unitName">{{ 'next_workflow_status' | translate }}</label>
+                        <dx-select-box [dataSource]="workflowStatusData" formControlName="nextworkflow_status_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflowstatuses_interfaces'">
+                        <label for="unitName">{{ 'system_interface' | translate }}</label>
+                        <dx-select-box [dataSource]="systemInterfacesData" formControlName="system_interface_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+                    <div class="col-lg-6" *ngIf="table_name == 'wkf_workflow_stages'">
+                        <label for="unitName">{{ 'stage_status' | translate }}</label>
+                        <dx-select-box [dataSource]="workflowStageStatusesData" formControlName="stage_status_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_processes'">
+                        <label for="unitName">{{ 'table_name' | translate }}</label>
+                        <dx-text-box formControlName="table_name" [showClearButton]="true">
+
+                        </dx-text-box>
+
+                    </div>
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflowstatuses_actions'">
+                        <label for="unitName">{{ 'statuses_action' | translate }}</label>
+                        <dx-select-box [dataSource]="statusesActionData" formControlName="statuses_action_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <label>{{ 'order_no' | translate }}</label>
+                        <dx-number-box formControlName="order_no" [showClearButton]="true">
+                        </dx-number-box>
+                    </div>
+                    <div class="col-lg-12">
+
+                        <label>{{ 'description' | translate }}</label>
+                        <dx-text-area formControlName="description">
+
+                        </dx-text-area>
+                    </div>
+                    <div class="col-lg-6" *ngIf="table_name == 'wf_workflowstatuses_actions'">
+                        <label for="unitName">{{ 'is_default_action' | translate }}</label>
+                        <dx-select-box [dataSource]="confirmationData" formControlName="is_default_action"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6" *ngIf="!is_hidden">
+
+                        <label>{{ 'reset_column' | translate }}</label>
+
+                        <input type="hidden" value={{resetcolumns}} formControlName="resetcolumns" />
+                    </div>
+
+                </div>
+
+            </form>
+            <div class="col-lg-8 pull-right">
+
+            </div><br>
+            <div class="col-lg-4 pull-right">
+                <dx-button text="{{ 'save' | translate }} {{ parameter_name | translate }}" type="default"
+                    icon="fa fa-save" [elementAttr]="{ id: 'elementId', class: 'pull-right' }"
+                    (onClick)="onFuncSaveWorlflowData()">
+                </dx-button>
+
+            </div>
+        </dx-scroll-view>
+    </div>
+</dx-popup>
+
+<dx-popup [visible]="deletePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+    title="{{ 'delete_confirmation_of '+parameter_name | translate }}" (onHidden)="deletePopupVisible = false">
+
+    <div>
+        <p class="confirmation-text">
+            {{ 'are_you_sure_you_want_to_delete' | translate }}
+            "<strong>{{config_record}}</strong>"?
+        </p>
+        <div class="button-container">
+            <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="onDeleteWorkflowDetails()">
+            </dx-button>
+            <dx-button text="{{ 'no' | translate }}" (onClick)="deletePopupVisible = false">
+            </dx-button>
+        </div>
+    </div>
+
+</dx-popup>
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

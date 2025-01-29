@@ -1,0 +1,80 @@
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="#">{{ parameter_name | translate }}</a>
+        </li>
+
+    </ul><!-- /.breadcrumb -->
+
+</div>
+<div class="page-header">
+    <h1>
+        {{ parameter_name | translate }}
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            <!-- {{ 'configuration_item' | translate }} -->
+        </small>
+    </h1>
+</div><!-- /.page-header -->
+
+<div class="container-fluid">
+    <dx-tab-panel class="fullpage-tab" id="Navigation Tab" [stylingMode]="stylingMode" [tabsPosition]="tabsPosition"
+        [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true">
+
+        <dxi-item title="{{ 'workflow_interfaces' | translate }}" icon="fa fa-cog">
+            <app-interfaces></app-interfaces>
+        </dxi-item>
+        <dxi-item title="{{ 'workflows' | translate }}" icon="fa fa-cog">
+            <app-workflows></app-workflows>
+        </dxi-item>
+        <dxi-item title="{{ 'system_processes'| translate }}" icon="fa fa-cog">
+            <app-system-processes></app-system-processes>
+        </dxi-item>
+
+        <!-- <dxi-item title="{{ 'workflow_definations' | translate }}" icon="fa fa-cog">
+            <app-app-processworkflows></app-app-processworkflows>
+        </dxi-item>
+
+        <dxi-item title="{{ 'statuses_actions' | translate }}" icon="fa fa-cog">
+            <app-app-statusesactions></app-app-statusesactions>
+        </dxi-item>
+
+        <dxi-item title="{{ 'stage_statuses' | translate }}" icon="fa fa-cog">
+            <app-appstage-statuses></app-appstage-statuses>
+        </dxi-item>
+
+        <dxi-item title="{{ 'workflow_statuses_actions' | translate }}" icon="fa fa-cog">
+            <app-app-workflowstatusesactions></app-app-workflowstatusesactions>
+        </dxi-item>
+
+        <dxi-item title="{{ 'system_processes' | translate }}" icon="fa fa-setup">
+            <app-app-systemprocesses></app-app-systemprocesses>
+        </dxi-item>
+
+        <dxi-item title="{{ 'workflow_stages' | translate }}" icon="fa fa-setup">
+            <app-app-processworkflowsstages></app-app-processworkflowsstages>
+        </dxi-item>
+
+        <dxi-item title="{{ 'workflow_statuses' | translate }}" icon="fa fa-table">
+            <app-app-processworkflowstatuses></app-app-processworkflowstatuses>
+        </dxi-item>
+        <dxi-item title="{{ 'workflow_action_types' | translate }}" icon="fa fa-table">
+            <app-app-workflowactiontypes></app-app-workflowactiontypes>
+        </dxi-item>
+        <dxi-item title="{{ 'workflowsubmissionactions' | translate }}" icon="fa fa-table">
+            <app-app-workflowsubmissionactions></app-app-workflowsubmissionactions>
+        </dxi-item>
+
+
+        <dxi-item title="{{ 'workflow_processes_transitions' | translate }}" icon="fa fa-table">
+            <app-app-processworkflowtransitions></app-app-processworkflowtransitions>
+        </dxi-item>
+        <dxi-item title="{{'workflow_statutes_interfaces' | translate}}" icon="fa fa-table">
+            <app-app-workflowstatusesinterfaces></app-app-workflowstatusesinterfaces>
+        </dxi-item> -->
+
+
+
+    </dx-tab-panel>
+</div>

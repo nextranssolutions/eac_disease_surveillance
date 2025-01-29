@@ -1,0 +1,17 @@
+<div *ngIf="formConfig">
+    <div *ngFor="let field of formConfig.fields">
+      <div *ngIf="field.type === 'dropdown'">
+        <dx-select-box
+          [dataSource]="field.options"
+          [displayExpr]="'label'"
+          [valueExpr]="'value'"
+          [(value)]="formData[field.name]"
+          [placeholder]="field.placeholder"
+          
+          (onValueChanged)="onDropdownChange($event, field.name)">
+        </dx-select-box>
+      </div>
+    </div>
+  </div>
+
+  <!-- [validationRules]="field.validationRules" -->

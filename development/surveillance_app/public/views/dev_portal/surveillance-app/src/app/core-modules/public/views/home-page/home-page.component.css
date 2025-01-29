@@ -1,0 +1,176 @@
+/* General Section Styling */
+.error-section {
+  background-color: #f7f8fa; /* Light background for contrast */
+  padding: 20px;
+}
+
+
+.card-text {
+  font-size: 16px !important;
+  display: flex;
+  align-items: center;    /* Vertically centers the text */
+  justify-content: center; /* Horizontally centers the text */
+  text-align: center;      /* Centers the text within its container */
+}
+
+.card-title{
+  font-size: 22px !important;
+}
+
+.div-centerpanel {
+  max-width: 100% !important;
+  margin: 0 auto !important; 
+  display: flex;
+  align-items: center !important; 
+  justify-content: center !important; 
+}
+/* .card-body {
+  padding: 15px;
+} */
+
+/* Typography */
+h5 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+}
+
+.text-primary {
+  color: #6e513f !important;
+}
+
+.text-secondary {
+  color: #6c757d;
+}
+
+/* Buttons */
+.dx-button {
+  border-radius: 6px;
+  padding: 10px 20px;
+}
+
+.dx-button .dx-icon {
+  margin-right: 8px;
+}
+
+/* Responsive Spacing */
+.mt-3 {
+  margin-top: 20px !important;
+}
+
+.mt-4 {
+  margin-top: 24px !important;
+}
+
+.ml-2 {
+  margin-left: 8px !important;
+}
+
+/* Map Image */
+.img-fluid {
+  border-radius: 4px;
+}
+
+/* Additional Button Hover Effect */
+.dx-button:hover {
+  background-color: #6e513f; 
+  transition: background-color 0.3s ease;
+}
+.py-5 {
+  padding-bottom: 5px !important;
+  padding-top: 5px !important;
+}
+.btn-margin-5 {
+  margin: 5px;
+}
+
+/* .card-img-top {
+  object-fit: cover; 
+  height: 100%; 
+} */
+
+.card {
+  height: 100%; 
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px; 
+}
+
+.card-img-top {
+  height: auto; 
+  max-height: 70%; /* Limit the height of the image to 50% of the card */
+  object-fit: contain; /* Resize the image without cropping */
+}
+.carousel-inner{
+  border-radius: 0px !important;
+}
+.slide{
+  border-radius: 0px !important;
+}
+.carousel .carousel-item img {
+  border-radius: 0 !important;
+}
+
+.carousel-inner {
+  border-radius: 0 !important;
+}
+.carousel-item{
+  border-radius: 0 !important;
+  min-height: 100vh !important;
+}
+.card-body {
+  flex: 1; 
+ 
+  min-height: 58vh !important;
+  overflow: auto; 
+  flex: 1 1 auto;
+  padding: 1rem 1rem;
+}
+
+.card-footer {
+  text-align: center; 
+  min-height: 12vh !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  font-family: 'Nunito Sans',sans-serif !important;
+}
+
+.slider {
+  position: relative;
+  min-height: 50vh !important;
+}
+
+.slider img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5; /* Apply transparency */
+  transition: filter 0.3s ease; /* Smooth transition on hover (optional) */
+}
+.slider img:hover {
+  filter: blur(3px); /* Reduce blur slightly on hover (optional) */
+}
+.overlay-container {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: left;
+  width: 80%;
+  color: #000;
+  
+}
+.search-box {
+ 
+  padding: 20px;
+  border-radius: 15px;
+}
+.form-control-lg,
+.form-select-lg {
+  border-radius: 20px;
+  height: 50px; /* Explicit height for additional customization */
+}
+.btn-rounded {
+  border-radius: 50%;
+  padding: 0.75rem 1rem; /* Adjust padding for consistent button size */
+}

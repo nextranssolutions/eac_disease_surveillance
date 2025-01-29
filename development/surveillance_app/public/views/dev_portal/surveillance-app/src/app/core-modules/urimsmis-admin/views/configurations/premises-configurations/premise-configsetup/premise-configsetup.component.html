@@ -1,0 +1,81 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="#">Home</a>
+            </li>
+            <li class="active">{{parameter_name | translate}}</li>
+        </ul>
+
+    </div>
+
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                {{parameter_name | translate}}
+                <small>
+                    <i class="ace-icon fa fa-angle-double-right"></i>
+                    overview &amp; stats
+                </small>
+            </h1>
+        </div>
+
+
+        <div class="container-fluid">
+            <dx-tab-panel class="fullpage-tab" id="Navigation Tab" [stylingMode]="stylingMode"
+                [tabsPosition]="tabsPosition" [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true">
+
+                <dxi-item title="{{ 'business_types' | translate }}" icon="fa fa-th-list">
+                    <app-business-types></app-business-types>
+                </dxi-item>
+
+                <dxi-item title="{{ 'business_type_details' | translate }}" icon="fa fa-th-list">
+                    <app-business-type-details></app-business-type-details>
+                </dxi-item>
+
+                <dxi-item title="{{ 'business_scales' | translate }}" icon="fa fa-th-list">
+                    <app-business-scales></app-business-scales>
+
+                </dxi-item>
+
+                <dxi-item title="{{ 'business_categories' | translate }}" icon="fa fa-th-list">
+
+                    <app-business-categories></app-business-categories>
+                </dxi-item>
+
+                <dxi-item title="{{ 'personnel_position' | translate }}" icon="fa fa-th-list">
+                    <app-personnel-position></app-personnel-position>
+                </dxi-item>
+
+             
+
+                <dxi-item title="{{ 'business_type_category' | translate }}" icon="fa fa-th-list">
+
+                    <app-business-type-category></app-business-type-category>
+                </dxi-item>
+
+                <dxi-item title="{{ 'personnel_qualifications' | translate }}" icon="fa fa-th-list">
+                    <app-personnel-qualifications></app-personnel-qualifications>
+                </dxi-item>
+
+                <dxi-item title="{{ 'personnel_study_field' | translate }}" icon="fa fa-th-list">
+                    <app-personnelstudy-field></app-personnelstudy-field>
+                </dxi-item>
+
+                <dxi-item title="{{ 'personnel_institutions' | translate }}" icon="fa fa-th-list">
+                    <app-personnel-institutions></app-personnel-institutions>
+                </dxi-item>
+                
+                <dxi-item title="{{ 'premise_type' | translate }}" icon="fa fa-th-list">
+                    <app-premise-type></app-premise-type>
+                </dxi-item>
+                
+                <dxi-item title="{{ 'premise_inspection_recommendation' | translate }}" icon="fa fa-th-list">
+                    <app-premiseinspect-recommendation></app-premiseinspect-recommendation>
+                </dxi-item>
+            </dx-tab-panel>
+        </div>
+    </div>
+</div>

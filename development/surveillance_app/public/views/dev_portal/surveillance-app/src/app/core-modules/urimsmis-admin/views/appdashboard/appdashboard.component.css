@@ -1,0 +1,24 @@
+.medicine {
+    background-color: #427dc1 !important;
+}
+
+.stock {
+    background-color: #118147 !important;
+}
+
+.manufacturer {
+    background-color: #f2ec1a !important;
+}
+
+.adverse-drugs {
+    background-color: #ef1c25 !important;
+}
+
+.calender {
+    background-color: #118147 !important;
+}
+
+.bg-gradient-info {
+    background: #17a2b8 linear-gradient(180deg,#427dc1,#17a2b8) repeat-x!important;
+    color: #fff;
+}

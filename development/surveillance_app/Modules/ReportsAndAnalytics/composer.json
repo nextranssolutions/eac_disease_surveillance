@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/reportsandanalytics",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ReportsAndAnalytics\\": "",
+            "Modules\\ReportsAndAnalytics\\App\\": "app/",
+            "Modules\\ReportsAndAnalytics\\Database\\Factories\\": "database/factories/",
+            "Modules\\ReportsAndAnalytics\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\ReportsAndAnalytics\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-lg-6 margin-right">
+        <form role="form" enctype="multipart/form-data" role="form" [formGroup]="applicationWorkflowSubmissionFrm"
+            (ngSubmit)="onSaveAppWorkflowSubmission()">
+            <div class="col-lg-12">
+                <h3>Reporting Details Submission</h3>
+            </div>
+            <div class="row div-padding">
+                
+                <div class="col-lg-12">
+                    <label for="unitName">{{ 'Select Workflow Action' | translate }}</label>
+                    <dx-select-box [dataSource]="workflowStatusActionsData" (onSelectionChanged)="onWorkflowStatusActionSelect($event)" formControlName="workflowstatus_action_id" [showClearButton]="true"
+                        valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                    </dx-select-box>
+                </div>
+
+                <div class="col-lg-12">
+                    <label for="unitName">{{ 'process_name' | translate }}</label>
+                    <dx-select-box [dataSource]="processData" formControlName="process_id" [showClearButton]="true"
+                        valueExpr="id" [readOnly]="true" [searchEnabled]="true" displayExpr="name">
+                    </dx-select-box>
+                </div>
+
+                <div class="col-lg-12">
+                    <label>{{ 'stage_status' | translate }}</label>
+                    <dx-select-box [dataSource]="workflowStageData" formControlName="prevworkflow_stage_id"
+                        [showClearButton]="true" [readOnly]="true" valueExpr="id" [searchEnabled]="true"
+                        displayExpr="name">
+                    </dx-select-box>
+                </div>
+                <div class="col-lg-12">
+                    <label>{{ 'next_stage_name' | translate }}</label>
+                    <dx-select-box [dataSource]="workflowStageData" formControlName="nextworkflow_stage_id"
+                        [showClearButton]="true" [readOnly]="true" valueExpr="id" [searchEnabled]="true"
+                        displayExpr="name">
+                    </dx-select-box>
+                </div>
+               
+                <div class="col-lg-12">
+                    <label>{{ 'remarks' | translate }}</label>
+                    <dx-text-area formControlName="remarks">
+
+                    </dx-text-area>
+                </div>
+            </div>
+        </form>
+        <div class="col-lg-3 btn-margin">
+            <dx-button text="{{ 'application_submission' | translate }}" type="normal" icon="fa fa-arrow-right"
+                (onClick)="onSaveAppWorkflowSubmission()">
+            </dx-button>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <dx-data-grid class="table row-border hover" (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="workflowItemsData"
+            [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="false"
+            keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)"
+            >
+            <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+            <dxi-column [groupIndex]="0" *ngIf="table_name == 'wf_workflow_definition'" dataField="process_id"
+                caption="{{ 'process_name' | translate }}">
+                <dxo-lookup [dataSource]="processData" displayExpr="name" valueExpr="id">
+                </dxo-lookup>
+            </dxi-column>
+            <dxi-column [groupIndex]="0" dataField="workflow_id" caption="{{ 'workflow_name' | translate }}">
+                <dxo-lookup [dataSource]="workflowData" displayExpr="name" valueExpr="id">
+                </dxo-lookup>
+            </dxi-column>
+            <dxi-column dataField="prevworkflow_stage_id" caption="{{ 'previous_stage' | translate }}">
+                <dxo-lookup [dataSource]="workflowAllStageData" displayExpr="name" valueExpr="id">
+                </dxo-lookup>
+            </dxi-column>
+            <dxi-column dataField="nextworkflow_stage_id" caption="{{ 'next_stage' | translate }}">
+                <dxo-lookup [dataSource]="workflowAllStageData" displayExpr="name" valueExpr="id">
+                </dxo-lookup>
+            </dxi-column>
+            <dxo-selection mode="multiple"></dxo-selection>
+            <dxo-group-panel [visible]="true"></dxo-group-panel>
+            <dxo-paging [pageSize]="500"></dxo-paging>
+        </dx-data-grid>
+    </div>
+</div>

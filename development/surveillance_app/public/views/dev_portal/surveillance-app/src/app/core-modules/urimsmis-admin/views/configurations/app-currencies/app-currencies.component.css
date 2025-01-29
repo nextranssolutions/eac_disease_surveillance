@@ -1,0 +1,61 @@
+
+.custom-popup-style .dx-overlay-content {
+  background-color: darkgray;
+  color: black;
+}
+
+/* Stylying the Next Button */
+.dx-button.pull-left {
+display: flex;
+margin-bottom: 2;
+padding: 0;
+justify-content: center;
+}
+.dx-button.sync-button {
+display: flex;
+justify-content: center;
+}
+
+.button-container {
+display: flex; /* Use Flexbox */
+justify-content: left; /* Align items horizontally to the center */
+}
+
+/* You can also adjust individual button styles if needed */
+.dx-button {
+margin-top: 10px; 
+margin-right: 10px; /* Adds some spacing between buttons */
+}
+
+.confirmation-text {
+font-size: 18px; /* Adjust the font size as needed */
+}
+
+
+
+
+
+.ng-invalid:not(form){
+  border-left: 5px solid red  !important;
+}
+
+
+ng-valid:not(form){
+  border-left: 5px solid green  !important;
+}
+
+.ng-invalid:not(form){
+  border-left: 5px solid red  !important;
+}
+
+form .ng-invalid:before{
+  display: flex;
+    align-items: left;
+    justify-content: left;
+ 
+  color: #e32;
+  font-size: 13px;
+  color: #e32 !important;
+  
+  border-left: 5px solid red  !important;
+}

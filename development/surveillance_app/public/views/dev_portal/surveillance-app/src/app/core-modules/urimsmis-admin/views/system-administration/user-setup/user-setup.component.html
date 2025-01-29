@@ -1,0 +1,72 @@
+<!-- <div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h5 class="m-0">{{'user_setup' | translate}}</h5>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/admin-ecres/app-dashboard">{{ 'home' | translate
+                                }}</a></li>
+                        <li class="breadcrumb-item active">{{ 'user_setup' | translate }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+          <ul class="breadcrumb">
+            <li>
+              <i class="ace-icon fa fa-home home-icon"></i>
+              <a href="#"><a routerLink="/admin-mis/app-dashboard">{{ 'home' | translate }}</a></a>
+            </li>
+            <li class="active">{{ parameter_name | translate }}</li>
+          </ul>
+      
+        </div>
+      
+      
+        <div class="page-content">
+      
+        <div class="page-header">
+          <h1>
+            {{ parameter_name | translate }}
+            <small>
+              <i class="ace-icon fa fa-angle-double-right"></i>
+              overview &amp; stats
+            </small>
+          </h1>
+        </div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <dx-tab-panel id="Navigation Tab" [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true" [tabsPosition]="tabsPosition">
+                <dxi-item title= "{{'identification_type_details' | translate}}" icon="group">
+                    <app-app-useridentificationtype></app-app-useridentificationtype>
+                </dxi-item>
+
+                <dxi-item title= "{{'user_title_details' | translate}}" icon="group">
+                    <app-app-usertitle></app-app-usertitle>
+                </dxi-item>
+
+                <dxi-item title= "{{'user_account_types' | translate}}" icon="group">
+                    <app-user-accounttypes></app-user-accounttypes>
+                </dxi-item> 
+
+                <dxi-item title= "{{'user_access_levels' | translate}}" icon="group">
+                    <app-user-access-levels></app-user-access-levels>
+                </dxi-item>
+
+                <dxi-item title= "{{'system_dashboard_types' | translate}}" icon="group">
+                    <app-system-dashbordtypes></app-system-dashbordtypes>
+                </dxi-item>
+
+            </dx-tab-panel>
+        </div>
+    </section>
+
+    </div>
+    </div>

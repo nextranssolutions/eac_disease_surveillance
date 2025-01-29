@@ -1,0 +1,11 @@
+{
+    "name": "SysIntegrationApi",
+    "alias": "sysintegrationapi",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SysIntegrationApi\\App\\Providers\\SysIntegrationApiServiceProvider"
+    ],
+    "files": []
+}

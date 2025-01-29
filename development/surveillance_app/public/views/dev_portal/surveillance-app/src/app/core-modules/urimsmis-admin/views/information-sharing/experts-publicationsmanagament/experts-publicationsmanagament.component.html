@@ -1,0 +1,336 @@
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h5 class="m-0">{{dashboard_title | translate}}</h5>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/">{{'Home' | translate}}</a></li>
+                        <li class="breadcrumb-item active">{{dashboard_title | translate}}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+
+            <dx-tab-panel id="tabPanel" [loop]="false" [animationEnabled]="false" [swipeEnabled]="false"
+                [(selectedIndex)]="selectedTabIndex" (onTitleClick)="funcInfoTabClick($event)"
+                [iconPosition]="iconPosition" [tabsPosition]="tabsPosition">
+
+                <dxi-item title="{{'publication_information' | translate }}" icon="taskinprogress">
+
+                    <div class="div_maincontent">
+                        <div class="div_content">
+                            <form [formGroup]="publicationManagementForm">
+                                <div class="row">
+                                    <fieldset class="row">
+                                        <legend class="contentfieldset">{{'basic_details' | translate }} </legend>
+                                        <!-- <div class="col-lg-6">
+                                        <label>{{ 'eoi_category' | translate }}</label>
+                                        <dx-select-box formControlName="eoi_category_id" [showClearButton]="true"
+                                            [dataSource]="eoiCategoryData" valueExpr="id" displayExpr="name">
+                                        </dx-select-box>
+                                    </div> -->
+
+                                        <div class="col-lg-12">
+                                            <label>{{'publication_title' | translate}}</label>
+                                            <dx-text-box formControlName="title"
+                                                placeholder="{{'title_of_the_publication' | translate}}"
+                                                [showClearButton]="true"></dx-text-box>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <label>{{'authors' | translate}}</label>
+                                            <dx-text-box formControlName="authors"
+                                                placeholder="{{'authors' | translate}}"
+                                                [showClearButton]="true"></dx-text-box>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <label>{{'keywords' | translate}}</label>
+                                            <dx-text-box formControlName="keywords"
+                                                placeholder="{{'relevant_keywords_associated_with_the_publication' | translate}}"
+                                                [showClearButton]="true"></dx-text-box>
+                                        </div>
+
+                                        <!-- <div class="col-lg-4">
+                                        <label>{{ "is_expert_publication" | translate }}</label>
+                                        <dx-select-box formControlName="is_expert_publication"
+                                            [dataSource]="regStatusOptions" valueExpr="value"
+                                            displayExpr="text"></dx-select-box>
+                                    </div> -->
+                                        <!--Search Experts-->
+
+                                        <div class="col-lg-4">
+                                            <label>{{'is_expert_publication' | translate}}</label>
+                                            <dx-select-box (onSelectionChanged)="onExpertsChange($event)"
+                                                [readOnly]="is_readonly" formControlName="is_expert_publication" [searchEnabled]="true"
+                                                [showClearButton]="true" [dataSource]="confirmationData" valueExpr="id"
+                                                displayExpr="name">
+                                            </dx-select-box>
+                                        </div>
+                                        <div class="col-lg-12 input-group" *ngIf="is_expert_publication">
+                                            <div class="col-lg-12">
+                                                <label>{{'is_expert_publication' | translate}}</label>
+                                                <dx-text-area formControlName="is_expert_publication"
+                                                    placeholder=""></dx-text-area>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <dx-button text="{{ 'expert_selection' | translate }}" type="default"
+                                                    icon="fa fa-search" [disabled]="is_readonly"
+                                                    [elementAttr]="{ id: 'elementId', class: 'pull-right' }"
+                                                    (onClick)="onSearchExpertsProfileDetails()">
+                                                </dx-button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <label>{{ 'abstract' | translate }}</label>
+                                            <dx-html-editor formControlName="abstract" [height]="200"
+                                                [valueType]="'html'">
+                                                <dxo-toolbar>
+                                                    <dxi-item name="undo"></dxi-item>
+                                                    <dxi-item name="redo"></dxi-item>
+                                                    <dxi-item name="separator"></dxi-item>
+                                                    <dxi-item name="size"
+                                                        [acceptedValues]="['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt']"
+                                                        [options]="{ inputAttr: { 'aria-label': 'Font size' } }"></dxi-item>
+                                                    <dxi-item name="font" [acceptedValues]="[
+                                                'Arial', 
+                                                'Courier New',
+                                                'Georgia',
+                                                'Impact',
+                                                'Lucida Console',
+                                                'Tahoma',
+                                                'Times New Roman',
+                                                'Verdana'
+                                              ]" [options]="{ inputAttr: { 'aria-label': 'Font family' } }"></dxi-item>
+                                                    <dxi-item name="separator"></dxi-item>
+                                                </dxo-toolbar>
+                                            </dx-html-editor>
+                                        </div>
+                                        <legend class="contentfieldset">{{'publication_information' | translate }}
+                                        </legend>
+                                        <div class="col-lg-6">
+                                            <label>{{'journal_conference' | translate}}</label>
+                                            <dx-text-box formControlName="journal_conference"
+                                                placeholder="{{'name_of_the_journal_or_conference_where_the_publication_is_published_or_presented' | translate}}"
+                                                [showClearButton]="true"></dx-text-box>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label>{{'doi(digital_object_identifier)' | translate}}</label>
+                                            <dx-text-box formControlName="doi"
+                                                placeholder="{{'unique_alphanumeric_string_to_identify_the_publication' | translate}}"
+                                                [showClearButton]="true"></dx-text-box>
+                                        </div>
+
+                                        <div class="form-group col-lg-6">
+                                            <label for="publication_date">{{ 'publication_date' | translate
+                                                }}</label>
+                                            <dx-date-box placeholder="{{'publication_date' | translate }}"
+                                                formControlName="publication_date" [showClearButton]="true">
+                                            </dx-date-box>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label>{{'publication_type' | translate}}</label>
+                                            <dx-text-box formControlName="publication_type"
+                                                placeholder="{{'publication_type' | translate}}"
+                                                [showClearButton]="true"></dx-text-box>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <label>{{'peer_reviewed' | translate}}</label>
+                                            <dx-select-box (onSelectionChanged)="onExpertsChange($event)"
+                                                [readOnly]="is_readonly" formControlName="peer_reviewed" [searchEnabled]="true"
+                                                [showClearButton]="true" [dataSource]="confirmationData" valueExpr="id"
+                                                displayExpr="name">
+                                            </dx-select-box>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label>{{ 'research_area' | translate }}</label>
+                                            <dx-html-editor formControlName="research_area" [height]="200"
+                                                [valueType]="'html'">
+                                                <dxo-toolbar>
+                                                    <dxi-item name="undo"></dxi-item>
+                                                    <dxi-item name="redo"></dxi-item>
+                                                    <dxi-item name="separator"></dxi-item>
+                                                    <dxi-item name="size"
+                                                        [acceptedValues]="['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt']"
+                                                        [options]="{ inputAttr: { 'aria-label': 'Font size' } }"></dxi-item>
+                                                    <dxi-item name="font" [acceptedValues]="[
+                                                'Arial',
+                                                'Courier New',
+                                                'Georgia',
+                                                'Impact',
+                                                'Lucida Console',
+                                                'Tahoma',
+                                                'Times New Roman',
+                                                'Verdana'
+                                              ]" [options]="{ inputAttr: { 'aria-label': 'Font family' } }"></dxi-item>
+                                                    <dxi-item name="separator"></dxi-item>
+                                                </dxo-toolbar>
+                                            </dx-html-editor>
+                                        </div>
+
+                                        <legend class="contentfieldset">{{'access_availability' | translate }} </legend>
+                                        <div class="col-lg-6">
+                                            <label>{{'publication_link' | translate}}</label>
+                                            <dx-text-box formControlName="publication_link"
+                                                placeholder="{{'publication_link' | translate}}"
+                                                [showClearButton]="true"></dx-text-box>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label>{{'repository_info' | translate}}</label>
+                                            <dx-text-box formControlName="repository_info"
+                                                placeholder="{{'repository_info' | translate}}"
+                                                [showClearButton]="true"></dx-text-box>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="div_contentfooter">
+                        <dx-button text="{{'return_to_dashboard' | translate }}" type="default"
+                            icon="fas fa-tachometer-alt" (onClick)="onFuncReturntoDashboard()">
+                        </dx-button>
+                        <dx-button text="{{'save' | translate }} {{'publication_information' | translate }}"
+                            type="default" icon="fa fa-save" (onClick)="onFuncSaveExpertPublicationManagement()">
+                        </dx-button>
+                        <dx-button text="{{ 'publication_uploads' | translate }}" type="default"
+                            icon="fa fa-arrow-right" (onClick)="onNextNavigationItems(1)">
+                        </dx-button>
+                    </div>
+                </dxi-item>
+
+                <dxi-item title="{{'publication_uploads' | translate }}" icon="map">
+                    <div class="div_maincontent">
+                        <div class="div_maincontent">
+                            <div class="div_content">
+                                <app-application-documentuploads [application_code]="application_code"
+                                    [process_id]="process_id"
+                                    [document_type_id]="document_type_id"></app-application-documentuploads>
+                            </div>
+                        </div>
+                        <div class="div_contentfooter">
+                            <dx-button text="{{ 'publication_information' | translate }}" type="default"
+                                icon="fa fa-arrow-left" (onClick)="onNextNavigationItems(0)">
+                            </dx-button>
+
+                            <dx-button text="{{'on_submitpublication' | translate }}" type="default" icon="fa fa-save"
+                                (onClick)="onFuncSubmitPublication()">
+                            </dx-button>
+                        </div>
+                    </div>
+                </dxi-item>
+            </dx-tab-panel>
+        </div>
+    </section>
+
+    <dx-popup [visible]="isShowAppProcessSubmission" [width]="funcpopWidth(40)" [height]="funcpopHeight(55)"
+        [showTitle]="true" title="{{ 'submission_process' | translate }}"
+        (onHidden)="isShowAppProcessSubmission = false">
+        <dx-scroll-view>
+            <div class="row">
+                <app-app-processsubmission [appworkflow_status_id]="appworkflow_status_id"
+                    [dashboard_url]="dashboard_url" [application_code]="application_code"
+                    [process_id]="process_id"></app-app-processsubmission>
+            </div>
+        </dx-scroll-view>
+    </dx-popup>
+
+    <dx-popup [visible]="isExpertsprofileInforamtionWin" [width]="funcpopWidth(80)" [height]="funcpopHeight(70)"
+        [showTitle]="true" title="{{ 'expertsprofile_information' | translate }}"
+        (onHidden)="isExpertsprofileInforamtionWin = false">
+        <dx-scroll-view>
+            <dx-data-grid class="table row-border hover" (onExporting)="onExporting($event)"
+                [dataSource]="registeredExpertsAccountsData" [remoteOperations]='true' [showBorders]="true"
+                [allowColumnResizing]="true" [columnHidingEnabled]="true" [wordWrapEnabled]="true" keyExpr="id" 
+                (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+                <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+                <dxo-search-panel [visible]="true">
+                </dxo-search-panel>
+                <dxo-paging [enabled]="true">
+                </dxo-paging>
+                <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+                    [allowedPageSizes]="[50,100,200]">
+                </dxo-pager>
+                <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                    [allowExportSelectedData]="true">
+                </dxo-export>
+                <dxo-selection mode="multiple"></dxo-selection>
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+                <dxi-column [width]=150 caption="Actions" name="command-editing" [allowFiltering]="false"
+                    [allowSorting]="false" cellTemplate="cellTemplateSingle">
+                    <div *dxTemplate="let d of 'cellTemplateSingle'">
+                        <dx-button text="select_expert" (click)="singleApplicationActionColClick(d.data)" type="default"
+                            icon="fa fa-check">
+                        </dx-button>
+                    </div>
+                </dxi-column>
+                <dxi-column dataField="experts_availability"
+                    caption="{{'experts_availability' | translate}}"></dxi-column>
+
+                <dxi-column dataField="experts_profile_no" caption="{{'experts_profile_no' | translate}}"></dxi-column>
+
+                <dxi-column [width]="75" dataField="user_title" caption="{{'user_title' | translate}}">
+
+                </dxi-column>
+
+                <dxi-column dataField="first_name" caption="{{'first_name' | translate}}"></dxi-column>
+
+                <dxi-column dataField="other_names" caption="{{'other_names' | translate}}"></dxi-column>
+
+                <dxi-column dataField="email_address" caption="{{'email_address' | translate}}"></dxi-column>
+                <dxi-column dataField="institution_type" caption="{{'institution_type' | translate}}">
+
+                </dxi-column>
+                <dxi-column dataField="institution" caption="{{'organisation' | translate}}">
+
+                </dxi-column>
+                <dxi-column dataField="present_telephone_no"
+                    caption="{{'present_telephone_no' | translate}}"></dxi-column>
+                <dxi-column dataField="identification_type" caption="{{'identification_type' | translate}}">
+
+                </dxi-column>
+                <dxi-column dataField="identification_number" caption="Identification Number"></dxi-column>
+
+                <dxi-column dataField="country_of_origin" caption="{{'country' | translate}}">
+
+                </dxi-column>
+                <dxi-column dataField="coreregulatory_function" caption="{{'coreregulatory_function' | translate}}">
+
+                </dxi-column>
+                <dxi-column dataField="area_of_expertise" caption="{{'area_of_expertise' | translate}}">
+
+                </dxi-column>
+                <dxi-column dataField="date_of_registration"
+                    caption="{{'date_of_registration' | translate}}"></dxi-column>
+
+                <dxi-column dataField="other_regulatoryfunc_expertise"
+                    caption="{{'other_regulatoryfunc_expertise' | translate}}">
+
+                </dxi-column>
+                <dxo-paging [pageSize]="200"></dxo-paging>
+            </dx-data-grid>
+
+
+        </dx-scroll-view>
+
+    </dx-popup>
+
+    <dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }"
+        [(visible)]="loadingVisible" [showIndicator]="true" [showPane]="true" [shading]="true"
+        [message]="spinnerMessage" [hideOnOutsideClick]="false">
+    </dx-load-panel>

@@ -1,0 +1,136 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "eac-ppmsolution": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
+          "options": {
+            "outputPath": "./../../front-end",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "allowedCommonJsDependencies": [
+              "devexpress-diagram",
+              "devexpress-gantt",
+              "devextreme-quill",
+              "jszip",
+              "google-libphonenumber",
+              "devextreme",
+              "devextreme-angular"
+            ],
+            "styles": [
+              "src/dist/css/bootstrap.min.css",
+              "node_modules/devextreme/dist/css/dx.material.teal.light.compact.css",
+              "src/dist/font-awesome/4.5.0/css/font-awesome.min.css",
+              "src/dist/css/ace.min.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/styles.css"
+              
+            ],
+            
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/dist/js/ace.min.js",
+              "src/dist/js/ace-extra.min.js",
+              "src/dist/js/ace-elements.min.js",
+              "src/main.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500mb",
+                  "maximumError": "200mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "20mb",
+                  "maximumError": "200mb"
+                }
+              ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "eac-ppmsolution:build:production"
+            },
+            "development": {
+              "buildTarget": "eac-ppmsolution:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "eac-ppmsolution:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "9e994874-b270-4d24-9b7b-e7288e73558b"
+  }
+}

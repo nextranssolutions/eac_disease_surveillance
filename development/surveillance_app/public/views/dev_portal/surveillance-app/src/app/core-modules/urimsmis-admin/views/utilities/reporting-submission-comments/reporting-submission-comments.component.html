@@ -1,0 +1,31 @@
+<div class="row">
+    <h5>{{ 'tasks_assignmentprocess_comments' | translate }}</h5>
+    <dx-data-grid [allowColumnReordering]="true" class="table row-border hover" [wordWrapEnabled]="true"
+      [dataSource]="applicationWorkflowSubmissionCommetns" [remoteOperations]="true" [showBorders]="true"
+      [allowColumnResizing]="true" [columnHidingEnabled]="false" keyExpr="id">
+      <!-- Search panel next to export button -->
+      <dxo-export [enabled]="true" fileName="Record" [allowExportSelectedData]="true"></dxo-export>
+      <dxo-search-panel [visible]="false"></dxo-search-panel>
+
+      <!-- Other grid configurations -->
+      <dxo-filter-row [visible]="false"></dxo-filter-row>
+
+      <dxo-paging [enabled]="true" [pageSize]="100">
+        <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)"
+          [showPageSizeSelector]="true" [allowedPageSizes]="[50,100]"></dxo-pager>
+      </dxo-paging>
+
+      <dxi-column dataField="previous_stage" caption="{{'previous_process' | translate}}">
+
+      </dxi-column>
+      <dxi-column dataField="appworkflow_status" caption="{{ 'nextreporting_status' | translate }}">
+      </dxi-column>
+      <dxi-column dataField="previous_user" caption="{{ 'processed_by' | translate }}">
+      </dxi-column>
+      <dxi-column dataField="date_received" caption="{{ 'date_submitted' | translate }}">
+      </dxi-column>
+      <dxi-column dataField="remarks" caption="{{ 'remarks' | translate }}">
+      </dxi-column>
+
+    </dx-data-grid>
+  </div>

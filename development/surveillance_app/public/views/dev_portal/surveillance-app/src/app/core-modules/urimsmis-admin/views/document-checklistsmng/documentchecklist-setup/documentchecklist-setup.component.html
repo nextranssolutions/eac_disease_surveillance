@@ -1,0 +1,47 @@
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="#">{{ parameter_name | translate }}</a>
+        </li>
+
+    </ul><!-- /.breadcrumb -->
+
+</div>
+<div class="page-header">
+    <h1>
+        {{ parameter_name | translate }}
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            {{ 'configuration_item' | translate }}
+        </small>
+    </h1>
+</div><!-- /.page-header -->
+
+<div class="container-fluid">
+    <dx-tab-panel id="Navigation Tab" [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true"
+        [stylingMode]="stylingMode" [tabsPosition]="tabsPosition">
+
+        <dxi-item title="{{ 'dmsdocument-sites' | translate }}" icon="fa fa-setup">
+            <app-dms-dmsdocument-sites></app-dms-dmsdocument-sites>
+        </dxi-item>
+        <dxi-item title="{{ 'processes-docdefination' | translate }}" icon="fa fa-setup">
+            <app-dms-processes-docdefination></app-dms-processes-docdefination>
+        </dxi-item>
+        <dxi-item title="{{ 'nonstructured-docrequirement' | translate }}" icon="fa fa-setup">
+            <app-dms-nonstructured-docrequirement></app-dms-nonstructured-docrequirement>
+        </dxi-item>
+
+        <dxi-item title="{{ 'document_types' | translate }}" icon="fa fa-setup">
+            <app-app-document-types></app-app-document-types>
+        </dxi-item>
+
+        <dxi-item title="{{ 'document_requirements' | translate }}" icon="fa fa-table">
+            <app-app-document-requirements></app-app-document-requirements>
+        </dxi-item>
+
+        <dxi-item title="{{ 'docrequirements-appstatus' | translate }}" icon="fa fa-setup">
+            <app-dms-docrequirements-appstatus></app-dms-docrequirements-appstatus>
+        </dxi-item>
+    </dx-tab-panel>
+</div>

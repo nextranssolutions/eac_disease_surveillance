@@ -1,0 +1,210 @@
+<!-- <div class="content-wrapper"> -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a routerLink="/admin-ecres/app-dashboard">{{
+                                "home" | translate
+                                }}</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+
+                            {{ parameter_name | translate }}
+
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div
+        style="border-bottom: 1px solid #ccc; margin-top: 5px; background: #fff; font-weight: bold;padding:5px;margin-bottom: 5px !important; height: 55px !important;">
+        <div class="row">
+            <div class="col-lg-3">
+                <label
+                    style="font-weight: bold;margin: 5px; font-style:italics;font-size: 15px;font-style: italics; color: #000;">
+                    {{ "reference_no" | translate }} : <i> {{app_reference_no}}</i> </label>
+            </div>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+
+
+            <dx-tab-panel id="eoiPostingTab" [(selectedIndex)]="selectedTabIndex"
+                (onTitleClick)="funcInfoTabClick($event)" [iconPosition]="iconPosition">
+
+                <dxi-item title="{{parameter_name | translate }}" icon="fa fa-info-circle">
+
+                    <div class="div_maincontent">
+                        <div class="div_content">
+                            <form (ngSubmit)="onSaveSystemGuideline()" [formGroup]="systemGuidelinesForm">
+                                <div class="row">
+                                    <fieldset class="row shadow">
+                                        <legend class="contentfieldset">{{parameter_name | translate }}
+                                        </legend>
+                                      
+                                        <div class="col-lg-6">
+                                            <label>{{ 'systems_functionality' | translate }}</label>
+                                            <dx-select-box formControlName="systems_functionality_id"
+                                                [showClearButton]="true" [dataSource]="systemFunctionalitiesData"
+                                                valueExpr="id" displayExpr="name">
+                                            </dx-select-box>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label>{{ 'dashboard_type' | translate }}</label>
+                                            <dx-select-box formControlName="dashboard_type_id" [showClearButton]="true"
+                                                [dataSource]="dashboardTypeData" valueExpr="id" displayExpr="name">
+                                            </dx-select-box>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label>{{ 'guideline_step_no' | translate }}</label>
+                                            <dx-text-box formControlName="guideline_step_no"
+                                                [showClearButton]="true"></dx-text-box>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <label>{{ 'guidelines' | translate }}</label>
+                                            <dx-html-editor formControlName="guidelines" [height]="400"
+                                                [valueType]="'html'">
+                                                <dxo-toolbar>
+                                                    <dxi-item name="undo"></dxi-item>
+                                                    <dxi-item name="redo"></dxi-item>
+                                                    <dxi-item name="separator"></dxi-item>
+                                                    <dxi-item name="size"
+                                                        [acceptedValues]="['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt']"
+                                                        [options]="{ inputAttr: { 'aria-label': 'Font size' } }"></dxi-item>
+                                                    <dxi-item name="font" [acceptedValues]="[
+                                                    'Arial',
+                                                    'Courier New',
+                                                    'Georgia',
+                                                    'Impact',
+                                                    'Lucida Console',
+                                                    'Tahoma',
+                                                    'Times New Roman',
+                                                    'Verdana'
+                                                  ]"
+                                                        [options]="{ inputAttr: { 'aria-label': 'Font family' } }"></dxi-item>
+                                                    <dxi-item name="separator"></dxi-item>
+                                                    <dxi-item name="bold"></dxi-item>
+                                                    <dxi-item name="italic"></dxi-item>
+                                                    <dxi-item name="strike"></dxi-item>
+                                                    <dxi-item name="underline"></dxi-item>
+                                                    <dxi-item name="separator"></dxi-item>
+                                                    <dxi-item name="alignLeft"></dxi-item>
+                                                    <dxi-item name="alignCenter"></dxi-item>
+                                                    <dxi-item name="alignRight"></dxi-item>
+                                                    <dxi-item name="alignJustify"></dxi-item>
+                                                    <dxi-item name="separator"></dxi-item>
+                                                    <dxi-item name="color"></dxi-item>
+                                                    <dxi-item name="background"></dxi-item>
+                                                </dxo-toolbar>
+                                            </dx-html-editor>
+                                        </div>
+
+                                    </fieldset>
+
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="div_contentfooter">
+                            <dx-button text="{{ 'return_to_dashboard' | translate }}" type="default"
+                                icon="fa fa-arrow-left" (onClick)="funcRedirectToDashboard()">
+                            </dx-button>
+                            <dx-button text="{{ 'save ' | translate }} {{parameter_name | translate }}" type="default"
+                                icon="fa fa-save" (onClick)="onSaveSystemGuideline()">
+                            </dx-button>
+
+                            <!-- <dx-button text="{{'on_submit_systemguideline' | translate }}" type="success"
+                                icon="fa fa-save" (onClick)="onFuncSubmitApplication()">
+                            </dx-button> -->
+                            <dx-button [disabled]="!application_code" text="{{ 'uploads' | translate }}" type="default"
+                                icon="fa fa-arrow-right" (onClick)="onNextNavigationItems(1)">
+                            </dx-button>
+                        </div>
+                    </div>
+                </dxi-item>
+
+
+                <dxi-item title="{{'uploads' | translate }}" icon="inactivefolder">
+                    <div class="div_maincontent">
+                        <div class="div_content">
+                            <app-application-documentuploads [application_code]="application_code"
+                                [process_id]="process_id"
+                                [document_type_id]="document_type_id"></app-application-documentuploads>
+                        </div>
+
+                        <div class="div_contentfooter">
+                            <dx-button text="{{ parameter_name | translate }}" type="default" icon="fa fa-arrow-left"
+                                (onClick)="onNextNavigationItems(1)">
+                            </dx-button>
+                            <!-- <dx-button text="{{ 'preview_performance_evaluation' | translate }}" type="success"
+                                icon="fa fa-print" (onClick)="onPreviewPerformanceEvaluationetails()">
+                            </dx-button> -->
+                            <dx-button text="{{'on_submit_systemguideline' | translate }}" type="default"
+                                icon="fa fa-save" (onClick)="onFuncSubmitApplication()">
+                            </dx-button>
+
+                        </div>
+                    </div>
+                </dxi-item>
+
+            </dx-tab-panel>
+        </div>
+    </section>
+<!-- </div> -->
+
+<dx-popup [visible]="isShowAppProcessSubmission" [width]="funcpopWidth(40)" [height]="funcpopHeight(55)"
+    [showTitle]="true" title="{{ 'submission_process' | translate }}" (onHidden)="isShowAppProcessSubmission = false">
+    <dx-scroll-view>
+        <div class="row">
+
+            <app-app-processsubmission [appworkflow_status_id]="appworkflow_status_id" [dashboard_url]="dashboard_url"
+                [application_code]="application_code" [process_id]="process_id"></app-app-processsubmission>
+        </div>
+    </dx-scroll-view>
+</dx-popup>
+
+
+<dx-popup [visible]="approvalPopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+    title="{{ decision_description | translate }}" (onHidden)="approvalPopupVisible = false">
+
+    <div>
+        <p class="confirmation-text">
+            {{ 'Are you sure you want to '+ decision_description | translate }}?
+        </p>
+        <div class="button-container">
+            <dx-button text="{{ decision_description | translate }}" type="danger" (onClick)="onAccountApproval()">
+            </dx-button>
+            <dx-button text="{{ 'No' | translate }}" (onClick)="approvalPopupVisible = false">
+            </dx-button>
+        </div>
+    </div>
+</dx-popup>
+
+<dx-popup [visible]="deletePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+    title="{{ 'delete_confirmation'| translate }}" (onHidden)="deletePopupVisible = false">
+
+    <div>
+        <p class="confirmation-text">
+            {{ 'are_you_sure_you_want_to_delete' | translate }}
+            "<strong>{{config_record}}</strong>"?
+        </p>
+        <div class="button-container">
+            <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="onDeleteDetails()">
+            </dx-button>
+            <dx-button text="{{ 'no' | translate }}" (onClick)="deletePopupVisible = false">
+            </dx-button>
+        </div>
+    </div>
+</dx-popup>
+
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

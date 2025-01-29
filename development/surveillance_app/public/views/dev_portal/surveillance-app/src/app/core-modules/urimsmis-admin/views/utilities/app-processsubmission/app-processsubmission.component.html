@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-lg-12 margin-right">
+        <form role="form" enctype="multipart/form-data" role="form" [formGroup]="appProcessSubmissionFrm"
+            (ngSubmit)="onApplicationProcessSubmission()">
+
+            <div class="row div-padding">
+
+                <div class="col-lg-12">
+                    <label for="unitName">{{ 'Select Workflow Action' | translate }}</label>
+                    <dx-select-box [dataSource]="workflowStatusActionsData"
+                        (onSelectionChanged)="onWorkflowStatusActionSelect($event)"
+                        formControlName="workflowstatus_action_id" [showClearButton]="true" valueExpr="id"
+                        [searchEnabled]="true" displayExpr="name">
+                    </dx-select-box>
+                </div>
+
+                <div class="col-lg-12">
+                    <label>{{ 'next_stage_name' | translate }}</label>
+                    <dx-select-box [dataSource]="workflowStageData" formControlName="nextworkflow_stage_id"
+                        [showClearButton]="true" [readOnly]="true" valueExpr="id" [searchEnabled]="true"
+                        displayExpr="name">
+                    </dx-select-box>
+                </div>
+                <div class="col-lg-12">
+                    <label>{{ 'application_status' | translate }}</label>
+                    <dx-select-box [dataSource]="workflowStatusData" formControlName="workflow_status_id"
+                        [showClearButton]="true" [readOnly]="true" valueExpr="id" [searchEnabled]="true"
+                        displayExpr="name">
+                    </dx-select-box>
+                </div>
+               
+                <div class="col-lg-12">
+                    <label>{{ 'remarks' | translate }}</label>
+                    <dx-text-area formControlName="remarks">
+
+                    </dx-text-area>
+                </div>
+                <div class="col-lg-12 btn-margin">
+                    <dx-button text="{{ 'application_submission' | translate }}" type="default" icon="fa fa-arrow-right"
+                        (onClick)="onApplicationProcessSubmission()">
+                    </dx-button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

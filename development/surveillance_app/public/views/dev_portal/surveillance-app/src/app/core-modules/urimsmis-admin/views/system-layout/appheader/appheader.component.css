@@ -1,0 +1,89 @@
+/* / Remove list styles from the nav / */
+.nav-sidebar,
+.nav-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+/* .main-sidebar[_ngcontent-ng-c3411821631] {
+  background-color: blue !important;
+} */
+
+/* 
+.logo_appmenu_container {
+  background: url("../../../../../") no-repeat left top;
+}
+
+.avatar_container{
+  background: url("../src/assets/dist/img/user.png") no-repeat left top;
+    /* background-size: contain;  */
+    /* width: 300px; 
+    height: 60px;  */
+/* } */
+
+/* / Style for hover effect on child list items / */
+.nav-sidebar > li > ul > li:hover {
+  background-color: initial !important;
+}
+
+/* / Style the group and item links / */
+.nav-link {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* / Rotate icon styles / */
+.rotate-icon,
+.arrow-icon {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease
+}
+
+.rotate-icon {
+  transform: rotate(-90deg);
+}
+
+/* / Style for content items / */
+.nav-item span {
+  color: #000;
+  margin-left: 50px;
+}
+
+a{
+  cursor: pointer !important;
+
+}
+/* / Brand styles / */
+.brand-image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.brand-text {
+  margin-left: 10px;
+  font-size: 1.2rem;
+}
+
+/* / Style for hover effect on nested links / */
+.nav-treeview .nav-link:hover {
+  background-color: #007a41 !important;
+  color: #fefefc !important;
+}
+
+.nav-pills .nav-link{
+  border-radius: 0px !important;
+}
+.main-sidebar .sidebar-dark-primary .elevation-4{
+  margin: 0 !important;width: 250px !important;
+  padding: 0 !important;
+}
+.sidebar{
+  margin: 0 !important;
+  width: 250px !important;
+  padding: 0 !important;
+}
+
+element.style {
+  height: 0px !important;
+}

@@ -1,0 +1,174 @@
+<div class="page-header">
+    <h3>
+        {{ parameter_name | translate }}
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+        </small>
+    </h3>
+ </div><!-- /.page-header -->
+
+
+<dx-button text="{{ 'add_new' | translate }} {{ parameter_name | translate }}" type="default" icon="fa fa-save"
+    [elementAttr]="{ id: 'elementId', class: '' }" (onClick)="hasReadpermissions=false;onAddWorkFlowItem()">
+</dx-button>
+
+<dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="col-lg-12 table row-border hover"
+    (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="workflowItemsData"
+    [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="true"
+    keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+    <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+        [allowExportSelectedData]="true">
+    </dxo-export>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+
+    <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+    <dxo-paging [enabled]="true">
+        <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+            [allowedPageSizes]="[50,100]"></dxo-pager>
+    </dxo-paging>
+
+    <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+        [allowSorting]="false" cellTemplate="cellTemplate">
+        <div *dxTemplate="let data of 'cellTemplate'">
+            <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+        </div>
+    </dxi-column>
+    <dxi-column  dataField="name" caption="{{'name' | translate}}"> </dxi-column> 
+    <dxi-column [groupIndex]="0"  dataField="regulatory_function_id" caption="{{'regulatory_functions' | translate}}">
+    <dxo-lookup [dataSource]="regulatoryFunctionsData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="regulatory_subfunction_id"
+    caption="{{'regulatory_subfunctions' | translate}}">
+    <dxo-lookup [dataSource]="regulatorySubFunctionsData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+   
+    <dxi-column dataField="product_type_id"
+        caption="{{'product_type' | translate}}">
+        <dxo-lookup [dataSource]="productTypeData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="prodclass_category_id"
+    caption="{{'product_category' | translate}}">
+    <dxo-lookup [dataSource]="productCategoryData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="premise_type_id" caption="{{'premise_type' | translate}}">
+        <dxo-lookup [dataSource]="premiseTypeData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="workflow_id" caption="{{'workflow' | translate}}">
+        <dxo-lookup [dataSource]="workflowData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column  dataField="description" caption="{{'description' | translate}}"> </dxi-column> 
+    <dxi-column [width]="50" dataField="is_enabled" caption="{{ 'enabled_disabledoption' | translate }}">
+    </dxi-column>
+    <dxo-selection mode="multiple"></dxo-selection>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+    <dxo-paging [pageSize]="100"></dxo-paging>
+
+</dx-data-grid>
+
+
+<dx-popup class="popup" [width]="funcpopWidth(65)" [height]="funcpopHeight(75)" [showTitle]="true"
+    title="{{ parameter_name | translate }}" [dragEnabled]="false" [hideOnOutsideClick]="false"
+    [(visible)]="onAddWorkFlowItemVisible">
+    <div *dxTemplate="let data of 'content'">
+        <dx-scroll-view>
+
+
+            <form role="form" enctype="multipart/form-data" role="form" [formGroup]="workflowItemsFrm"
+                (ngSubmit)="onFuncSaveWorlflowData()">
+
+                <div class="row">
+                    <div class="col-lg-6" >
+                        <label for="unitName">{{ 'name' | translate }}</label>
+                        <dx-text-box formControlName="name" placeholder="{{ 'label' | translate }}">
+                        </dx-text-box>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="unitName">{{ 'regulatory_function' | translate }}</label>
+                        <dx-select-box [dataSource]="regulatoryFunctionsData" formControlName="regulatory_function_id"
+                        (onSelectionChanged)="onRegulatoryFunctionChange($event)" [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="unitName">{{ 'regulatory_subfunction' | translate }}</label>
+                        <dx-select-box [dataSource]="regulatorySubFunctionsData" formControlName="regulatory_subfunction_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6" >
+                        <label for="unitName">{{ 'product_type' | translate }}</label>
+                        <dx-select-box [dataSource]="productTypeData" formControlName="product_type_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6" >
+                        <label for="unitName">{{ 'product_category' | translate }}</label>
+                        <dx-select-box [dataSource]="productCategoryData" formControlName="prodclass_category_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6" >
+                        <label for="unitName">{{ 'premise_type' | translate }}</label>
+                        <dx-select-box [dataSource]="premiseTypeData" formControlName="premise_type_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-6" >
+                        <label for="unitName">{{ 'workflow' | translate }}</label>
+                        <dx-select-box [dataSource]="workflowData" formControlName="workflow_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="description">{{ 'description' | translate }}</label>
+                        <dx-text-box formControlName="description">
+                        </dx-text-box>
+                    </div>
+
+                </div>
+
+            </form>
+            <div class="col-lg-8 pull-right">
+
+            </div><br>
+            <div class="col-lg-4 pull-right">
+                <dx-button text="{{ 'save' | translate }} {{ parameter_name | translate }}" type="default"
+                    icon="fa fa-save" [elementAttr]="{ id: 'elementId', class: 'pull-right' }"
+                    (onClick)="onFuncSaveWorlflowData()">
+                </dx-button>
+
+            </div>
+        </dx-scroll-view>
+    </div>
+</dx-popup>
+
+<dx-popup [visible]="deletePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+    title="{{ 'delete_confirmation_of '+parameter_name | translate }}" (onHidden)="deletePopupVisible = false">
+
+    <div>
+        <p class="confirmation-text">
+            {{ 'are_you_sure_you_want_to_delete' | translate }}
+            "<strong>{{config_record}}</strong>"?
+        </p>
+        <div class="button-container">
+            <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="onDeleteWorkflowDetails()">
+            </dx-button>
+            <dx-button text="{{ 'no' | translate }}" (onClick)="deletePopupVisible = false">
+            </dx-button>
+        </div>
+    </div>
+
+</dx-popup>
+<dx-popup [visible]="checklistConfigVisible" [width]="funcpopWidth(80)" [height]="funcpopHeight(65)" [showTitle]="true"
+    title="{{ 'Checklist_configuration' | translate }}" (onHidden)="checklistConfigVisible = false">
+    
+
+  
+   
+</dx-popup>
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

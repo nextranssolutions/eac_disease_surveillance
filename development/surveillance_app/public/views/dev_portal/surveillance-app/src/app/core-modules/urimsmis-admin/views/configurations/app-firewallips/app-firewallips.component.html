@@ -1,0 +1,36 @@
+
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+
+                    <h5 class="m-0">{{ parameter_name | translate }}</h5>
+
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/admin-ecres/app-dashboard">{{ 'home' | translate
+                                }}</a></li>
+                        <li class="breadcrumb-item active">{{ parameter_name | translate }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <dx-tab-panel id="Navigation Tab" [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true" >
+
+                <dxi-item title="{{ parameter_name | translate }}" icon="fa fa-cog">
+                    <app-sharedconfigurations [resetcolumns]="resetcolumns" [table_name]="table_name" [parameter_name]="parameter_name"></app-sharedconfigurations>
+
+                </dxi-item>
+              
+            </dx-tab-panel>
+
+
+        </div>
+    </section>

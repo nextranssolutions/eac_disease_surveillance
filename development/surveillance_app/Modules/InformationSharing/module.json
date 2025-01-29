@@ -1,0 +1,11 @@
+{
+    "name": "InformationSharing",
+    "alias": "informationsharing",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\InformationSharing\\App\\Providers\\InformationSharingServiceProvider"
+    ],
+    "files": []
+}

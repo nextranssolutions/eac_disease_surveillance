@@ -1,0 +1,151 @@
+
+<div class="content-wrapper">
+  <div class="view-wrapper">
+    <!-- Toolbar -->
+    <dx-toolbar class="toolbar" [class.scrolled]="isContentScrolled">
+      <dxi-item location="before">
+        <div class="header-text">{{ "my_profile" | translate }}</div>
+      </dxi-item>
+      <dxi-item location="after" locateInMenu="never">
+        <!-- <dx-button
+          [disabled]="!isDataChanged"
+          text="Save"
+          icon="save"
+          type="default"
+          stylingMode="contained"
+          (onClick)="onsaveActiveUserAccountsDetails()"
+        >
+        </dx-button> -->
+      </dxi-item>
+    </dx-toolbar>
+  
+    <!-- Content -->
+    <dx-scroll-view class="view-wrapper-scroll" (onScroll)="scroll($event)">
+      <div class="container-fluid">
+        <form (ngSubmit)="onsaveActiveUserAccountsDetails()" [formGroup]="userAccountFrm">
+          <!-- Profile Card -->
+          <div class="profile-card">
+            
+            <fieldset class="profile-section">
+              <legend>{{ 'account_details' | translate }}</legend>
+  
+              <div class="form-group">
+                <label>{{'account_type' | translate}}</label>
+                <dx-select-box [dataSource]="userAccountTypeData" (onSelectionChanged)="onAccountTypeSelection($event)"
+                  [readOnly]="is_readonly" formControlName="account_type_id" valueExpr="id" [searchEnabled]="true"
+                  displayExpr="name">
+                </dx-select-box>
+              </div>
+  
+              <div class="form-group">
+                <label>{{'country_of_residence' | translate}}</label>
+                <dx-select-box [dataSource]="Countries" [readOnly]="is_readonly" formControlName="country_of_origin_id"
+                  [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                </dx-select-box>
+              </div>
+  
+              <div class="form-group" *ngIf="has_memberstate_defination">
+                <label>{{'partner_states' | translate}}</label>
+                <dx-select-box [dataSource]="memberStatesData" [readOnly]="is_readonly" formControlName="partner_state_id"
+                  [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name"
+                  (onValueChanged)="onMemberStateChange($event.value)">
+                </dx-select-box>
+              </div>
+  
+              <div class="form-group" *ngIf="is_secretariat">
+                <label>{{'secretariate_department' | translate}}</label>
+                <dx-select-box [dataSource]="secretariatDepartmentsData" [readOnly]="is_readonly"
+                  formControlName="secretariat_department_id" [showClearButton]="true" valueExpr="id" [searchEnabled]="true"
+                  displayExpr="name">
+                </dx-select-box>
+              </div>
+  
+              <div class="form-group" *ngIf="has_memberstate_defination">
+                <label>{{'institutions_types' | translate}}</label>
+                <dx-select-box [dataSource]="instituionTypeData" [readOnly]="is_readonly"
+                  formControlName="institution_type_id" [showClearButton]="true" valueExpr="id" [searchEnabled]="true"
+                  displayExpr="name" (onValueChanged)="onInstitutionTypeChange($event.value)">
+                </dx-select-box>
+              </div>
+  
+              <div class="form-group" *ngIf="has_memberstate_defination">
+                <label>{{'institutions' | translate}}</label>
+                <dx-select-box [dataSource]="Institutions" [readOnly]="is_readonly" formControlName="institution_id"
+                  [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name"
+                  (onValueChanged)="onInstitutionChange($event.value)">
+                </dx-select-box>
+              </div>
+  
+              <div class="form-group" *ngIf="has_memberstate_defination">
+                <label>{{'institutions_department' | translate}}</label>
+                <dx-select-box [dataSource]="InstitutionDepartments" [readOnly]="is_readonly"
+                  formControlName="institution_department_id" [showClearButton]="true" valueExpr="id" [searchEnabled]="true"
+                  displayExpr="name">
+                </dx-select-box>
+              </div>
+            </fieldset>
+  
+            <fieldset class="profile-section">
+              <legend>{{ 'personal_information' | translate }}</legend>
+              <div class="col-md-2">
+                <img [src]="" alt="Avatar" class="avatar">
+              </div>
+              <div class="form-group row">
+                <div class="col-md-3">
+                  <label>{{'user_title' | translate}}</label>
+                  <dx-select-box [dataSource]="userTitles" [readOnly]="is_readonly" formControlName="user_title_id"
+                    [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                  </dx-select-box>
+                </div>
+                <div class="col-md-4">
+                  <label>{{'first_name' | translate}}</label>
+                  <dx-text-box formControlName="first_name" [readOnly]="is_readonly" placeholder=""
+                    [showClearButton]="true"></dx-text-box>
+                </div>
+                <div class="col-md-5">
+                  <label>{{'other_names' | translate}}</label>
+                  <dx-text-box formControlName="other_names" [readOnly]="is_readonly" placeholder=""
+                    [showClearButton]="true"></dx-text-box>
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <label>{{'email-address' | translate}}</label>
+                <dx-text-box formControlName="email_address" [readOnly]="is_readonly" [showClearButton]="true"></dx-text-box>
+              </div>
+  
+              <div class="form-group">
+                <label>{{'phone_no' | translate}}</label>
+                <ngx-intl-tel-input [cssClass]="'custom'" [enableAutoCountrySelect]="false" [enablePlaceholder]="true"
+                  [searchCountryFlag]="true" [disabled]="is_readonly" [selectFirstCountry]="false" [maxLength]="15"
+                  [phoneValidation]="false" name="phone_number" formControlName="phone_number"></ngx-intl-tel-input>
+              </div>
+  
+              <div class="form-group">
+                <label>{{'identification_type' | translate}}</label>
+                <dx-select-box [dataSource]="IdentificationTypeData" [readOnly]="is_readonly"
+                  formControlName="identification_type_id" [showClearButton]="true" valueExpr="id" [searchEnabled]="true"
+                  displayExpr="name">
+                </dx-select-box>
+              </div>
+  
+              <div class="form-group">
+                <label>{{'identification_number' | translate}}</label>
+                <dx-text-box formControlName="identification_number" [readOnly]="is_readonly" placeholder=""
+                  [showClearButton]="true"></dx-text-box>
+              </div>
+            </fieldset>
+  
+            <div class="button-container">
+              <dx-button text="Enable Edit" type="danger" icon="fa fa-edit" (onClick)="onActionEditDetails()">
+              </dx-button>
+              <dx-button text="Update User Account Details" [disabled]="is_readonly" type="success" icon="fa fa-plus"
+                (onClick)="onsaveActiveUserAccountsDetails()">
+              </dx-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </dx-scroll-view>
+  </div>
+</div>

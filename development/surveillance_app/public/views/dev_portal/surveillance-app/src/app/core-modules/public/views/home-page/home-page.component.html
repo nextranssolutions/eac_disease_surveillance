@@ -1,0 +1,38 @@
+<div style="background-color: #fff;">
+  <div class="div-centerpanel div-home">
+    <div class="row col-lg-12 row  pull-right">
+
+      <div class="col-lg-8">
+
+
+      </div>
+      <div class="col-lg-4 col-md-12 ">
+
+        <div *ngIf="!authService.isLoggedIn" >
+          <app-appsign-in></app-appsign-in>
+        </div>
+        <div *ngIf="authService.isLoggedIn" class="row">
+          <span class=" mr-3 text-primary">{{ 'already_logged_in'| translate}} {{ 'username'| translate}} |
+            {{userFirstName}}</span>
+
+          <div class="col-lg-12">
+
+            <dx-button text="{{ 'access_dashboard' | translate }}" type="success" icon="fa fa-arrow-right"
+              [elementAttr]="{ id: 'elementId', class: 'col-lg-12' }" (onClick)="funcRedirectToDashboard()">
+            </dx-button>
+          </div>
+          <div class="col-lg-12">
+
+            <dx-button text="{{
+                            'logout' | translate }}" type="danger" icon="fa fa-sign-out"
+              [elementAttr]="{ id: 'elementId', class: 'col-lg-12' }" (onClick)="funcUserLogOut()">
+            </dx-button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

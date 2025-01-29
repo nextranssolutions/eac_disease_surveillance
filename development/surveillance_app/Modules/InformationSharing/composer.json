@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/informationsharing",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\InformationSharing\\": "",
+            "Modules\\InformationSharing\\App\\": "app/",
+            "Modules\\InformationSharing\\Database\\Factories\\": "database/factories/",
+            "Modules\\InformationSharing\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\InformationSharing\\Tests\\": "tests/"
+        }
+    }
+}

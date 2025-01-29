@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/publicinfomanagement",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\PublicInfoManagement\\": "",
+            "Modules\\PublicInfoManagement\\App\\": "app/",
+            "Modules\\PublicInfoManagement\\Database\\Factories\\": "database/factories/",
+            "Modules\\PublicInfoManagement\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\PublicInfoManagement\\Tests\\": "tests/"
+        }
+    }
+}

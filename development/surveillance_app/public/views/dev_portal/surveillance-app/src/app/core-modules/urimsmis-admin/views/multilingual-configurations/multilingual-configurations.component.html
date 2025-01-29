@@ -1,0 +1,29 @@
+<!-- <div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid"> -->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h5 class="m-0">{{'multilingual_configuration' | translate}}</h5>
+                </div>
+            </div>
+        <!-- </div>
+    </div> -->
+
+    <section class="content">
+        <div class="container-fluid">
+            <dx-tab-panel id="supplierPanel" [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true" [tabsPosition]="tabsPosition">
+                <dxi-item title="{{'system_languages' | translate}}" icon="group">
+                    <app-app-systemlanguages></app-app-systemlanguages>
+                </dxi-item>
+
+                <dxi-item title="{{'system_labels' | translate}}" icon="group">
+                    <app-app-systemlabelsmanagement></app-app-systemlabelsmanagement>
+                </dxi-item>
+
+                <dxi-item title="{{'translation_management' | translate}}" icon="group">
+                    <app-app-translationmanagement></app-app-translationmanagement>
+                </dxi-item>
+            </dx-tab-panel>
+        </div>
+    </section>
+<!-- </div> -->

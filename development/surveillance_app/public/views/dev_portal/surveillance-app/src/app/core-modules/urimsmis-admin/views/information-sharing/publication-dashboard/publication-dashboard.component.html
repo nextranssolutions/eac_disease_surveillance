@@ -1,0 +1,206 @@
+<div class="content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h5 class="m-0">{{'publications_management' | translate}}</h5>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/">{{'Home' | translate}}</a></li>
+                        <li class="breadcrumb-item active">{{'publications_management' | translate}}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 col-6">
+                    <div class="small-box bg-secondarypnl">
+                        <div class="inner">
+                            <h3>{{pending_submissions}}<sup style="font-size: 20px"></sup></h3>
+
+                            <p>{{'pending_publication' | translate}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a (click)="onLoadExpertsPublicationManagementData(1)" class="small-box-footer">{{'more_info' |
+                            translate}}<i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4  col-6">
+                    <div class="small-box bg-successpnl">
+                        <div class="inner">
+                            <h3>{{released_published}}<sup style="font-size: 20px"></sup></h3>
+                            <p>{{'released_published' | translate}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a (click)="onLoadExpertsPublicationManagementData(3)" class="small-box-footer">{{'more_info' |
+                            translate}} <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4  col-6">
+                    <div class="small-box bg-dangerpnl">
+                        <div class="inner">
+                            <h3>{{rejected_archived}}<sup style="font-size: 20px"></sup></h3>
+                            <p>{{'rejected_archived' | translate}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a (click)="onLoadExpertsPublicationManagementData(5)" class="small-box-footer">{{'more_info' |
+                            translate}} <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="div_maincontent">
+            <div class="div_content">
+                <div class="div_maincontent">
+                    <div class="div_content">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <dx-button text="{{ 'add_new' | translate }} {{ parameter_name | translate }}"
+                                    type="default" icon="fa fa-plus"
+                                    [elementAttr]="{ id: 'elementId', class: 'pull-right' }"
+                                    (onClick)="hasReadpermissions=false;funcRedirectToPublicationManagement()">
+                                </dx-button>
+                            </div>
+                            <!-- <div class="col-lg-9 pull-rightguideline">
+                                <app-adminsystemguudelines-details [dashboard_type_id]="dashboard_type_id"
+                                    [process_id]="process_id" [systems_functionality_id]="systems_functionality_id" />
+                            </div> -->
+                        </div>
+
+                        <dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="table row-border hover"
+                            (onExporting)="onExporting($event)" [dataSource]="publicationManagementData"
+                            [remoteOperations]='true' [showBorders]="true" [allowColumnResizing]="true"
+                            [columnHidingEnabled]="true" [wordWrapEnabled]="true" keyExpr="id"
+                            (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+                            <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+                            <dxo-search-panel [visible]="true">
+                            </dxo-search-panel>
+                            <dxo-paging [enabled]="true">
+                            </dxo-paging>
+                            <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)"
+                                [showPageSizeSelector]="true" [allowedPageSizes]="[50,100,200]">
+                            </dxo-pager>
+                            <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                                [allowExportSelectedData]="true">
+                            </dxo-export>
+
+
+                            <dxo-selection mode="multiple"></dxo-selection>
+                            <dxo-group-panel [visible]="true"></dxo-group-panel>
+                            <dxi-column [width]=150 caption="{{'actions' | translate}}" name="command-editing" [allowFiltering]="false"
+                                [allowSorting]="false" cellTemplate="cellTemplateSingle">
+                                <div *dxTemplate="let d of 'cellTemplateSingle'">
+                                    <dx-button text="{{getTranslation(d.data.action)}}"
+                                        (click)="singleApplicationActionColClick(d.data)" type="default"
+                                        icon="{{d.data.iconCls}}">
+                                    </dx-button>
+                                </div>
+                            </dxi-column>
+                            <dxi-column caption="{{'other_actions' | translate}}" [width]=150 name="command-editing"
+                                [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate">
+                                <div *dxTemplate="let d of 'cellTemplate'">
+                                    <dx-menu [items]="d.data.contextMenu" displayExpr="text"
+                                        (onItemClick)="funcInfActionClick($event,d)">
+                                    </dx-menu>
+                                </div>
+                            </dxi-column>
+                            <dxi-column dataField="id" caption="{{'id' | translate}}" [visible]="false"></dxi-column>
+                            <dxi-column dataField="appworkflow_status" [width]="150"
+                                caption="{{ 'appworkflow_status' | translate }}" cellTemplate="appworkflow_status">
+                                <div *dxTemplate="let d of 'appworkflow_status'">
+                                    <div class="truncate-text" title="{{d.data.appworkflow_status}}">
+                                        {{d.data.appworkflow_status | translate}}
+                                    </div>
+                                </div>
+                            </dxi-column>
+                            <dxi-column dataField="app_reference_no"
+                                caption="{{'reference_no' | translate}}"></dxi-column>
+
+                            <dxi-column dataField="title" caption="{{ 'title' | translate }}" cellTemplate="title">
+                                <div *dxTemplate="let d of 'title'">
+                                    <div class="truncate-text" title="{{d.data.title}}">
+                                        {{d.data.title}}
+                                    </div>
+                                </div>
+                            </dxi-column>
+
+                            <dxi-column dataField="abstract" caption="{{ 'abstract' | translate }}"
+                                cellTemplate="abstract">
+                                <div *dxTemplate="let d of 'abstract'">
+                                    <div class="truncate-text" title="{{d.data.abstract}}">
+                                        {{d.data.abstract}}
+                                    </div>
+                                </div>
+                            </dxi-column>
+
+                            <dxi-column dataField="keywords" caption="{{ 'keywords' | translate }}"
+                                cellTemplate="keywords">
+                                <div *dxTemplate="let d of 'keywords'">
+                                    <div class="truncate-text" title="{{d.data.keywords}}">
+                                        {{d.data.keywords}}
+                                    </div>
+                                </div>
+                            </dxi-column>
+
+                            <dxi-column dataField="journal_conference" caption="{{ 'journal_conference' | translate }}"
+                                cellTemplate="journal_conference">
+                                <div *dxTemplate="let d of 'journal_conference'">
+                                    <div class="truncate-text" title="{{d.data.journal_conference}}">
+                                        {{d.data.journal_conference}}
+                                    </div>
+                                </div>
+                            </dxi-column>
+
+                            <dxi-column dataField="doi" caption="{{'doi' | translate}}"></dxi-column>
+
+                            <dxi-column dataField="publication_date"
+                                caption="{{'publication_date' | translate}}"></dxi-column>
+
+                            <dxi-column dataField="publication_type"
+                                caption="{{'publication_type' | translate}}"></dxi-column>
+
+                            <dxi-column dataField="peer_reviewed"
+                                caption="{{'peer_reviewed' | translate}}"></dxi-column>
+
+                            <dxi-column dataField="publication_link"
+                                caption="{{'publication_link' | translate}}"></dxi-column>
+
+                            <dxi-column dataField="repository_info"
+                                caption="{{'repository_info' | translate}}"></dxi-column>
+
+                            <dxi-column dataField="research_area"
+                                caption="{{'research_area' | translate}}"></dxi-column>
+
+                            <dxi-column dataField="is_expert_publication"
+                                caption="{{'is_expert_publication' | translate}}"></dxi-column>
+
+                            <dxo-paging [pageSize]="200"></dxo-paging>
+                        </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

@@ -1,0 +1,44 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+      <ul class="breadcrumb">
+        <li>
+          <i class="ace-icon fa fa-home home-icon"></i>
+          <a href="#">{{ 'configuration' | translate }}</a>
+        </li>
+        <li class="active">{{'product_configurations' | translate}}</li>
+      </ul><!-- /.breadcrumb -->
+  
+    </div>
+  
+    <div class="page-content">
+  
+      <div class="page-header">
+        <h1>
+            {{'product_configurations' | translate}}
+          <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            {{ 'configuration_guide' | translate }}
+          </small>
+        </h1>
+      </div><!-- /.page-header -->
+  
+      <div class="row">
+        
+        <dx-tab-panel id="supplierPanel" [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true" [tabsPosition]="tabsPosition">
+            <dxi-item title="{{'generic_name' | translate}}" icon="group">
+                <app-genericnames></app-genericnames>
+            </dxi-item>
+
+            <dxi-item title="{{'dosage_form' | translate}}" icon="group">
+                <app-app-dosageforms></app-app-dosageforms>
+            </dxi-item>
+
+            <dxi-item title="{{'product_application_types' | translate}}" icon="group">
+                <app-app-applicationtypes></app-app-applicationtypes>
+            </dxi-item>
+
+        </dx-tab-panel>
+        
+      </div><!-- /.row -->
+    </div><!-- /.page-content -->
+  </div>

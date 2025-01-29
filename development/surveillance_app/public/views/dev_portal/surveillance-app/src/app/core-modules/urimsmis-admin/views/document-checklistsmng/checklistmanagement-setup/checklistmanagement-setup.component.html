@@ -1,0 +1,42 @@
+<<<<<<< HEAD
+<div class="content-wrapper">
+   
+=======
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="#">{{ parameter_name | translate }}</a>
+        </li>
+>>>>>>> e6561bde8dea2cb34e781f78e1c8f8e26534f184
+
+    </ul><!-- /.breadcrumb -->
+
+</div>
+<div class="page-header">
+    <h1>
+        {{ parameter_name | translate }}
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            {{ 'configuration_item' | translate }}
+        </small>
+    </h1>
+</div><!-- /.page-header -->
+
+<div class="container-fluid">
+    <dx-tab-panel id="Navigation Tab" [swipeEnabled]="false" [showNavButtons]="true" [tabsPosition]="tabsPosition"
+        [animationEnabled]="true">
+        <dxi-item title="{{ 'checklist_types' | translate }}" icon="fa fa-cog">
+            <app-app-checklist-types></app-app-checklist-types>
+        </dxi-item>
+
+        <dxi-item title="{{ 'checklist_definations' | translate }}" icon="fa fa-setup">
+            <app-app-checklist-defination></app-app-checklist-defination>
+        </dxi-item>
+
+        <dxi-item title="{{ 'performance_scales' | translate }}" icon="fa fa-table">
+            <app-app-performancescoring-scales></app-app-performancescoring-scales>
+        </dxi-item>
+
+    </dx-tab-panel>
+</div>

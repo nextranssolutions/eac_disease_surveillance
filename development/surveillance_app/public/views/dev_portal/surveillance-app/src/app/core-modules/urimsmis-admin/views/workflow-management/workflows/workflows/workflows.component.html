@@ -1,0 +1,850 @@
+<div class="page-header">
+    <h3>
+        {{ parameter_name | translate }}
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+        </small>
+    </h3>
+ </div><!-- /.page-header -->
+
+
+<dx-button text="{{ 'add_new' | translate }} {{ parameter_name | translate }}" type="default" icon="fa fa-save"
+    [elementAttr]="{ id: 'elementId', class: '' }" (onClick)="hasReadpermissions=false;onAddWorkFlowItem()">
+</dx-button>
+
+<dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="col-lg-12 table row-border hover"
+    (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="workflowItemsData"
+    [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="true"
+    keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+    <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+        [allowExportSelectedData]="true">
+    </dxo-export>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+
+    <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+    <dxo-paging [enabled]="true">
+        <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+            [allowedPageSizes]="[50,100]"></dxo-pager>
+    </dxo-paging>
+
+    <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+        [allowSorting]="false" cellTemplate="cellTemplate">
+        <div *dxTemplate="let data of 'cellTemplate'">
+            <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+        </div>
+    </dxi-column>
+    <dxi-column  dataField="name" caption="{{'name' | translate}}"> </dxi-column> 
+    <dxi-column [groupIndex]="0"  dataField="regulatory_function_id" caption="{{'regulatory_functions' | translate}}">
+    <dxo-lookup [dataSource]="regulatoryFunctionsData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="regulatory_subfunction_id"
+    caption="{{'regulatory_subfunctions' | translate}}">
+    <dxo-lookup [dataSource]="regulatorySubFunctionsData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+   
+    <dxi-column dataField="regulated_productstype_id"
+        caption="{{'product_type' | translate}}">
+        <dxo-lookup [dataSource]="productTypeData" displayExpr="name" valueExpr="id"></dxo-lookup>
+    </dxi-column>
+    <dxi-column  dataField="description" caption="{{'description' | translate}}"> </dxi-column> 
+    <dxo-selection mode="multiple"></dxo-selection>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+    <dxo-paging [pageSize]="100"></dxo-paging>
+
+</dx-data-grid>
+
+
+
+
+<dx-popup [visible]="deletePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+    title="{{ 'delete_confirmation_of '+parameter_name | translate }}" (onHidden)="deletePopupVisible = false">
+
+    <div>
+        <p class="confirmation-text">
+            {{ 'are_you_sure_you_want_to_delete' | translate }}
+            "<strong>{{config_record}}</strong>"?
+        </p>
+        <div class="button-container">
+            <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="onDeleteWorkflowDetails()">
+            </dx-button>
+            <dx-button text="{{ 'no' | translate }}" (onClick)="deletePopupVisible = false">
+            </dx-button>
+        </div>
+    </div>
+
+</dx-popup>
+
+
+<dx-popup [visible]="workflowDetailsVisible" [width]="funcpopWidth(85)" [height]="funcpopHeight(75)"
+    [showTitle]="true" title="{{'workflows' | translate}}" (onHidden)="workflowDetailsVisible = false">
+    <dx-tab-panel id="tabPanel" [loop]="true" [animationEnabled]="true" [swipeEnabled]="true"
+        [(selectedIndex)]="selectedTabIndex" (onTitleClick)="funcUserRolesTabClick($event)"
+        [iconPosition]="iconPosition" [tabsPosition]="tabsPosition">
+
+            <!-- DevExtreme Group Name -->
+            <dxi-item title="{{'workflows' | translate}}" icon="group">
+                <form (ngSubmit)="onUpdateWorkflowsSubmit()" [formGroup]="workflowItemsFrm"
+                    formControlName="description">
+
+                    <div class="row">
+                      
+                        <div class="col-lg-6">
+                            <label>{{ 'name' | translate }}</label>
+                            <dx-text-box formControlName="name" [showClearButton]="true">
+
+                            </dx-text-box>
+                        </div>
+                        <div class="col-lg-6" >
+                            <label for="unitName">{{ 'regulatory_function' | translate }}</label>
+                            <dx-select-box [dataSource]="regulatoryFunctionsData"(onSelectionChanged)="onRegulatoryFunctionChange($event)"
+                             formControlName="regulatory_function_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                            </dx-select-box>
+                        </div>
+                        <div class="col-lg-6" >
+                            <label for="unitName">{{ 'regulatory_subfunction' | translate }}</label>
+                            <dx-select-box [dataSource]="regulatorySubFunctionsData" formControlName="regulatory_subfunction_id"
+                                [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                            </dx-select-box>
+                        </div>
+                        <div class="col-lg-6" >
+                            <label for="unitName">{{ 'product_type' | translate }}</label>
+                            <dx-select-box [dataSource]="productTypeData" formControlName="regulated_productstype_id"
+                                [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                            </dx-select-box>
+                        </div>
+                        <div class="col-lg-12">
+
+                            <label>{{ 'description' | translate }}</label>
+                            <dx-text-area formControlName="description">
+
+                            </dx-text-area>
+                        </div>
+
+                        <div class="col-lg-3">
+
+                            <label>{{ 'code' | translate }}</label>
+                            <dx-text-box formControlName="code" [showClearButton]="true">
+
+                            </dx-text-box>
+                        </div>
+
+                    </div>
+                </form>
+
+                <div class="col-lg-12">
+                    <dx-button text="{{ 'save'+ parameter_name | translate }}" type="default" icon="fa fa-save"
+                        [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="onFuncSaveWorlflowData()">
+                    </dx-button>
+                    <dx-button text="{{ 'next_workflow_stages' | translate }}" type="default" icon="fa fa-arrow-right"
+                        (onClick)="onNextNavigationItems('WorkflowStages')">
+                    </dx-button>
+                </div>
+
+            </dxi-item>
+            <dxi-item title="{{'workflow_stages' |translate}}" icon="map">
+                <dx-button text="{{ 'add_new' | translate }} {{ 'workflow_stage' | translate }}" type="default" icon="fa fa-save"
+                    [elementAttr]="{ id: 'elementId', class: '' }" (onClick)="hasReadpermissions=false;onAddWorkFlowStage()">
+                </dx-button>
+                <dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="col-lg-12 table row-border hover"
+                    (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="workflowStagesData"
+                    [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="true"
+                    keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+                
+                    <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                        [allowExportSelectedData]="true">
+                    </dxo-export>
+                    <dxo-search-panel [visible]="true"></dxo-search-panel>
+                
+                
+                    <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+                    <dxo-paging [enabled]="true">
+                        <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+                            [allowedPageSizes]="[50,100]"></dxo-pager>
+                    </dxo-paging>
+                    <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+                    [allowSorting]="false" cellTemplate="cellTemplate">
+                    <div *dxTemplate="let data of 'cellTemplate'">
+                        <dx-menu (onItemClick)="funcStageActionClick($event,data)" [items]="workflowStageActionsMenuItems"></dx-menu>
+                    </div>
+                </dxi-column>
+                    <dxi-column dataField="name" caption="{{ 'name' | translate }}">
+                    
+                    </dxi-column>
+                <dxi-column  dataField="stage_status" caption="{{ 'stage_status' | translate }}">
+                <dxo-lookup [dataSource]="workflowStageStatusesData" displayExpr="name" valueExpr="id">
+                </dxo-lookup>
+                </dxi-column>
+                <dxi-column  dataField="interface_id" caption="{{ 'interface' | translate }}">
+                    <dxo-lookup [dataSource]="workflowInterfaceData" displayExpr="name" valueExpr="id">
+                    </dxo-lookup>
+                </dxi-column>
+                <dxi-column  dataField="process_category_id" caption="{{ 'process_category' | translate }}">
+                    <dxo-lookup [dataSource]="workflowProcessCategoryData" displayExpr="name" valueExpr="id">
+                    </dxo-lookup>
+                </dxi-column>
+                
+                <dxi-column dataField="description" caption="{{ 'description' | translate }}">
+                
+                </dxi-column>
+
+                </dx-data-grid>
+                
+                <div class="col-lg-12 row">
+                    <div class="col-lg-3">
+                        <dx-button text="{{ 'previous_workflow' | translate }}" type="default"
+                            icon="fa fa-arrow-right" (onClick)="onNextNavigationItems('Workflows')">
+                        </dx-button>
+                    </div>
+                    <div class="col-lg-3">
+                        <dx-button text="{{ 'next_workflow_transitions' | translate }}" type="default"
+                            icon="fa fa-arrow-right" (onClick)="onNextNavigationItems('workflowTransitions')">
+                        </dx-button>
+                    </div>
+                </div>
+
+             
+
+            </dxi-item>
+            <dxi-item title="{{'workflow_transitions' | translate}}" icon="map">
+                <dx-button text="{{ 'add_new' | translate }} {{ 'workflow_transition' | translate }}" type="default" icon="fa fa-save"
+                [elementAttr]="{ id: 'elementId', class: '' }" (onClick)="hasReadpermissions=false;onAddWorkFlowTransition()">
+                </dx-button>
+                <dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="col-lg-12 table row-border hover"
+                (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="workflowTransitionsData"
+                [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="true"
+                keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+            
+                <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                    [allowExportSelectedData]="true">
+                </dxo-export>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+            
+            
+                <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+                <dxo-paging [enabled]="true">
+                    <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+                        [allowedPageSizes]="[50,100]"></dxo-pager>
+                </dxo-paging>
+                <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+                [allowSorting]="false" cellTemplate="cellTemplate">
+                <div *dxTemplate="let data of 'cellTemplate'">
+                    <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+                </div>
+                </dxi-column>
+                <dxi-column dataField="name" caption="{{ 'name' | translate }}">
+                    
+                </dxi-column>
+                <dxi-column  dataField="workflow_action_id"
+                caption="{{ 'workflow_action' | translate }}">
+                <dxo-lookup [dataSource]="workflowSubmissionActionsData" displayExpr="name" valueExpr="id">
+                </dxo-lookup>
+                </dxi-column>
+                <dxi-column dataField="workflow_status_id" caption="{{ 'current_workflow_status' | translate }}">
+                    <dxo-lookup [dataSource]="workflowStatusData" displayExpr="name" valueExpr="id">
+                    </dxo-lookup>
+                </dxi-column>
+                <dxi-column dataField="prevworkflow_stage_id" caption="{{ 'current_stage' | translate }}">
+                    <dxo-lookup [dataSource]="workflowAllStageData" displayExpr="name" valueExpr="id">
+                    </dxo-lookup>
+                </dxi-column>
+                <dxi-column dataField="nextworkflow_stage_id" caption="{{ 'next_stage' | translate }}">
+                    <dxo-lookup [dataSource]="workflowAllStageData" displayExpr="name" valueExpr="id">
+                    </dxo-lookup>
+                </dxi-column>
+                
+                <dxi-column dataField="nextworkflow_status_id" caption="{{ 'next_workflow_status' | translate }}">
+                    <dxo-lookup [dataSource]="workflowStatusData" displayExpr="name" valueExpr="id">
+                    </dxo-lookup>
+                </dxi-column>
+                <dxi-column dataField="description" caption="{{ 'description' | translate }}">
+                    
+                </dxi-column>
+                </dx-data-grid>
+
+
+                <div class="col-lg-12 row">
+                    <div class="col-lg-3">
+                        <dx-button text="{{ 'regulatory_functions'| translate }}" type="default"
+                            icon="fa fa-arrow-right" (onClick)="onNextNavigationItems('WorkflowStages')">
+                        </dx-button>
+                    </div>
+             
+                </div>
+
+              
+            </dxi-item>
+
+        </dx-tab-panel>
+</dx-popup>
+
+<dx-popup [visible]="workflowStagesVisible" [width]="funcpopWidth(65)" [height]="funcpopHeight(50)"
+    [showTitle]="true" title="{{'workflow_stages' | translate}}" (onHidden)="workflowStagesVisible = false">
+ <form (ngSubmit)="onUpdateWorkflowsSubmit()" [formGroup]="workflowStageItemsFrm"
+    formControlName="description">
+
+     <div class="row">
+    
+
+    <div class="col-lg-6">
+        <label>{{ 'name' | translate }}</label>
+        <dx-text-box formControlName="name" [showClearButton]="true">
+
+        </dx-text-box>
+    </div>
+    <div class="col-lg-6" >
+        <label for="unitName">{{ 'stage_status' | translate }}</label>
+        <dx-select-box [dataSource]="workflowStageStatusesData"
+        formControlName="stage_status_id"
+        [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-6" >
+        <label for="unitName">{{ 'interface' | translate }}</label>
+        <dx-select-box [dataSource]="workflowInterfaceData" formControlName="interface_id"
+            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-6" >
+        <label for="unitName">{{ 'process_category' | translate }}</label>
+        <dx-select-box [dataSource]="workflowProcessCategoryData" formControlName="process_category_id"
+            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-12">
+
+        <label>{{ 'description' | translate }}</label>
+        <dx-text-area formControlName="description">
+
+        </dx-text-area>
+    </div>
+
+    <div class="col-lg-3">
+
+        <label>{{ 'code' | translate }}</label>
+        <dx-text-box formControlName="code" [showClearButton]="true">
+
+        </dx-text-box>
+    </div>
+
+
+    </div>
+
+    <div class="col-lg-12">
+        <dx-button text="{{ 'save'+ 'workflow_stage' | translate }}" type="default" icon="fa fa-save"
+            [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="onFuncSaveWorkflowStageData()">
+        </dx-button>
+    
+    </div>
+ </form>
+
+
+</dx-popup>
+<dx-popup [visible]="workflowTransitionVisible" [width]="funcpopWidth(65)" [height]="funcpopHeight(50)"
+[showTitle]="true" [title]="'workflow_transitions'" (onHidden)="workflowTransitionVisible = false">
+    <form (ngSubmit)="onUpdateWorkflowsSubmit()" [formGroup]="workflowTransitionFrm"
+    formControlName="description">
+
+    <div class="row">
+    
+
+    <div class="col-lg-6">
+        <label>{{ 'name' | translate }}</label>
+        <dx-text-box formControlName="name" [showClearButton]="true">
+
+        </dx-text-box>
+    </div>
+    <div class="col-lg-6" >
+        <label for="unitName">{{ 'workflow_action' | translate }}</label>
+        <dx-select-box [dataSource]="workflowSubmissionActionsData"
+        formControlName="workflow_action_id"
+        [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-6" >
+        <label for="unitName">{{ 'current_workflow_status' | translate }}</label>
+        <dx-select-box [dataSource]="workflowStatusData" formControlName="workflow_status_id"
+            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-6" >
+        <label for="unitName">{{ 'current_stage' | translate }}</label>
+        <dx-select-box [dataSource]="workflowAllStageData" formControlName="prevworkflow_stage_id"
+            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-6" >
+        <label for="unitName">{{ 'next_stage' | translate }}</label>
+        <dx-select-box [dataSource]="workflowAllStageData" formControlName="nextworkflow_stage_id"
+            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-6" >
+        <label for="unitName">{{ 'next_workflow_status' | translate }}</label>
+        <dx-select-box [dataSource]="workflowStatusData" formControlName="nextworkflow_status_id"
+            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-12">
+
+        <label>{{ 'description' | translate }}</label>
+        <dx-text-area formControlName="description">
+
+        </dx-text-area>
+    </div>
+
+    <div class="col-lg-3">
+
+        <label>{{ 'code' | translate }}</label>
+        <dx-text-box formControlName="code" [showClearButton]="true">
+
+        </dx-text-box>
+    </div>
+
+
+</div>
+
+<div class="col-lg-12">
+    <dx-button text="{{ 'save'+ parameter_name | translate }}" type="default" icon="fa fa-save"
+        [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="onFuncSaveWorlflowStageTransitionData()">
+    </dx-button>
+    <!-- <dx-button text="{{ 'next_workflow_stages' | translate }}" type="default" icon="fa fa-arrow-right"
+        (onClick)="onNextNavigationItems('WorkflowStages')">
+    </dx-button> -->
+</div>
+    </form>
+
+
+</dx-popup>
+
+<dx-popup [visible]="workflowStageDetailsVisible" [width]="funcpopWidth(80)" [height]="funcpopHeight(65)" [showTitle]="true"
+    title="{{ 'workflow_stage_details' | translate }}" (onHidden)="workflowStageDetailsVisible = false">
+    <dx-tab-panel id="tabPanel" [loop]="true" [animationEnabled]="true" [swipeEnabled]="true"
+            [(selectedIndex)]="selectedTabIndex" (onTitleClick)="funcUserRolesTabClick($event)"
+            [iconPosition]="iconPosition" [tabsPosition]="tabsPosition">
+
+           
+            <dxi-item title="{{'workflow_stage_info' | translate}}" icon="group">
+                <form (ngSubmit)="onUpdateWorkflowsSubmit()" [formGroup]="workflowStagesFrm"
+                    formControlName="description">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>{{ 'name' | translate }}</label>
+                            <dx-text-box formControlName="name" [showClearButton]="true"> </dx-text-box>                      
+                        </div>
+                        <div class="col-lg-4" >
+                            <label for="unitName">{{ 'stage/state_status' | translate }}</label>
+                            <dx-select-box [dataSource]="stageStatusData"
+                             formControlName="stage_status"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name"> </dx-select-box>     
+                        </div>
+                        <div class="col-lg-4" >
+                            <label for="unitName">{{ 'order_no' | translate }}</label>
+                            <dx-text-box formControlName="order_no" [showClearButton]="true">
+
+                            </dx-text-box>    
+                        </div>
+                    
+                        <div class="col-lg-4" >
+                            <label for="unitName">{{ 'stage_category' | translate }}</label>
+                            <dx-select-box [dataSource]="stageCategoryData"
+                             formControlName="stage_category_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name"> </dx-select-box>     
+                        </div>
+
+                        <div class="col-lg-4" >
+                            <label for="unitName">{{ 'process_category' | translate }}</label>
+                            <dx-select-box [dataSource]="workflowProcessCategoryData"
+                             formControlName="process_category_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name"> </dx-select-box>     
+                        </div>
+                        
+                        <div class="col-lg-4" >
+                            <label for="unitName">{{ 'needs_responsible_user' | translate }}</label>
+                            <dx-select-box [dataSource]="needResponsibleUsrData"
+                             formControlName="needs_responsible_user"
+                            [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                        </div>
+                        
+                        <div class="col-lg-4" >
+                            <label for="unitName">{{ 'is_manager_submission(set_schedule_details)' | translate }}</label>
+                            <dx-select-box [dataSource]="isManagerSubmissionData"
+                             formControlName="is_manager_submission"
+                            [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                        </div>
+                        <div class="col-lg-4" >
+                            <label for="unitName">{{ 'process_type' | translate }}</label>
+                            <dx-select-box [dataSource]="processTypeData"
+                             formControlName="process_type_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name"> </dx-select-box>     
+                        </div>
+                      
+                        <div class="col-lg-4" >
+                            <label for="unitName">{{ 'workflow_interface' | translate }}</label>
+                            <dx-select-box [dataSource]="workflowInterfaceData"
+                             formControlName="interface_id"
+                            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name"> </dx-select-box>     
+                        </div>
+
+                        <div class="col-lg-12">
+
+                            <label>{{ 'service_delivery_timeline(per_stage)' | translate }}</label>
+                            <dx-text-box formControlName="servicedelivery_timeline" [showClearButton]="true">
+
+                            </dx-text-box>
+                        </div>
+                       
+                        <div class="col-lg-12">
+
+                            <label>{{ 'description' | translate }}</label>
+                            <dx-text-area formControlName="description">
+
+                            </dx-text-area>
+                        </div>
+
+            
+                    </div>
+                </form>
+
+                <div class="col-lg-12">
+                    <dx-button text="{{ 'save'+ parameter_name | translate }}" type="default" icon="fa fa-save"
+                        [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="onFuncSaveWorkflowStageData()">
+                    </dx-button>
+                 
+                </div>
+
+            </dxi-item>
+            <dxi-item title="{{'workflow_stages_actions' | translate}}" icon="map">
+                <dx-button text="{{ 'add_new' | translate }} {{ 'workflow_stage_actions' | translate }}" type="default" icon="fa fa-save"
+                 [elementAttr]="{ id: 'elementId', class: '' }" (onClick)="hasReadpermissions=false;onAddWorkFlowStageActions()">
+                </dx-button>
+                <dx-data-grid (onCellPrepared)="onCellPrepared($event)" class="col-lg-12 table row-border hover"
+                    (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="workflowStageActionsData"
+                    [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="true"
+                    keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+                
+                    <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                        [allowExportSelectedData]="true">
+                    </dxo-export>
+                    <dxo-search-panel [visible]="true"></dxo-search-panel>
+                
+                
+                    <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+                    <dxo-paging [enabled]="true">
+                        <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+                            [allowedPageSizes]="[50,100]"></dxo-pager>
+                    </dxo-paging>
+                    <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+                    [allowSorting]="false" cellTemplate="cellTemplate">
+                    <div *dxTemplate="let data of 'cellTemplate'">
+                        <dx-menu (onItemClick)="funcStageActionClick($event,data)" [items]="workflowStageActionsMenuItems"></dx-menu>
+                    </div>
+                </dxi-column>
+                    <dxi-column dataField="name" caption="{{ 'name' | translate }}">
+                    
+                    </dxi-column>
+
+                    <dxi-column  dataField="stage_id" caption="{{ 'stage' | translate }}">
+                        <dxo-lookup [dataSource]="workflowStageData" displayExpr="name" valueExpr="id">
+                        </dxo-lookup>
+                        </dxi-column>
+                    
+                        <dxi-column  dataField="is_status_tied" caption="{{ 'is_status_tied' | translate }}">
+                            <dxo-lookup [dataSource]="is_status_tied" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="application_status_id" caption="{{ 'application_status' | translate }}">
+                            <dxo-lookup [dataSource]="workflowApplicationStatusData" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="is_inspection_submission" caption="{{ 'is_inspection_submission' | translate }}">
+                            <dxo-lookup [dataSource]="is_inspection_submission" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="is_checklist_tied" caption="{{ 'is_checklist_tied' | translate }}">
+                            <dxo-lookup [dataSource]="is_checklist_tied" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="is_declarationstatus_tied" caption="{{ 'is_declarationstatus_tied' | translate }}">
+                            <dxo-lookup [dataSource]="is_declarationstatus_tied" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="is_paymentrequest_submission" caption="{{ 'is_paymentrequest_submission' | translate }}">
+                            <dxo-lookup [dataSource]="is_paymentrequest_submission" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="is_staticappprocess_defination" caption="{{ 'is_staticappprocess_defination' | translate }}">
+                            <dxo-lookup [dataSource]="is_staticappprocess_defination" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="permitsubmission_status_id" caption="{{ 'permitsubmission_status' | translate }}">
+                            <dxo-lookup [dataSource]="permitsubmission_status" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="is_external_usersubmission" caption="{{ 'is_external_usersubmission' | translate }}">
+                            <dxo-lookup [dataSource]="is_external_usersubmission" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="checklist_category_id" caption="{{ 'checklist_category' | translate }}">
+                            <dxo-lookup [dataSource]="checklist_category" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="is_to_portal" caption="{{ 'is_to_portal' | translate }}">
+                            <dxo-lookup [dataSource]="is_to_portal" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="needs_directive" caption="{{ 'needs_directive' | translate }}">
+                            <dxo-lookup [dataSource]="needs_directive" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+
+                        <dxi-column  dataField="directive_category" caption="{{ 'directive_category' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="action_type_id" caption="{{ 'action_type' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="email_message_id" caption="{{ 'email_message' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="has_technicalmeeting_notification" caption="{{ 'has_technicalmeeting_notification' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="has_process_defination" caption="{{ 'has_process_defination' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="appprocess_defination_id" caption="{{ 'appprocess_defination' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="has_appdate_defination" caption="{{ 'has_appdate_defination' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="appdate_defination_id" caption="{{ 'appdate_defination' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="has_email_notification" caption="{{ 'has_email_notification' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="recommendation_table" caption="{{ 'recommendation_table' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="is_approval_submission" caption="{{ 'is_approval_submission' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="generate_refno" caption="{{ 'generate_refno' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="keep_status" caption="{{ 'keep_status' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="update_portal_status" caption="{{ 'update_portal_status' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="update_checklistref" caption="{{ 'update_checklistref' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="portal_status_id" caption="{{ 'portal_status' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="pms_analysis_type_id" caption="{{ 'pms_analysis_type' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="pms_recommendation_id" caption="{{ 'pms_recommendation' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="gmp_inspection_type_id" caption="{{ 'gmp_inspection_type' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="preminspection_recomm_id" caption="{{ 'preminspection_recommendation' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="query_raised_submission" caption="{{ 'query_raised_submission' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="invalidate_checklistcategory_id" caption="{{ 'invalidate_checklistcategory' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="invalidate_checklistitems" caption="{{ 'invalidate_checklistitems' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="technicalmeetinemail_msg_id" caption="{{ 'technicalmeetinemail_msg' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="has_preminsp_notification" caption="{{ 'has_preminsp_notification' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column  dataField="preminspmail_msg_id" caption="{{ 'preminspmail_msg' | translate }}">
+                            <dxo-lookup [dataSource]="" displayExpr="name" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+
+            
+                <dxi-column dataField="description" caption="{{ 'description' | translate }}">
+                
+                </dxi-column>
+
+            </dx-data-grid>
+
+               
+                
+                
+            </dxi-item>
+            
+
+        </dx-tab-panel>
+
+</dx-popup>
+
+<dx-popup [visible]="workflowStageActionDetailsVisible" [width]="funcpopWidth(80)" [height]="funcpopHeight(65)" [showTitle]="true"
+             title="{{ 'workflow_stage_Actions' | translate }}" (onHidden)="workflowStageActionDetailsVisible = false">
+             <form (ngSubmit)="onUpdateWorkflowsSubmit()" [formGroup]="workflowStageActionsItemsFrm"
+             formControlName="description">
+
+             <div class="row">
+                 <div class="col-lg-12">
+                     <label>{{ 'name' | translate }}</label>
+                     <dx-text-box formControlName="name" [showClearButton]="true"> </dx-text-box>                      
+                 </div>
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'stage' | translate }}</label>
+                     <dx-select-box [dataSource]="workflowStageData"
+                      formControlName="stage_id"
+                     [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name"> </dx-select-box>     
+                 </div>
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'order_no' | translate }}</label>
+                     <dx-text-box formControlName="order_no" [showClearButton]="true">
+
+                     </dx-text-box>    
+                 </div>
+             
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'is_status_tied' | translate }}</label>
+                     <dx-select-box [dataSource]="is_status_tied"
+                      formControlName="is_status_tied"
+                     [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                 </div>
+
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'application_status' | translate }}</label>
+                     <dx-select-box [dataSource]="workflowApplicationStatusData"
+                      formControlName="application_status_id"
+                     [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name"> </dx-select-box>     
+                 </div>
+                 
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'is_inspection_submission' | translate }}</label>
+                     <dx-select-box [dataSource]="is_inspection_submission"
+                      formControlName="is_inspection_submission"
+                     [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                 </div>
+                 
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'is_checklist_tied' | translate }}</label>
+                     <dx-select-box [dataSource]="is_checklist_tied"
+                      formControlName="is_checklist_tied"
+                     [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                 </div>
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'is_declarationstatus_tied' | translate }}</label>
+                     <dx-select-box [dataSource]="is_declarationstatus_tied"
+                      formControlName="is_declarationstatus_tied"
+                     [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                 </div>
+               
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'is_paymentrequest_submission' | translate }}</label>
+                     <dx-select-box [dataSource]="is_paymentrequest_submission"
+                      formControlName="is_paymentrequest_submission"
+                     [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                 </div>
+
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'is_staticappprocess_defination' | translate }}</label>
+                     <dx-select-box [dataSource]="is_staticappprocess_defination"
+                      formControlName="is_staticappprocess_defination"
+                     [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                 </div>
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'permitsubmission_status' | translate }}</label>
+                     <dx-select-box [dataSource]="permitsubmission_status"
+                      formControlName="permitsubmission_status_id"
+                     [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                 </div>
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'is_external_usersubmission' | translate }}</label>
+                     <dx-select-box [dataSource]="is_external_usersubmission"
+                      formControlName="is_external_usersubmission"
+                     [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                 </div>
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'checklist_category' | translate }}</label>
+                     <dx-select-box [dataSource]="checklist_category"
+                      formControlName="checklist_category_id"
+                     [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                 </div>
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'is_to_portal' | translate }}</label>
+                     <dx-select-box [dataSource]="is_to_portal"
+                      formControlName="is_to_portal"
+                     [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                 </div>
+                 <div class="col-lg-4" >
+                     <label for="unitName">{{ 'needs_directive' | translate }}</label>
+                     <dx-select-box [dataSource]="needs_directive"
+                      formControlName="needs_directive"
+                     [showClearButton]="true" valueExpr="value" [searchEnabled]="true" displayExpr="text"> </dx-select-box>     
+                 </div>
+                
+                
+                 <div class="col-lg-12">
+
+                     <label>{{ 'description' | translate }}</label>
+                     <dx-text-area formControlName="description">
+
+                     </dx-text-area>
+                 </div>
+
+     
+             </div>
+         </form>
+         <div class="col-lg-12">
+             <dx-button text="{{ 'save'+ parameter_name | translate }}" type="default" icon="fa fa-save"
+                 [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="onFuncSaveWorlflowStageActionData()">
+             </dx-button>
+          
+         </div>
+</dx-popup>
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

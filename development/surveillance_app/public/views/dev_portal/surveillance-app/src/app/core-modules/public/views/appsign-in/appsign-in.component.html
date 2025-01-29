@@ -1,0 +1,142 @@
+<form [formGroup]="signInFrm" (ngSubmit)="onSignIn()" class="row">
+
+    <h4 class="col-xs-12">{{'sign_in' | translate}}</h4>
+
+    <div class="col-xs-12 ">
+        <label> {{'email_address' | translate}}</label>
+        <dx-text-box formControlName="email_address" placeholder="{{'enter_email_address' | translate}}"
+            [showClearButton]="true">
+        </dx-text-box>
+    </div>
+    <div class="col-xs-12 ">
+        <label> {{'password' | translate}}</label>
+        <dx-text-box formControlName="password" mode="password" placeholder="{{'password' | translate}}"
+            [showClearButton]="true" [inputAttr]="{ 'aria-label': 'Password' }" stylingMode="filled"
+            [(mode)]="passwordMode">
+            <dxi-button name="today" location="after" [options]="passwordButton"></dxi-button>
+        </dx-text-box>
+    </div>
+
+    <div class="col-xs-12">
+        <dx-button text="{{'send_otp' | translate}}" type="default" icon="fa fa-key"
+            [elementAttr]="{ id: 'elementId', class: 'col-xs-12' }" (onClick)="onOtpRequest()">
+        </dx-button>
+    </div>
+    <div class="col-xs-12 ">
+        <label>{{ 'otp' | translate }}</label>
+        <dx-number-box formControlName="otp_value" placeholder="OTP" [showClearButton]="true">
+            <dx-validator>
+                <dxi-validation-rule type="required" message="OTP is required"></dxi-validation-rule>
+            </dx-validator>
+        </dx-number-box>
+    </div>
+
+    <div class="col-xs-12 ">
+        <dx-button text="{{'sign_in' | translate}}" type="default" icon="fas fa-sign-in-alt"
+            [elementAttr]="{ id: 'elementId', class: 'col-xs-12' }" (onClick)="onSignIn()">
+        </dx-button>
+    </div>
+
+    <div class="col-lg-8">
+
+        <span class="cursor-pointer mr-3 text-primary"><a href="javascript:void(0)" routerLink="/public/sign-up"
+                class="text-primary"><i class="fas fa-user-plus"></i>
+                {{ 'register'| translate}} </a></span>
+    </div>
+
+
+
+    <div class="col-lg-4">
+
+        <span class="cursor-pointer mr-3 text-primary"><a href="javascript:void(0)" (click)="funcLostPassord()"
+                class="text-primary"><i class="fa fa-key"></i>
+                {{'lost_password' | translate}} </a></span>
+    </div>
+
+
+</form>
+
+
+
+
+<dx-popup class="popup" [width]="funcpopWidth(65)" [height]="funcpopHeight(65)" [showTitle]="true"
+    title="{{'sign_in_guuidelines' | translate}}" [dragEnabled]="false" [hideOnOutsideClick]="false"
+    [(visible)]="on_showsigninguidelines">
+    <div *dxTemplate="let data of 'content'">
+        <dx-scroll-view>
+            <dx-data-grid [allowColumnReordering]="true" class="table row-border hover"
+                (onExporting)="onExporting($event)" [wordWrapEnabled]="true" [dataSource]="systemGuidelines"
+                [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true"
+                [columnHidingEnabled]="false" keyExpr="id">
+
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+                <dxi-column [width]="150" dataField="guideline_step_no"
+                    caption="{{ 'guideline_step_no' | translate }}"></dxi-column>
+                <dxi-column dataField="guideline_label" caption="{{ 'guideline_label' | translate }}"
+                    cellTemplate="guideline_labels">
+                    <div *dxTemplate="let d of 'guideline_labels'">
+                        {{ d.data.guideline_label | translate }}
+                    </div>
+                </dxi-column>
+
+                <dxi-column dataField="guideline_description" caption="{{ 'guideline_description' | translate }}"
+                    cellTemplate="objectives">
+                    <div *dxTemplate="let d of 'objectives'">
+                        {{ d.data.guideline_description | translate }}
+                    </div>
+                </dxi-column>
+            </dx-data-grid>
+
+        </dx-scroll-view>
+        <div class="popup-footer">
+
+            <div class="popup-footer">
+                <button class="btn btn-danger" (click)="on_showsigninguidelines = false"><i class="fa fa-window-close"
+                        aria-hidden="true"></i>
+                    Close</button>
+            </div>
+
+        </div>
+    </div>
+</dx-popup>
+
+<dx-popup class="popup" [width]="funcpopWidth(45)" [height]=350 [showTitle]="true"
+    title="{{'password_recovery' | translate}}" [dragEnabled]="false" [hideOnOutsideClick]="false"
+    [(visible)]="islostpassword">
+    <div *dxTemplate="let data of 'content'">
+        <dx-scroll-view>
+
+            <form role="form" enctype="multipart/form-data" role="form" [formGroup]="forgotPasswordFrm"
+                (ngSubmit)="onFuncRecoverPasswordRequest()">
+
+                <div class="col-lg-12">
+                    <label>{{ 'email_address' | translate }}</label>
+                    <dx-text-box formControlName="email_address" placeholder="{{'enter_email_address' | translate}}"
+                        [showClearButton]="true">
+                    </dx-text-box>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6" style="margin-top: 1rem;">
+                        <dx-button text="{{ 'back_to_login' | translate}}" type="default" icon="fa fa-arrow-left"
+                            [elementAttr]="{ id: 'elementId', class: 'col-lg-12' }"
+                            (onClick)="onFuncreturntoDashboard()">
+                        </dx-button>
+                    </div>
+                    <div class="col-lg-6" style="margin-top: 1rem;">
+                        <dx-button text="{{'request_password_recovery' | translate}}" type="default" icon="fa fa-key"
+                            [elementAttr]="{ id: 'elementId', class: 'col-lg-12' }"
+                            (onClick)="onFuncRecoverPasswordRequest()">
+                        </dx-button>
+                    </div>
+                </div>
+
+            </form>
+        </dx-scroll-view>
+    </div>
+</dx-popup>
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

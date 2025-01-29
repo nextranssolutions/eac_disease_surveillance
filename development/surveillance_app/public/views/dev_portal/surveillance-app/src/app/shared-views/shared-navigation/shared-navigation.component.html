@@ -1,0 +1,55 @@
+
+<ul class="nav nav-list" data-widget="treeview" role="menu" data-accordion="false">
+
+    <li class="active">
+      <a routerLink="./../unified-dashboard">
+        <i class="menu-icon fa fa-tachometer"></i>
+        <span class="menu-text">Return to Main Dashboard</span>
+      </a>
+      <b class="arrow"></b>
+    </li>
+    <li class="" *ngFor="let item of loggedInUserNavigationItems">
+      <a href="javascript:void(0)" *ngIf="item.children && item.children.length > 0" (click)="toggleSubMenu(item)">
+        <i class="menu-icon {{ item.iconsCls }}"></i>
+        {{ getTranslation(item.name) }} <b class="arrow fa fa-angle-down"></b>
+      </a>
+      <a href="javascript:void(0)" (click)="navigationClickEvent(item)"
+        *ngIf="!item.children || item.children.length === 0">
+        <i class="menu-icon {{ item.iconsCls }}"></i>
+        {{ getTranslation(item.name) }}
+      </a>
+      <b class="arrow"></b>
+      <ul class="submenu" [ngStyle]="{'display': item.open ? 'block' : 'none'}">
+        <li class="" *ngFor="let childItem of item.children">
+          <a href="javascript:void(0)"  *ngIf="childItem.children && childItem.children.length > 0"
+            (click)="toggleSubMenu(childItem)">
+            <i class="menu-icon {{ childItem.iconsCls }}"></i>
+            {{ getTranslation(childItem.name) }} <b class="arrow fa fa-angle-down"></b>
+          </a>
+          <a href="javascript:void(0)" (click)="navigationClickEvent(childItem)"
+            *ngIf="!childItem.children || childItem.children.length === 0">
+            <i class="menu-icon {{ childItem.iconsCls }}"></i>
+            {{ getTranslation(childItem.name) }}
+          </a>
+          <b class="arrow"></b>
+          <ul class="submenu" [ngStyle]="{'display': childItem.open ? 'block' : 'none'}">
+  
+            <li class="" *ngFor="let grandChildItem of childItem.children">
+              <a href="javascript:void(0)" (click)="navigationClickEvent(grandChildItem)">
+                <i class="menu-icon {{ grandChildItem.iconsCls }}"></i>
+                {{ getTranslation(grandChildItem.name) }}
+              </a>
+              <b class="arrow"></b>
+            </li>
+          </ul>
+        </li>
+  
+      </ul>
+    </li>
+  
+  </ul>
+  
+  <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+  <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state"
+    data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+  </div>

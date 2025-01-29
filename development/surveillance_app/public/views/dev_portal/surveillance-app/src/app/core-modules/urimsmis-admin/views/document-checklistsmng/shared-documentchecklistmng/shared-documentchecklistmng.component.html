@@ -1,0 +1,287 @@
+<div class="page-header">
+  <h3>
+    {{ parameter_name | translate }}
+    <small>
+      <i class="ace-icon fa fa-angle-double-right"></i>
+    </small>
+  </h3>
+</div><!-- /.page-header -->
+
+
+<dx-button text="{{ 'add' | translate  }} {{ parameter_name | translate }}" type="default" icon="fa fa-save"
+  [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="hasReadpermissions=false; onAddNewProduct()">
+</dx-button>
+
+<dx-data-grid (onCellPrepared)="onCellPrepared($event)" (onExporting)="onExporting($event)"
+  class="col-lg-12 table row-border hover" [wordWrapEnabled]="true" [dataSource]="countriesinfoData"
+  [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="false" keyExpr="id"
+  (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+  <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+    [allowExportSelectedData]="true">
+  </dxo-export>
+  <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+  <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+  <dxo-paging [enabled]="true">
+    <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+      [allowedPageSizes]="[20,50,100]"></dxo-pager>
+  </dxo-paging>
+
+  <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+    [allowSorting]="false" cellTemplate="cellTemplate">
+    <div *dxTemplate="let data of 'cellTemplate'">
+      <dx-menu (onItemClick)="funcActionColClick($event,data)" [items]="actionsMenuItems"></dx-menu>
+    </div>
+  </dxi-column>
+  <dxi-column [groupIndex]="0" *ngIf="table_name == 'chk_checklist_types'" dataField="process_id"
+    caption="{{ 'process' | translate }}">
+    <dxo-lookup [dataSource]="processData" displayExpr="name" valueExpr="id">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column [groupIndex]="0" *ngIf="table_name == 'dms_document_requirements'" dataField="document_type_id"
+    caption="{{ 'document_type' | translate }}">
+    <dxo-lookup [dataSource]="documentTypeData" displayExpr="name" valueExpr="id">
+    </dxo-lookup>
+  </dxi-column>
+
+  <dxi-column [groupIndex]="0" *ngIf="table_name == 'chk_checklist_definations'" dataField="checklist_type_id"
+    caption="{{ 'checklist_type' | translate }}">
+    <dxo-lookup [dataSource]="checklistTypesData" displayExpr="name" valueExpr="id">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column [groupIndex]="0" *ngIf="table_name == 'ntf_email_templates'" dataField="notification_type_id"
+    caption="{{ 'notification_types' | translate }}">
+    <dxo-lookup [dataSource]="notificationTypeData" displayExpr="name" valueExpr="id">
+    </dxo-lookup>
+  </dxi-column>
+
+  <dxi-column [groupIndex]="0" *ngIf="table_name == 'cfg_system_labels' || table_name == 'tra_translation_management'"
+    dataField="system_language_id" caption="{{ 'language' | translate }}">
+    <dxo-lookup [dataSource]="SystemLangaugesData" displayExpr="name" valueExpr="id">
+    </dxo-lookup>
+  </dxi-column>
+
+  <dxi-column dataField="name" caption="{{ 'name' | translate }}"></dxi-column>
+  <dxi-column dataField="description" caption="{{ 'description' | translate }}"></dxi-column>
+  <dxi-column dataField="code" caption="{{ 'code' | translate }}"></dxi-column>
+  <dxi-column *ngIf="table_name == 'tra_translation_management'" dataField="system_label_id"
+    caption="{{ 'default_system_label' | translate }}">
+    <dxo-lookup [dataSource]="systemLabelsData" displayExpr="translation" valueExpr="id">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column *ngIf="table_name == 'cfg_system_labels' || table_name == 'tra_translation_management'"
+    dataField="translation" caption="{{ 'translation' | translate }}"></dxi-column>
+  <dxi-column *ngIf="table_name == 'ntf_email_templates'" dataField="email_template"
+    caption="{{ 'email_templates' | translate }}"></dxi-column>
+
+
+  <dxi-column *ngIf="table_name == 'chk_checklist_definations'" dataField="performancescoring_scale_id"
+    caption="{{ 'performancescoring_scale' | translate }}">
+    <dxo-lookup [dataSource]="performanceScoringScaleData" displayExpr="translation" valueExpr="id">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column *ngIf="table_name == 'chk_checklist_definations'" dataField="marks_allocated"
+    caption="{{ 'marks_allocated' | translate }}">
+
+  </dxi-column>
+
+  <dxi-column [width]="100" dataField="is_enabled" caption="{{ 'enabled_disabledoption' | translate }}"></dxi-column>
+
+  <dxo-selection mode="multiple"></dxo-selection>
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+  <dxo-paging [pageSize]="10"></dxo-paging>
+
+</dx-data-grid>
+
+<!-- </div> -->
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+  [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>
+
+<dx-popup class="popup" [width]="funcpopWidth(65)" [height]="funcpopHeight(65)" [showTitle]="true"
+  title="{{ parameter_name | translate }}" [dragEnabled]="false" [hideOnOutsideClick]="false"
+  [(visible)]="isnewproduct">
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view>
+
+      <form role="form" enctype="multipart/form-data" role="form" [formGroup]="createNewDataFrm"
+        (ngSubmit)="onFuncSaveCountriesData()">
+
+        <div class="row">
+          <div *ngIf="table_name == 'dms_document_requirements'" class="col-lg-6">
+            <label>{{ 'document_type' | translate }}</label>
+            <dx-select-box [dataSource]="documentTypeData" formControlName="document_type_id" valueExpr="id"
+              [searchEnabled]="true" displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'chk_checklist_definations'" class="col-lg-6">
+            <label>{{ 'checklist_type' | translate }}</label>
+            <dx-select-box [dataSource]="checklistTypesData" formControlName="checklist_type_id" valueExpr="id"
+              [searchEnabled]="true" displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'chk_checklist_types'" class="col-lg-6">
+            <label>{{ 'process_name' | translate }}</label>
+            <dx-select-box [dataSource]="processData" formControlName="process_id" valueExpr="id" [searchEnabled]="true"
+              displayExpr="name">
+            </dx-select-box>
+          </div>
+
+          <div *ngIf="table_name == 'cfg_system_labels' || table_name == 'tra_translation_management'" class="col-lg-6">
+            <label>{{ 'language' | translate }}</label>
+            <dx-select-box [dataSource]="SystemLangaugesData" formControlName="system_language_id" valueExpr="id"
+              [searchEnabled]="true" displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'ntf_email_templates'" class="col-lg-6">
+            <label>{{ 'notification_types' | translate }}</label>
+            <dx-select-box [dataSource]="notificationTypeData" formControlName="notification_type_id" valueExpr="id"
+              [searchEnabled]="true" displayExpr="name">
+            </dx-select-box>
+          </div>
+
+
+          <div *ngIf="table_name == 'tra_translation_management'" class="col-lg-6">
+            <label>{{ 'system_labels' | translate }}</label>
+            <dx-select-box [dataSource]="systemLabelsData" formControlName="system_label_id" valueExpr="id"
+              [searchEnabled]="true" displayExpr="translation">
+            </dx-select-box>
+          </div>
+          <div class="col-lg-6">
+
+            <label>{{ 'name' | translate }}</label>
+            <dx-text-box formControlName="name" [showClearButton]="true">
+
+            </dx-text-box>
+          </div>
+
+          <div class="col-lg-6">
+
+            <label>{{ 'code' | translate }}</label>
+            <dx-text-box formControlName="code" [showClearButton]="true">
+
+            </dx-text-box>
+          </div>
+          <div *ngIf="table_name == 'chk_checklist_definations'" class="col-lg-6">
+            <label>{{ 'system_labels' | translate }}</label>
+            <dx-select-box [dataSource]="performanceScoringScaleData" formControlName="performancescoring_scale_id"
+              valueExpr="id" [searchEnabled]="true" displayExpr="name">
+            </dx-select-box>
+          </div>
+          <div *ngIf="table_name == 'chk_checklist_definations'" class="col-lg-6">
+
+            <label>{{ 'marks_allocated' | translate }}</label>
+            <dx-number-box formControlName="marks_allocated" [showClearButton]="true">
+
+            </dx-number-box>
+          </div>
+
+          <div *ngIf="table_name == 'cfg_system_labels' || table_name == 'tra_translation_management'" class="col-lg-6">
+            <label>{{ 'translation' | translate }}</label>
+            <dx-text-area formControlName="translation">
+
+            </dx-text-area>
+          </div>
+
+          <div *ngIf="table_name != 'ntf_email_templates'" class="col-lg-12">
+
+            <label>{{ 'description' | translate }}</label>
+            <dx-text-area formControlName="description">
+
+            </dx-text-area>
+          </div>
+          <div *ngIf="table_name == 'ntf_email_templates'" class="col-lg-12">
+            <label>{{ 'email_templates' | translate }}</label>
+            <dx-html-editor height="150px" formControlName="email_template">
+              <dxo-toolbar [multiline]="isMultiline">
+
+                <dxi-item name="size" [acceptedValues]="['8pt', '10pt', '12pt']"
+                  [options]="{ inputAttr: { 'aria-label': 'Font size' } }"></dxi-item>
+                <dxi-item name="font" [acceptedValues]="[
+                    'Arial',
+                    'Courier New',
+                    'Georgia'
+                  ]" [options]="{ inputAttr: { 'aria-label': 'Font family' } }"></dxi-item>
+
+              </dxo-toolbar>
+
+            </dx-html-editor>
+
+          </div>
+
+          <div class="col-lg-12" *ngIf="table_name == 'cfg_system_languages'">
+
+            <dx-check-box formControlName="is_default_language">
+            </dx-check-box>Is Default System Language
+          </div>
+
+          <input type="hidden" value={{resetcolumns}} formControlName="resetcolumns" />
+
+        </div>
+        <div class="col-lg-6">
+          <label>{{ "is_enabled" | translate }}</label>
+          <dx-select-box [searchEnabled]="true" formControlName="is_enabled" [dataSource]="regStatusOptions"
+            valueExpr="value" displayExpr="text">
+          </dx-select-box>
+        </div>
+
+      </form>
+      <div class="col-lg-8 pull-right">
+
+      </div><br>
+      <div class="col-lg-4 pull-right">
+        <dx-button text="{{ 'save' | translate }} {{ parameter_name | translate }}" type="default" icon="fa fa-save"
+          [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="onFuncSaveCountriesData()">
+        </dx-button>
+
+      </div>
+
+    </dx-scroll-view>
+
+    <div class="popup-footer">
+      <button class="btn btn-danger" (click)="isnewproduct = false"><i class="fa fa-window-close"
+          aria-hidden="true"></i>
+        {{'close' | translate}}</button>
+    </div>
+
+
+  </div>
+</dx-popup>
+
+<dx-popup [visible]="deletePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+  title="{{ 'delete_confirmation_of '+parameter_name | translate }}" (onHidden)="deletePopupVisible = false">
+
+  <div>
+    <p class="confirmation-text">
+      {{ 'are_you_sure_you_want_to_delete' | translate }}
+      "<strong>{{config_record}}</strong>"?
+    </p>
+    <div class="button-container">
+      <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="onDeleteConfigurationsDetails()">
+      </dx-button>
+      <dx-button text="{{ 'no' | translate }}" (onClick)="deletePopupVisible = false">
+      </dx-button>
+    </div>
+  </div>
+
+</dx-popup>
+
+<dx-popup [visible]="enablePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
+  title="{{ enabledisable_tracer | translate }}" (onHidden)="enablePopupVisible = false">
+
+  <div>
+    <p class="confirmation-text">
+      {{ enabledisable_tracerdescription | translate }}
+      "<strong>{{config_record}}</strong>"?
+    </p>
+    <div class="button-container">
+      <dx-button text="{{ 'yes' | translate }}" type="danger" (onClick)="iniateEnableDisableRecord()">
+      </dx-button>
+      <dx-button text="{{ 'no' | translate }}" (onClick)="enablePopupVisible = false">
+      </dx-button>
+    </div>
+  </div>
+
+</dx-popup>

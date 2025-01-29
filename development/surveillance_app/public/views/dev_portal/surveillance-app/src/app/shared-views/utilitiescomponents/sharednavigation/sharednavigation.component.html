@@ -1,0 +1,66 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a routerLink="/" class="brand-link">
+      <div class="logo_container"></div>
+  
+      <span class="brand-text font-weight-light">{{'ecres_solutions' | translate}} </span>
+    </a>
+    <div class="sidebar">
+      
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a routerLink="app-dashboard" class="nav-link active">
+              <i class="fas fa-tachometer-alt"></i>
+              <p class="pl-2">{{'dashboard' | translate}}</p>
+            </a>
+          </li>
+          
+  <ng-container *ngFor="let item of loggedInUserNavigationItems">
+    <li class="nav-item" *ngIf="item.children && item.children.length > 0" [ngClass]="{ 'menu-open': isGroupOpen(item) }">
+      <a href="javascript:void(0)" class="nav-link" (click)="toggleGroup(item)">
+        <i class="{{ item.iconsCls }}"></i>
+        <p class="pl-2">{{ getTranslation(item.name) | translate }} <i class="fas fa-angle-left right" (click)="toggleChildGroup(item)" *ngIf="item.children && item.children.length > 0" (click)="toggleGroup(item)"></i></p>
+      </a>
+      <ul class="nav nav-treeview" [ngStyle]="{ display: isGroupExpanded(item) ? 'block' : 'none' }">
+        <ng-container *ngFor="let childItem of item.children">
+          <li class="nav-item ml-3" *ngIf="childItem.children && childItem.children.length > 0" [ngClass]="{ 'menu-open': isGroupOpen(childItem) }">
+            <a href="javascript:void(0)" class="nav-link" (click)="toggleChildGroup(childItem)">
+              <i class="{{ childItem.iconsCls }}"></i>
+              <p class="pl-2">{{ getTranslation(childItem.name) }} <i (click)="toggleChildGroup(childItem)" class="fas fa-angle-left right" *ngIf="childItem.children && childItem.children.length > 0" (click)="toggleChildGroup(childItem)"></i></p>
+            </a>
+            <ul class="nav nav-treeview" [ngStyle]="{ display: isGroupExpanded(childItem) ? 'block' : 'none' }">
+              <ng-container *ngFor="let grandChildItem of childItem.children">
+                <li class="nav-item ml-3">
+                  <a [routerLink]="grandChildItem.routerLink" class="nav-link">
+                    <i class="{{ grandChildItem.iconsCls }}"></i>
+                    <p class="pl-2">{{ getTranslation(grandChildItem.name) }}</p>
+                  </a>         
+                </li>
+              </ng-container>
+            </ul>
+          </li>
+          <li class="nav-item ml-3" *ngIf="!childItem.children || childItem.children.length === 0">
+            <a [routerLink]="childItem.routerLink" class="nav-link">
+              <i class="{{ childItem.iconsCls }}"></i>
+              <p class="pl-2">{{ getTranslation(childItem.name) }}</p>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </li>
+    <li class="nav-item" *ngIf="!item.children || item.children.length === 0">
+      <a [routerLink]="item.routerLink" class="nav-link">
+        <i class="{{ item.iconsCls }}"></i>
+        <p class="pl-2">{{ getTranslation(item.name) }}</p>
+      </a>
+    </li>
+  </ng-container>
+  
+
+  
+        </ul>
+      </nav>
+  
+      
+    </div>
+  </aside>

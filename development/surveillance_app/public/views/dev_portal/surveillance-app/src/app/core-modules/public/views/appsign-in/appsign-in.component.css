@@ -1,0 +1,53 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  border: 1px solid #08832b;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+}
+
+.div-eacmargin{
+  margin-top: 10px !important;
+}
+
+.sign-in-container {
+    border-radius: 8px;
+    
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.sign-in-form h4 {
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.sign-in-form label {
+    font-weight: 500;
+}
+
+.sign-in-form .dx-text-box,
+.sign-in-form .dx-button,
+.sign-in-form .dx-number-box {
+    margin-bottom: 15px;
+}
+
+.sign-in-form .dx-button {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.sign-in-form .language-dropdown {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+}

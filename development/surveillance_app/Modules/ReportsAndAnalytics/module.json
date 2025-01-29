@@ -1,0 +1,11 @@
+{
+    "name": "ReportsAndAnalytics",
+    "alias": "reportsandanalytics",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ReportsAndAnalytics\\App\\Providers\\ReportsAndAnalyticsServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,138 @@
+<div class="content-wrapper">
+   
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h5 class="m-0">{{dashboard_title | translate}}</h5>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/">{{'Home' | translate}}</a></li>
+                        <li class="breadcrumb-item active">{{dashboard_title | translate}}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+            
+            <dx-tab-panel id="tabPanel" [loop]="false" [animationEnabled]="false" [swipeEnabled]="false"
+            [(selectedIndex)]="selectedTabIndex" (onTitleClick)="funcInfoTabClick($event)"
+            [iconPosition]="iconPosition" [tabsPosition]="tabsPosition">
+
+            <dxi-item title="{{'knowledgecenter_information ' | translate }}" icon="taskinprogress">
+
+                <div class="div_maincontent">
+                    <div class="div_content">
+                        <form [formGroup]="knowledgeCenterForm">
+                            <div class="row">
+                                <fieldset class="row">
+                                    <legend class="contentfieldset">{{'knowledgecenter_information' | translate }} </legend>
+                            
+                                    <div class="col-lg-12">
+                                        <label>{{'title' | translate}}</label>
+                                        <dx-text-box formControlName="title" placeholder="{{'title' | translate}}"
+                                            [showClearButton]="true"></dx-text-box>
+                                    </div>
+                                    
+                                    <div class="col-lg-6">
+                                        <label>{{'knowledge_link' | translate}}</label>
+                                        <dx-text-box formControlName="knowledge_link" placeholder="{{'knowledge_link' | translate}}"
+                                            [showClearButton]="true"></dx-text-box>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <label>{{'category' | translate}}</label>
+                                        <dx-text-box formControlName="category" placeholder="{{'category' | translate}}"
+                                            [showClearButton]="true"></dx-text-box>
+                                    </div>
+
+
+                                    <div class="col-lg-12">
+                                        <label>{{ 'description' | translate }}</label>
+                                        <dx-html-editor formControlName="description" [height]="200" [valueType]="'html'">
+                                            <dxo-toolbar>
+                                                <dxi-item name="undo"></dxi-item>
+                                                <dxi-item name="redo"></dxi-item>
+                                                <dxi-item name="separator"></dxi-item>
+                                                <dxi-item name="size"
+                                                    [acceptedValues]="['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt']"
+                                                    [options]="{ inputAttr: { 'aria-label': 'Font size' } }"></dxi-item>
+                                                <dxi-item name="font" [acceptedValues]="[
+                                                'Arial', 
+                                                'Courier New',
+                                                'Georgia',
+                                                'Impact',
+                                                'Lucida Console',
+                                                'Tahoma',
+                                                'Times New Roman',
+                                                'Verdana'
+                                              ]" [options]="{ inputAttr: { 'aria-label': 'Font family' } }"></dxi-item>
+                                                <dxi-item name="separator"></dxi-item>
+                                            </dxo-toolbar>
+                                        </dx-html-editor>
+                                    </div>
+
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="div_contentfooter">
+                    <dx-button text="{{'return_to_dashboard' | translate }}" type="default" icon="fas fa-tachometer-alt"
+                        (onClick)="onFuncReturntoDashboard()">
+                    </dx-button>
+                    <dx-button text="{{'save' | translate }} {{'knowledgecenter_information' | translate }}" type="default"
+                        icon="fa fa-save" (onClick)="onFuncSaveKnowledgeCenterData()">
+                    </dx-button>
+                    <dx-button text="{{ 'knowledgecenter_uploads' | translate }}" type="default" icon="fa fa-arrow-right"
+                        (onClick)="onNextNavigationItems(1)">
+                    </dx-button>
+                </div>
+            </dxi-item>
+
+            <dxi-item title="{{'knowledgecenter_uploads' | translate }}" icon="map">
+                <div class="div_maincontent">
+                    <div class="div_maincontent">
+                        <div class="div_content">
+                            <app-application-documentuploads [application_code]="application_code"
+                                [process_id]="process_id"
+                                [document_type_id]="document_type_id"></app-application-documentuploads>
+                        </div>
+                    </div>
+                  
+                </div>
+                <div class="div_contentfooter">
+                    <dx-button text="{{ 'knowledgecenter_information' | translate }}" type="default" icon="fa fa-arrow-left"
+                        (onClick)="onNextNavigationItems(0)">
+                    </dx-button>
+
+                    <dx-button text="{{'on_submitknowledgecenterinfo' | translate }}" type="default" icon="fa fa-save"
+                        (onClick)="onFuncSubmitKnowledgeCenterData()">
+                    </dx-button>
+                </div>
+            </dxi-item>
+        </dx-tab-panel>
+        </div>
+    </section>
+
+    <dx-popup [visible]="isShowAppProcessSubmission" [width]="funcpopWidth(40)" [height]="funcpopHeight(55)"
+        [showTitle]="true" title="{{ 'submission_process' | translate }}"
+        (onHidden)="isShowAppProcessSubmission = false">
+        <dx-scroll-view>
+            <div class="row">
+                <app-app-processsubmission [appworkflow_status_id]="appworkflow_status_id"
+                    [dashboard_url]="dashboard_url" [application_code]="application_code"
+                    [process_id]="process_id"></app-app-processsubmission>
+            </div>
+        </dx-scroll-view>
+    </dx-popup>
+
+    <dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }"
+        [(visible)]="loadingVisible" [showIndicator]="true" [showPane]="true" [shading]="true"
+        [message]="spinnerMessage" [hideOnOutsideClick]="false">
+    </dx-load-panel>

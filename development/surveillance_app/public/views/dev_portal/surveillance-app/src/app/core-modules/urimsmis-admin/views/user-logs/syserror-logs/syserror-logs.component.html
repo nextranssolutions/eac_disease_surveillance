@@ -1,0 +1,55 @@
+
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h5 class="m-0">{{ parameter_name | translate }}</h5>
+
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/admin-ecres/app-dashboard">{{ 'home' | translate }}</a></li>
+            <li class="breadcrumb-item active">{{ parameter_name | translate }}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="content">
+
+    <div class="container-fluid">
+
+
+      <dx-data-grid  [allowColumnReordering]="true" (onExporting)="onExporting($event)" (onCellPrepared)="onCellPrepared($event)"
+        class="table row-border hover" [wordWrapEnabled]="true" [dataSource]="AuditTrailData"
+        [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="false"
+        keyExpr="id" 
+        (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+
+        <dxo-export [enabled]="true" fileName="{{ 'records' | translate }}" [formats]="['pdf','xlsx']"
+          [allowExportSelectedData]="true">
+        </dxo-export>
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+        <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+        <dxo-paging [enabled]="true">
+          <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+            [allowedPageSizes]="[50,100]"></dxo-pager>
+        </dxo-paging>
+
+
+        <dxi-column  dataField="error" caption="{{ 'error' | translate }}"></dxi-column>
+        <dxi-column  dataField="resolution_comment" caption="{{ 'resolution_comment' | translate }}"></dxi-column>
+        <dxi-column  dataField="error_origin" caption="{{ 'error_origin' | translate }}"></dxi-column>
+
+        <dxo-selection mode="multiple"></dxo-selection>
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-paging [pageSize]="15"></dxo-paging>
+    </dx-data-grid>
+  </div>
+</section>
+
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+[showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

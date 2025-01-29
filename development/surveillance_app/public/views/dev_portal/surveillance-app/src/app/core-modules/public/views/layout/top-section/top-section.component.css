@@ -1,0 +1,145 @@
+.div-marginglogo {
+  margin: 5px 0px !important
+}
+
+.language-link {
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+}
+
+.white-bg {
+  background-color: #fff !important;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+.clstopsystem_title{
+  font-style: italic !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+}
+.text-primary {
+  color: white !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+
+
+/* Background styling */
+.bg-dark {
+  background: linear-gradient(90deg, rgb(47, 89, 119) 0%, rgba(155, 196, 217, 1) 75%, rgb(77, 151, 182) 100%) !important;
+}
+
+/* Margin adjustments */
+.div-marginglogo {
+  margin: 1rem !important;
+  padding-left: 1px;
+}
+
+/* Language link styling */
+.language-link {
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.language-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+/* General styling */
+.white-bg {
+  background-color: #fff !important;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.text-primary {
+  color: white !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Top bar styling */
+.top-bar {
+  padding: 10px 15px;
+}
+
+/* Language option styling */
+.language-option {
+  padding: 1px 1px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.7rem;
+  transition: background-color 0.3s ease;
+  color: #fff;
+}
+
+.language-option:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Active language styling */
+.active-language {
+  color: #17a2b8;
+  /* Highlighted color for active language */
+  font-weight: bold;
+}
+
+/* User info styling */
+.user-info .logged-in-text,
+.user-info .username,
+.user-info .dashboard-link,
+.user-info .logout-link {
+  font-size: 0.9rem;
+  color: #000 !important;
+  /* Light gray text color */
+}
+
+.dashboard-link,
+.logout-link {
+  transition: color 0.3s ease;
+}
+
+.dashboard-link:hover,
+.logout-link:hover {
+  color: #17a2b8;
+  /* Hover color */
+}
+
+.fa-arrow-right,
+.fa-sign-out {
+  margin-right: 4px;
+}
+
+/* Second panel styling */
+.topsecond-panel {
+  /* padding: 1rem; */
+  background-color: #fff !important;
+}
+
+/* System title styling */
+
+.logo_container {
+  /* Add specific logo styles here */
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .system-title {
+    padding-left: 20px;
+    font-size: 20px;
+    text-align: left;
+  }
+}

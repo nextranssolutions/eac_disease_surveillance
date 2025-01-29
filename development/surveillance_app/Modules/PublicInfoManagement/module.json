@@ -1,0 +1,11 @@
+{
+    "name": "PublicInfoManagement",
+    "alias": "publicinfomanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PublicInfoManagement\\App\\Providers\\PublicInfoManagementServiceProvider"
+    ],
+    "files": []
+}

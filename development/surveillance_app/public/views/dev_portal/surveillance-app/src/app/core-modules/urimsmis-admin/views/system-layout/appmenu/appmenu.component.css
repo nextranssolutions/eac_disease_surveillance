@@ -1,0 +1,114 @@
+nav {
+  overflow-x: hidden;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11px !important;
+  font-weight: normal !important;
+}
+
+/* / Remove list styles from the nav / */
+.nav-sidebar,
+.nav-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar .navbar-nav .nav-link {
+  margin-right: 35px;
+  padding: 25px 0;
+  color: var(--dark);
+  font-size: 12px  !important;
+  font-weight: 300 !important;
+  outline: none;
+}
+
+.nav-sidebar > li > ul > li:hover {
+  background-color: initial !important;
+}
+
+/* / Style the group and item links / */
+.nav-link {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* / Rotate icon styles / */
+.rotate-icon,
+.arrow-icon {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease
+}
+
+.rotate-icon {
+  transform: rotate(-90deg);
+}
+
+/* / Style for content items / */
+.nav-item span {
+  color: #ffffff;
+  margin-left: 50px;
+}
+
+
+/* / Brand styles / */
+.brand-image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.brand-text {
+  margin-left: 10px;
+  font-size: 1.2rem;
+}
+
+/* / Style for hover effect on nested links / */
+.nav-treeview .nav-link:hover {
+  background-color: #427DC1 !important;
+  color: #fefefc !important;
+}
+
+.nav-item a{
+  line-height: 2.5  !important;
+  display: block;
+ 
+  text-shadow: none;
+  letter-spacing: .02em;
+  text-decoration: none;
+  color: #fff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.nav-item i{
+  line-height: 2.5  !important;
+}
+/* / Style for active state on main-sidebar links / */
+.nav-sidebar .nav-link:active,
+.nav-sidebar .nav-link:focus {
+  background-color: #427dc1 !important;
+  color: #f2ec1a;
+}
+
+.nav > ul > li > a {
+  font-size: 10px !important;
+  color: #fff;
+  display: block;
+  padding: 12px 12px 15px;
+  border-left: 2px solid transparent;
+}
+.nav-pills .nav-link{
+  border-radius: 0px !important;
+}
+.main-sidebar .sidebar-dark-primary .elevation-4{
+  margin: 0 !important;width: 250px !important;
+  padding: 0 !important;
+}
+.sidebar{
+  margin: 0 !important;
+  width: 250px;
+  padding: 0 !important;
+}
+

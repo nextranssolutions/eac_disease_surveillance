@@ -1,0 +1,80 @@
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h5 class="m-0">{{'system_audit_trail' | translate}}</h5>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">{{'home' | translate}}</a></li>
+                        <li class="breadcrumb-item active"> {{'system_audit_trail' | translate}}
+                        <li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+
+            <dx-data-grid  [allowColumnReordering]="true" class="table row-border hover" (onExporting)="onExporting($event)" [dataSource]="AuditTrailData" [remoteOperations]='true'
+                [showBorders]="true" (onSelectionChanged)="selectionChanged($event)"
+                [wordWrapEnabled]="true" [allowColumnResizing]="true" [columnHidingEnabled]="false" keyExpr="id" (onToolbarPreparing)="onAdvanceProductRegistrySearch($event)">
+               
+
+                <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+                <dxo-search-panel [visible]="true">
+                </dxo-search-panel>
+                <dxo-paging [enabled]="true">
+                </dxo-paging>
+                <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+                    [allowedPageSizes]="[50,100]">
+                </dxo-pager>
+                <dxo-export [enabled]="true" [fileName]="'records' | translate" [formats]="['pdf', 'xlsx']"
+                [allowExportSelectedData]="true">
+            </dxo-export>
+
+                <dxo-selection mode="multiple"></dxo-selection>
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+                <dxi-column dataField="id" caption="ID" [visible]="false"></dxi-column>
+
+
+
+                <dxi-column [groupIndex]="0" dataField="table_name" caption="{{'table_name' | translate}}"></dxi-column>
+                <dxi-column  dataField="table_name" caption="{{'table_name' | translate}}"></dxi-column>
+
+                <dxi-column [groupIndex]="1" dataField="table_action" caption="{{'table_action' | translate}}"></dxi-column>
+
+                <dxi-column dataField="prev_tabledata" caption="{{'prev_table_data' | translate}}"></dxi-column>
+
+                <dxi-column dataField="current_tabledata" caption="{{'current_table_data' | translate}}"></dxi-column>
+
+                <dxi-column dataField="ip_address"
+                    caption="{{'ip_address' | translate}}"></dxi-column>
+
+
+                <dxo-paging [pageSize]="15"></dxo-paging>
+
+                <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+                <div *dxTemplate="let data of 'detail'">
+
+                    <dx-tab-panel [swipeEnabled]="false" [showNavButtons]="true" [animationEnabled]="true">
+
+                        <!-- previous table data -->
+                        <dxi-item title="Audit Trail Data" template="previoustabledataTab">
+                            <div>
+                                <dx-data-grid  [allowColumnReordering]="true" class="table row-border hover" (onExporting)="onExporting($event)" [dataSource]="[auditTrailDtaDetails]">
+                                </dx-data-grid>
+                            </div>
+                        </dxi-item>
+
+                        
+                    </dx-tab-panel>
+                </div>
+            </dx-data-grid>
+
+        </div>
+    </section>
+</div>

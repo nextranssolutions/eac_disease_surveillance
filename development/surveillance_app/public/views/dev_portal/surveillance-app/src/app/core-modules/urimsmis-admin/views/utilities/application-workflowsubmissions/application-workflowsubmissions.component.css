@@ -1,0 +1,12 @@
+.margin-right{
+    border-right: 1px solid #ccc !important;
+    
+}
+
+.btn-margin{
+    margin: 5px !important;
+}
+
+.div-padding{
+    padding: 5px !important;
+}

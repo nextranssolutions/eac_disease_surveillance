@@ -1,0 +1,11 @@
+{
+    "name": "DashboardManagement",
+    "alias": "dashboardmanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\DashboardManagement\\App\\Providers\\DashboardManagementServiceProvider"
+    ],
+    "files": []
+}
