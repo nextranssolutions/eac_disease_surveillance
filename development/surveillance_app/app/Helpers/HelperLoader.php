@@ -718,6 +718,12 @@ if (!function_exists('getGenericResponsewithRercId')) {
         return UtilityHelper::getGenericResponsewithRercId($resp);
     }
 }
+if (!function_exists('getHasPartnerStatedefination')) {
+    function getHasPartnerStatedefination($loggedInUserId)
+    {
+        return UtilityHelper::getHasPartnerStatedefination($loggedInUserId);
+    }
+}
 if (!function_exists('generateAppReferenceNo')) {
     function generateAppReferenceNo($process_id, $table_name, $user_id)
     {

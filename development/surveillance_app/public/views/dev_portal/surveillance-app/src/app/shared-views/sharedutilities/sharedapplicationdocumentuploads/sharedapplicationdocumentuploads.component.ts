@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { AppSettings } from 'src/app/app-settings';
 import { DocumentManagementService } from 'src/app/core-services/document-management/document-management.service';
 import { EncryptionService } from 'src/app/core-services/encryption/encryption.service';
-import { ExpressionOfInterestManagementService } from 'src/app/core-services/expresion-of-interest-management/expression-of-interest-management.service';
 import { ReportsService } from 'src/app/core-services/reports/reports.service';
 
 @Component({
@@ -75,7 +74,6 @@ export class SharedapplicationdocumentuploadsComponent implements OnChanges {
   constructor(
     private documentService: DocumentManagementService,
     public toastr: ToastrService,
-    public eoiService: ExpressionOfInterestManagementService,
     private reportingAnalytics: ReportsService,
     private encryptionService: EncryptionService
   ) {
@@ -185,28 +183,7 @@ export class SharedapplicationdocumentuploadsComponent implements OnChanges {
 
         });
   }
-
-  onLoadEoiSupportingDocumentsConfig(eoi_id = 0) {
-    this.spinnerShow('Loading EOI documents...........');
-    var data_submit = {
-      'table_name': 'eoi_documents_tosubmit',
-      'eoi_id': eoi_id
-    }
-    this.eoiService.onLoadExpressionOfInterestDataUrl(data_submit, 'onLoadEoiSupportingDocuments')
-      .subscribe(
-        data => {
-          this.data_record = data;
-          if (this.data_record.success) {
-            this.decryptedPayload=this.encryptionService.OnDecryptData(this.data_record.data);
-            this.supportingDocumentsData = this.decryptedPayload;
-          }
-          this.spinnerHide();
-        },
-        error => {
-
-          this.spinnerHide();
-        });
-  }
+  
   onLoaddocumentTypeRequirements() {
     var data_submit = {
       'table_name': 'dms_document_requirements',

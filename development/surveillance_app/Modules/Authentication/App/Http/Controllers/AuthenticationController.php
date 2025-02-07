@@ -63,7 +63,7 @@ class AuthenticationController extends Controller
             if ($user->is_verified === false) {
                 return response()->json(['success' => false, 'message' => 'The account has not been verified, verify the account via your email and proceed'], 401);
             }
-
+/*
             if ($otp_value) {
                 $encryptedEmail = $email_address;
 
@@ -87,7 +87,7 @@ class AuthenticationController extends Controller
                     'message' => 'OTP is required.',
                 ], 200);
             }
-
+*/
             $account_type_id = $user->account_type_id;
             $user_group_id = $user->user_group_id;
             $userId = $user->id;
@@ -95,9 +95,9 @@ class AuthenticationController extends Controller
             $country_id = $user->country_id;
             $other_names = $user->other_names;
             
-            $country_data = getTableData('par_countries', array('id' => $country_of_origin_id));
+            $country_data = getTableData('cfg_countries', array('id' => $country_of_origin_id));
             if (!$country_data) {
-                $country_data = getTableData('par_countries', [
+                $country_data = getTableData('cfg_countries', [
                     'id' => $country_id
                 ]);
             }
@@ -134,7 +134,6 @@ class AuthenticationController extends Controller
                 'country_of_origin' => $country_of_origin_id,
                 'countryName' => $countryName,
                 'partner_state_id' => $user->partner_state_id,
-                
                 'other_names' => aes_decrypt($other_names),
                 'token_type' => 'Bearer',
                 'authorisation' => [

@@ -1,21 +1,46 @@
-<nav class="navbar nav-bgimage navbar-expand-lg navbar-dark bg-dark text-light p-0 m-0">
-  <div class="container">
-    <a class="navbar-brand" href="#"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+
+
+<nav class="navbar nav-bgimage navbar-expand-lg navbar-dark bg-dark text-light p-0 m-0">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class=" collapse navbar-collapse" id="navbarNavDropdown">
     
     <ul class="navbar-nav ms-auto">
-      <li class="nav-item">
-        <a routerLink="/public/index" class="nav-item nav-link mx-2 active">
-          <i class="fa fa-home" ></i>{{ 'system_overview' | translate }}</a>
+      <li class="nav-item dropdown" *ngFor="let item of navigation_items">
+        <a class="nav-link dropdown-toggle" href="javascript:void(0)" *ngIf="item.children && item.children.length > 0"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="menu-icon {{ item.iconsCls }}"></i> {{ getTranslation(item.name) }}
+        </a>
+        <a class="nav-link" [routerLink]="item.routerlink" (click)="navigationClickEvent(item)"
+          *ngIf="!item.children || item.children.length === 0">
+          <i class="menu-icon {{ item.iconsCls }}"></i> {{ getTranslation(item.name) }}
+        </a>
+        <ul class="dropdown-menu" *ngIf="item.children">
+          <li class="nav-item dropdown" *ngFor="let childItem of item.children">
+
+            <a class="dropdown-item" [routerLink]="childItem.routerlink" (click)="navigationClickEvent(childItem)">
+              <i class="menu-icon {{ childItem.iconsCls }}"></i> {{ getTranslation(childItem.name) }}
+            </a>
+
+          </li>
+        </ul>
       </li>
-		
     </ul>
+    <form class="navbar-form navbar-left" action="/action_page.php">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+      </div>
+      
+    </form>
     
-    </div>
   </div>
 </nav>
+
+
+<ng-http-loader spinner="sk-wave" [filteredMethods]="['POST', 'PuT','GET']"></ng-http-loader>
+<ng-http-loader [filteredMethods]="['gEt', 'POST', 'PuT']"></ng-http-loader>

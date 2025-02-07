@@ -1,0 +1,60 @@
+<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+    <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+
+    </div>
+
+    <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+
+    </div>
+</div><!-- /.sidebar-shortcuts -->
+
+<ul class="nav nav-list" data-widget="treeview" role="menu" data-accordion="false">
+
+    <li class="active">
+        <a routerLink="./../unified-dashboard">
+            <i class="menu-icon fa fa-bars"></i>
+            <span class="menu-text">Return to Main Dashboard</span>
+        </a>
+        <b class="arrow"></b>
+    </li>
+    <li class="hover" *ngFor="let item of loggedInUserNavigationItems">
+        <a href="javascript:void(0)" *ngIf="item.children && item.children.length > 0" (click)="toggleSubMenu(item)">
+            <i class="menu-icon {{ item.iconsCls }}"></i>
+            <span class="menu-text">{{ getTranslation(item.name) }}</span> <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <a href="javascript:void(0)" (click)="navigationClickEvent(item)"
+            *ngIf="!item.children || item.children.length === 0">
+            <i class="menu-icon {{ item.iconsCls }}"></i>
+            <span class="menu-text">{{ getTranslation(item.name) }}</span>
+        </a>
+        <b class="arrow"></b>
+        <ul class="submenu" [ngStyle]="{'display': item.open ? 'block' : 'none'}">
+            <li class="hover" *ngFor="let childItem of item.children">
+                <a href="javascript:void(0)" class="dropdown-toggle" *ngIf="childItem.children && childItem.children.length > 0"
+                    (click)="toggleSubMenu(childItem)">
+                    <i class="menu-icon {{ childItem.iconsCls }}"></i>
+                    <span class="menu-text">{{ getTranslation(childItem.name) }}</span> <b class="arrow fa fa-angle-down"></b>
+                </a>
+                <a href="javascript:void(0)" (click)="navigationClickEvent(childItem)"
+                    *ngIf="!childItem.children || childItem.children.length === 0">
+                    <i class="menu-icon {{ childItem.iconsCls }}"></i>
+                    <span class="menu-text">{{ getTranslation(childItem.name) }}</span>
+                </a>
+                <b class="arrow"></b>
+                
+                <ul class="submenu" [ngStyle]="{'display': childItem.open ? 'block' : 'none'}">
+
+                    <li class="hover" *ngFor="let grandChildItem of childItem.children">
+                        <a href="javascript:void(0)" (click)="navigationClickEvent(grandChildItem)">
+                            <i class="menu-icon {{ grandChildItem.iconsCls }}"></i>
+                            <span class="menu-text">{{ getTranslation(grandChildItem.name) }}</span>
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </li>
+
+</ul>

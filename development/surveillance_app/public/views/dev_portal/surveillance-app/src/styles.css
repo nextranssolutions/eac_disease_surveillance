@@ -5,8 +5,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 html, body {
-  font-family: 'Nunito Sans',sans-serif;
+  font-family: "Open Sans" !important;
+}
+.infobox-small {
+  width: 33%  !important;
+  height: 80px !important;
+  text-align: left  !important;
+  padding-bottom: 5px  !important;
+  padding-top: 15px  !important;
+}
+.infobox-small > .infobox-data {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  max-width: 202px !important;
+  font-size: 15px !important;
+  border-left: 1px solid #fff !important;
+  min-width: 0;
+}
+.infobox-small > .infobox-chart, .infobox-small > .infobox-icon, .infobox-small > .infobox-progress {
+  display: inline-block;
+  width: 80px !important;
   
+  font-size: 15px !important;
+  margin: 0 15px !important;
+  height: 42px;
+  line-height: 38px;
+  vertical-align: middle;
+}
+.fullpage-tab .dx-tabs-wrapper {
+  height: 60px !important; /* Adjust tab height */
+}
+/* For custom grid class */
+.custom-datagrid .dx-header-row {
+  background-color: #48A6DB;
+  
+  color: white !important;
+  font-size: 14px !important;
+}
+
+
+.custom-tab-header {
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px 5px 0 0;
 }
 .widget-box {
   margin: 0px !important;
@@ -142,13 +186,11 @@ dx-datagrid dx-gridbase-container {
 
 }
 .system-title {
-  font-size: 28px;
-  font-weight: 230 !important;
+  font-size: 28px !important;
+  font-weight: bold !important;
   font-family: 'Nunito Sans',sans-serif !important;
   /* color: #f8f9fa;  */
   color: #333;
-  text-align: center;
-  padding-left: 70px;
 }
 
 .row {
@@ -190,15 +232,22 @@ dx-datagrid dx-gridbase-container {
 .footerfirst-panel{
   min-height: 10vh !important;
 }
-
+.app-container{
+  min-height: 60vh !important;
+  padding:  5px 0 !important;
+  background-color: #fff !important;
+}
 .page-content{
    min-height: 90vh !important;
 }
 
 .div-home{
-  min-height: 40vh !important;
+  min-height: 65vh !important;
 }
 
+.div-homemap{
+  min-height: 60vh !important;
+}
 .carousel-inner {
   height: 65vh !important;
 }
@@ -259,10 +308,22 @@ dx-datagrid dx-gridbase-container {
 
 }
 
-.dx-widget {
+.dx-textbox .dx-texteditor-input, 
+.dx-datebox .dx-texteditor-input, 
+.dx-numberbox .dx-texteditor-input {
   border-radius: 0px !important;
-  margin: 0px !important;
+  margin-top: 7px !important;
+  margin-bottom: 7px !important;
 }
+
+/* Optional: Ensure the entire input container aligns properly */
+.dx-textbox, .dx-datebox, .dx-numberbox {
+  border-radius: 0px !important;
+  margin-top: 7px !important;
+  margin-bottom: 7px !important;
+}
+
+
 .dx-button {
   border-radius: 0px !important;
   /* margin: 1px !important; */
@@ -304,6 +365,28 @@ input[type=email] {
      Adjust the width as needed
   */
   display: inline-block;
+}
+
+.page-content {
+  background-color: #FFF;
+  position: relative;
+  margin: 0;
+  padding: 0 !important;
+    padding-top: 0px !important;
+}
+.div_mainappcontent{
+  min-height: 58vh !important;
+  /* Adjust this value based on your needs */
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important;
+  margin: 0px !important;
+}
+.ng-wizard-theme-arrows .step-content {
+  padding: 0 1px !important;
+  border: 0 solid #d4d4d4;
+  background-color: #fff;
+  text-align: left;
 }
 .div_maincontent {
   height: 68vh;
@@ -531,12 +614,13 @@ form .ng-valid {
 }
 
 .logo_container {
-  background: url("../src/assets/dist/img/nsl_logo1.png") no-repeat left top;
+  background: url("../src/assets/dist/img/eac_logo.png") no-repeat left top;
   background-size: contain;
-  /* or cover, based on your preference */
-  width: 200px;
+  /* or cover, based on your preference  width: 200px;*/
+   align-items: center;
   /* Adjust this value */
-  height: 60px;
+  height: 70px !important;
+  margin: 7px !important;
   background-color: #fff !important;
 
   /* Adjust this value */

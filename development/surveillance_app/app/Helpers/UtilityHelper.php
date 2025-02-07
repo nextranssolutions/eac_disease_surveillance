@@ -579,9 +579,9 @@ class UtilityHelper
     public static function returnContextMenuActions($process_id)
     {
         //return records
-        $records = DB::table('wf_workflowstatuses_actions as t1')
-            ->select('t2.*', 't1.workflow_status_id as appworkflow_status_id', 't2.name as text', 't2.iconCls as icon')
-            ->join('wf_statuses_actions as t2', 't1.statuses_action_id', '=', 't2.id')
+        $records = DB::table('wkf_workflowstatuses_actions as t1')
+            ->select('t2.*', 't1.workflow_status_id as appworkflow_status_id', 't2.name as text', 't2.iconcls as icon')
+            ->join('wkf_statuses_actions as t2', 't1.statuses_action_id', '=', 't2.id')
             ->where('t1.process_id', $process_id)
             ->get();
         return convertStdClassObjToArray($records);
@@ -589,9 +589,9 @@ class UtilityHelper
     public static function returnContxtMenuActions()
     {
         //return records
-        $records = DB::table('wf_workflowstatuses_actions as t1')
-            ->select('t2.*', 't1.workflow_status_id as appworkflow_status_id', 't2.name as text', 't2.iconCls as icon')
-            ->join('wf_statuses_actions as t2', 't1.statuses_action_id', '=', 't2.id')
+        $records = DB::table('wkf_workflowstatuses_actions as t1')
+            ->select('t2.*', 't1.workflow_status_id as appworkflow_status_id', 't2.name as text', 't2.iconcls as icon')
+            ->join('wkf_statuses_actions as t2', 't1.statuses_action_id', '=', 't2.id')
             ->get();
         return convertStdClassObjToArray($records);
     }
@@ -642,9 +642,9 @@ class UtilityHelper
     {
         $app_reference_no = '';
         //generate the reference no 
-        $process_data = getSingleRecord('wf_processes', array('id'=>$process_id));
+        $process_data = getSingleRecord('wkf_processes', array('id'=>$process_id));
         $process_code = $process_data->code;
-        $system_code = env('SYS_ACRONYM', 'ECRES');
+        $system_code = env('SYS_ACRONYM', 'EAC');
 
         $year_code = date('Y');
         $where = array('process_id' => $process_id, 'year_code' => $year_code);
@@ -737,11 +737,12 @@ class UtilityHelper
     public static function getInitialWorkflowStatusId($process_id){
         $record = null;
         if(validateIsNumeric($process_id)){
-                $record = DB::table('wf_workflow_transitions as t1')
-                            ->join('wf_workflow_stages as t2', 't1.prevworkflow_stage_id', 't2.id')
-                            ->leftJoin('wf_workflow_definition as t3', 't1.workflow_id', '=', 't3.id')
+                $record = DB::table('wkf_workflows as t4')
+                            ->join('wkf_workflow_transitions as t1', 't4.id', 't1.id')
+                            ->join('wkf_workflow_stages as t2', 't1.stage_id', 't2.id')
+                            ->leftJoin('wkf_processes as t3', 't1.workflow_id', '=', 't3.id')
                             ->select('t1.*', 't1.workflow_status_id as appworkflow_status_id')
-                            ->where(array('t3.process_id'=>$process_id, 't2.stage_status_id'=>1))
+                            ->where(array('t3.id'=>$process_id, 't2.stage_status'=>1))
                             ->first();
                 
         }
@@ -751,21 +752,22 @@ class UtilityHelper
     public  static function initiateInitialProcessSubmission($table_name, $application_code, $process_id, $user_id)
     {
         $res = '';
-        $rec = DB::table('wf_workflow_transitions as t1')
-            ->leftJoin('wf_workflow_stages as t2', 't1.prevworkflow_stage_id', '=', 't2.id')
-            ->leftJoin('wf_workflow_definition as t3', 't1.workflow_id', '=', 't3.id')
-            ->select('t3.process_id', 't1.prevworkflow_stage_id', 'nextworkflow_stage_id', 'workflow_status_id')
-            ->where(array('t3.process_id' => $process_id, 't2.stage_status_id' => 1))
-            ->first();
-
-        if ($rec) {
+        
+            $record = DB::table('wkf_workflows as t4')
+                            ->join('wkf_workflow_transitions as t1', 't4.id', 't1.id')
+                            ->join('wkf_workflow_stages as t2', 't1.stage_id', 't2.id')
+                            ->leftJoin('wkf_processes as t3', 't1.workflow_id', '=', 't3.id')
+                            ->select('t1.*', 't1.application_status_id as appworkflow_status_id', 't1.stage_id', 'nextstage_id', 't1.application_status_id')
+                            ->where(array('t3.id'=>$process_id, 't2.stage_status'=>1))
+                            ->first();
+        if ($record) {
 
             $submission_data = array(
                 'application_code' => $application_code,
-                'current_stage_id' => $rec->prevworkflow_stage_id,
-                'previous_stage_id' => $rec->prevworkflow_stage_id,
-                'appworkflow_status_id' => $rec->workflow_status_id,
-                'process_id' => $rec->process_id,
+                'current_stage_id' => $record->prevworkflow_stage_id,
+                'previous_stage_id' => $record->prevworkflow_stage_id,
+                'appworkflow_status_id' => $record->workflow_status_id,
+                'process_id' => $record->process_id,
                 'previous_user_id' => 0,
                 'current_user_id' => $user_id,
                 'isdone' => 0,
@@ -810,4 +812,37 @@ class UtilityHelper
 
 
     }
+
+    static function getHasPartnerStatedefination($loggedInUserId) {
+        // Initialize the response data
+        $has_partnerstate_defination = false;
+        $partner_state_id = 0;
+    
+        // Check if the logged-in user ID is valid
+        if ($loggedInUserId !== null && is_numeric($loggedInUserId)) {
+            // Perform the database query to get the user's partner state information
+            $user_rec = DB::table('usr_users_information as t1')
+                ->join('sys_account_types as t2', 't2.id', 't1.account_type_id')
+                ->select('t1.partner_state_id')
+                ->where('t1.id', $loggedInUserId)
+                ->where('has_partnerstate_defination', true)
+                ->first();
+            
+            // Check if a record was found
+            if ($user_rec) {
+                $has_partnerstate_defination = true;
+                $partner_state_id = $user_rec->partner_state_id;
+            }
+        }
+    
+        // Prepare the response data
+        $data = array(
+            'has_partnerstate_defination' => $has_partnerstate_defination, 
+            'partner_state_id' => $partner_state_id
+        );
+    
+        // Return the response data
+        return $data;
+    }
+    
 }

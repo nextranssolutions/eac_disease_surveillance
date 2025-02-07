@@ -17,7 +17,7 @@
       <a routerLink="index.html" class="navbar-brand">
         <small>
           <i class="fa fa-leaf"></i>
-          uRIMS MIS </small>
+          {{'system_title' | translate}} </small>
       </a>
     </div>
     <div class="navbar-buttons navbar-header pull-right dropdown" role="navigation">
@@ -38,152 +38,9 @@
         <li class="nav-item d-none d-sm-inline-block">
           <a routerLink="/" class="nav-link">{{ 'home' | translate }}</a>
         </li>
-        <li class="grey dropdown-modal">
-          <a data-toggle="dropdown" class="dropdown-toggle"   data-bs-toggle="dropdown" href="#">
-            <i class="ace-icon fa fa-tasks"></i>
-            <span class="badge badge-grey">4</span>
-          </a>
+        
 
-          <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-            <li class="dropdown-header">
-              <i class="ace-icon fa fa-check"></i>
-              4 Tasks to complete
-            </li>
-
-            <li class="dropdown-content">
-              <ul class="dropdown-menu dropdown-navbar">
-                <li>
-                  <a routerLink="">
-                    <div class="clearfix">
-                      <span class="pull-left">Software Update</span>
-                      <span class="pull-right">65%</span>
-                    </div>
-
-                    <div class="progress progress-mini">
-                      <div style="width:65%" class="progress-bar"></div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown-footer">
-              <a routerLink="">
-                See tasks with details
-                <i class="ace-icon fa fa-arrow-right"></i>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="purple dropdown-modal">
-          <a data-toggle="dropdown" class="dropdown-toggle"  data-bs-toggle="dropdown" href="#">
-            <i class="ace-icon fa fa-bell icon-animated-bell"></i>
-            <span class="badge badge-important">8</span>
-          </a>
-
-          <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
-            <li class="dropdown-header">
-              <i class="ace-icon fa fa-exclamation-triangle"></i>
-              8 Notifications
-            </li>
-
-            <li class="dropdown-content">
-              <ul class="dropdown-menu dropdown-navbar navbar-pink">
-                <li>
-                  <a routerLink="">
-                    <div class="clearfix">
-                      <span class="pull-left">
-                        <i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
-                        New Comments
-                      </span>
-                      <span class="pull-right badge badge-info">+12</span>
-                    </div>
-                  </a>
-                </li>
-
-                <li>
-                  <a routerLink="">
-                    <i class="btn btn-xs btn-primary fa fa-user"></i>
-                    Bob just signed up as an editor ...
-                  </a>
-                </li>
-
-                <li>
-                  <a routerLink="">
-                    <div class="clearfix">
-                      <span class="pull-left">
-                        <i class="btn btn-xs no-hover btn-success fa fa-shopping-cart"></i>
-                        New Orders
-                      </span>
-                      <span class="pull-right badge badge-success">+8</span>
-                    </div>
-                  </a>
-                </li>
-
-                <li>
-                  <a routerLink="">
-                    <div class="clearfix">
-                      <span class="pull-left">
-                        <i class="btn btn-xs no-hover btn-info fa fa-twitter"></i>
-                        Followers
-                      </span>
-                      <span class="pull-right badge badge-info">+11</span>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <li class="dropdown-footer">
-              <a routerLink="">
-                   See all notifications
-                <i class="ace-icon fa fa-arrow-right"></i>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="green dropdown-modal">
-          <a  data-toggle="dropdown" class="dropdown-toggle" data-bs-toggle="dropdown" href="#">
-            <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-            <span class="badge badge-success">5</span>
-          </a>
-
-          <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-            <li class="dropdown-header">
-              <i class="ace-icon fa fa-envelope-o"></i>
-              5 Messages
-            </li>
-
-            <li class="dropdown-content">
-              <ul class="dropdown-menu dropdown-navbar">
-                <li>
-                  <a routerLink="" class="clearfix">
-                    <img src="assets/images/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-                    <span class="msg-body">
-                      <span class="msg-title">
-                        <span class="blue">Alex:</span>
-                        Ciao sociis natoque penatibus et auctor ...
-                      </span>
-
-                      <span class="msg-time">
-                        <i class="ace-icon fa fa-clock-o"></i>
-                        <span>a moment ago</span>
-                      </span>
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <li class="dropdown-footer">
-              <a routerLink="inbox.html">
-                See all messages
-                <i class="ace-icon fa fa-arrow-right"></i>
-              </a>
-            </li>
-          </ul>
-        </li>
+        
 
         <li class="light-blue dropdown-modal">
           <a  data-toggle="dropdown" class="dropdown-toggle"  data-bs-toggle="dropdown" href="#">

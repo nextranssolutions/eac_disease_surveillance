@@ -1,0 +1,241 @@
+<dx-data-grid [allowColumnReordering]="true" class=" custom-datagrid" [wordWrapEnabled]="true"
+    (onExporting)="onExporting($event)" (onCellPrepared)="onPandemicCellPrepared($event)"
+    [dataSource]="pandemicDiseasesInformationData" [remoteOperations]="true" [showBorders]="true"
+    [allowColumnResizing]="true" [columnHidingEnabled]="false" keyExpr="id"
+    (onToolbarPreparing)="onAdvancePandemicRegistrySearch($event)">
+
+    <dxo-export [enabled]="true" fileName="{{ 'records' | translate }}" [formats]="['pdf','xlsx']"
+        [allowExportSelectedData]="true"></dxo-export>
+    <dxo-search-panel [visible]="false"></dxo-search-panel>
+
+    <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+
+    <dxo-paging [enabled]="true" [pageSize]="100">
+        <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+            [allowedPageSizes]="[50,100]"></dxo-pager>
+    </dxo-paging>
+    <dxi-column [width]="50" dataField="is_pandemic_reported" caption="{{'is_pandemic_reported' | translate }}">
+    </dxi-column>
+    <dxi-column [width]="100" caption="{{ 'action' | translate }}" name="command-editing" [allowFiltering]="false"
+        [allowSorting]="false" cellTemplate="cellTemplate">
+        <div *dxTemplate="let data of 'cellTemplate'">
+            <dx-menu (onItemClick)="dataActionStockClick($event,data)" [items]="dataMenuItems"></dx-menu>
+        </div>
+    </dxi-column>
+
+    <dxi-column [groupIndex]="0" dataField="pandemic_prioritydisease" caption="{{ 'priority_disease' | translate }}">
+    </dxi-column>
+    <dxi-column caption="{{ 'disease_information' | translate }}">
+        <dxi-column dataField="source_of_infection" caption="{{ 'suspected_sourceof_infection' | translate }}">
+
+        </dxi-column>
+        <dxi-column dataField="is_vaccinatable_disease" caption="{{ 'is_vaccinatable_disease' | translate }}">
+
+        </dxi-column>
+
+    </dxi-column>
+
+    <dxi-column caption="{{ 'geographic_location' | translate }}">
+        <dxi-column dataField="geographic_location" caption="{{ 'geographic_location' | translate }}"></dxi-column>
+        <dxi-column width="80" dataField="" caption="{{ 'add_geographic_location' | translate }}"></dxi-column>
+    </dxi-column>
+    <dxi-column caption="{{ 'timelines' | translate }}">
+        <dxi-column dataType="date" format="yyyy-MM-dd" dataField="date_of_confirmation"
+            caption="{{ 'date_of_outbreakconfirmation' | translate }}">
+
+
+        </dxi-column>
+        <dxi-column dataType="date" format="yyyy-MM-dd" dataField="date_of_lastcase_reported"
+            caption="{{ 'date_of_lastcase_reported' | translate }}">
+
+
+        </dxi-column>
+        <dxi-column dataType="date" format="yyyy-MM-dd" dataField="expected_enddate"
+            caption="{{ 'challenges' | translate }}">
+        </dxi-column>
+
+    </dxi-column>
+    <dxi-column caption="{{ 'statistics' | translate }}">
+        <dxi-column dataField="suspected_cases" caption="{{ 'suspected_cases' | translate }}">
+        </dxi-column>
+        <dxi-column dataField="testsundertaken" caption="{{ 'testsundertaken' | translate }}">
+        </dxi-column>
+        <dxi-column dataField="confirmed_cases" caption="{{ 'confirmed_cases' | translate }}">
+        </dxi-column>
+        <dxi-column dataField="recovered_cases" caption="{{ 'recovered_cases' | translate }}">
+        </dxi-column>
+        <dxi-column dataField="no_ofdeaths" caption="{{ 'no_ofdeaths' | translate }}">
+        </dxi-column>
+        <dxi-column dataField="vaccine_dosesadministered" caption="{{ 'vaccine_dosesadministered' | translate }}">
+        </dxi-column>
+    </dxi-column>
+    <dxi-column caption="{{ 'interventions_challenges' | translate }}">
+        <dxi-column dataField="intenventions" caption="{{ 'intenventions' | translate }}">
+        </dxi-column>
+        <dxi-column dataField="challenges" caption="{{ 'challenges' | translate }}">
+        </dxi-column>
+        <dxi-column dataField="other_comments" caption="{{ 'other_comments' | translate }}">
+        </dxi-column>
+
+
+    </dxi-column>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+</dx-data-grid>
+
+
+
+
+<dx-popup [visible]="is_adddiseasepandemicDetailsWin" [width]="funcpopWidth(90)" [height]="funcpopHeight(80)"
+    [showTitle]="true" title="{{'disease_outbreak' | translate}}" (onHidden)="is_adddiseasepandemicDetailsWin = false">
+    <dx-scroll-view>
+        <form [formGroup]="pandemicDiseasesInfoFrm">
+            <div class="row">
+                <fieldset class="col-lg-12">
+                    <legend>{{ "geographic_location" | translate }}</legend>
+                    <div class="col-lg-3">
+                        <label>{{ "partner_state" | translate }}</label>
+                        <dx-select-box [dataSource]="PartnerStateData" [readOnly]="true"
+                            (onSelectionChanged)="onPartnerStateChange($event)" formControlName="partner_state_id"
+                            valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-3">
+                        <label>{{ "province_region_county" | translate }}</label>
+                        <dx-select-box [dataSource]="provinceInformData" [readOnly]="is_readonlyfield"
+                            (onSelectionChanged)="onProvinceSelectionChange($event)" formControlName="province_id"
+                            valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-3">
+                        <label>{{ "district_name" | translate }}</label>
+                        <dx-select-box [dataSource]="districtInfoData" [readOnly]="is_readonlyfield"
+                            formControlName="district_id" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-3">
+                        <label>{{ "exact_geographical_location" | translate }}</label>
+                        <dx-number-box formControlName="geographic_location" [readOnly]="is_readonlyfield">
+                        </dx-number-box>
+                    </div>
+                </fieldset>
+                <fieldset class="col-lg-12">
+                    <legend>{{ "priority_disease_information" | translate }}</legend>
+                    <div class="col-lg-3">
+                        <label>{{ "priority_disease" | translate }}</label>
+                        <dx-select-box [dataSource]="pandemicPrioritydiseasesData" [readOnly]="true"
+                            formControlName="pandemic_prioritydisease_id" valueExpr="id" [searchEnabled]="true"
+                            displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label>{{ "suspected_sourceof_infection" | translate }}</label>
+                        <dx-select-box [dataSource]="suspectedSourceofInfectionData" [readOnly]="is_readonlyfield"
+                            formControlName="source_of_infection_id" valueExpr="id" [searchEnabled]="true"
+                            displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+
+                    <div class="col-lg-3">
+                        <label>{{ "date_of_outbreakconfirmation" | translate }}</label>
+                        <dx-date-box [readOnly]="is_readonlyfield" formControlName="date_of_confirmation">
+                        </dx-date-box>
+                    </div>
+                    <div class="col-lg-3">
+                        <label>{{ "date_of_lastcase_reported" | translate }}</label>
+                        <dx-date-box formControlName="date_of_lastcase_reported" [readOnly]="is_readonlyfield">
+                        </dx-date-box>
+                    </div>
+                    <div class="col-lg-3">
+                        <label>{{ "expected_enddate" | translate }}</label>
+                        <dx-date-box formControlName="expected_enddate" [readOnly]="is_readonlyfield">
+                        </dx-date-box>
+                    </div>
+                    <div class="col-lg-3">
+                        <label>{{ "is_vaccinatable_disease" | translate }}</label>
+                        <dx-select-box [dataSource]="confirmedData" [readOnly]="is_readonlyfield"
+                            formControlName="is_vaccinatable_disease" valueExpr="id" [searchEnabled]="true"
+                            displayExpr="name">
+                        </dx-select-box>
+                    </div>
+
+                </fieldset>
+
+                <fieldset class="col-lg-12">
+                    <legend>{{ "statistics" | translate }}</legend>
+
+                    <div class="col-lg-2">
+                        <label>{{ "suspected_cases" | translate }}</label>
+                        <dx-number-box formControlName="suspected_cases" [readOnly]="is_readonlyfield">
+                        </dx-number-box>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>{{ "testsundertaken" | translate }}</label>
+                        <dx-number-box formControlName="testsundertaken" [readOnly]="is_readonlyfield">
+                        </dx-number-box>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>{{ "confirmed_cases" | translate }}</label>
+                        <dx-number-box formControlName="confirmed_cases" [readOnly]="is_readonlyfield">
+                        </dx-number-box>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>{{ "recovered_cases" | translate }}</label>
+                        <dx-number-box formControlName="recovered_cases" [readOnly]="is_readonlyfield">
+                        </dx-number-box>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>{{ "no_ofdeaths" | translate }}</label>
+                        <dx-number-box formControlName="no_ofdeaths" [readOnly]="is_readonlyfield">
+                        </dx-number-box>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>{{ "vaccine_dosesadministered" | translate }}</label>
+                        <dx-number-box formControlName="vaccine_dosesadministered" [readOnly]="is_readonlyfield">
+                        </dx-number-box>
+                    </div>
+
+                </fieldset>
+                <fieldset class="col-lg-12">
+                    <legend>{{ "intenventions" | translate }}</legend>
+
+                    <div class="col-lg-3">
+                        <label>{{ "intenventions" | translate }}</label>
+                        <dx-select-box [dataSource]="pandemicIntenventionData" [readOnly]="is_readonlyfield"
+                            formControlName="pandemic_intenvention_id" valueExpr="id" [searchEnabled]="true"
+                            displayExpr="name">
+                        </dx-select-box>
+                    </div>
+                    <div class="col-lg-12">
+                        <label>{{ "other_comments" | translate }}</label>
+                        <dx-text-area formControlName="other_comments" [readOnly]="is_readonlyfield">
+                        </dx-text-area>
+                    </div>
+
+
+                    <div class="col-lg-12">
+                        <label>{{ "challenges" | translate }}</label>
+                        <dx-text-area formControlName="challenges" [readOnly]="is_readonlyfield">
+                        </dx-text-area>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+        <div class="row margin-top">
+            <!-- <div class="col-lg-8"></div> -->
+            <div class="col-lg-2 pull-right ">
+                <dx-button text="{{ 'save'  | translate }} {{ parameter_name | translate }}" type="default"
+                    icon="fa fa-save" (onClick)="onFuncSaveDiseasePandemicDetails()">
+                </dx-button>
+            </div>
+
+        </div>
+    </dx-scroll-view>
+    <div class="popup-footer">
+        <button class="btn btn-danger" (click)="is_adddiseasepandemicDetailsWin = false"><i class="fa fa-window-close"
+                aria-hidden="true"></i>
+            {{'close' | translate}}</button>
+    </div>
+
+</dx-popup>

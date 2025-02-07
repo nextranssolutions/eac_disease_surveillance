@@ -1,0 +1,55 @@
+<form class="row" [formGroup]="ReportingInfoForm">
+    <div class="col-lg-6  margin-top5">
+        <label>{{ "partner_state" | translate }}</label>
+        <dx-select-box [dataSource]="PartnerStateData" [readOnly]="is_readonlyfield"
+             formControlName="partner_state_id" valueExpr="id"
+            [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-6  margin-top5">
+        <label>{{ "reporting_institution" | translate }}</label>
+        <dx-select-box [dataSource]="reportingInstitutionData" [readOnly]="is_readonlyfield"
+            formControlName="reporting_institution_id" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+
+    <div class="col-lg-6  margin-top5">
+        <label>{{ "source_ofinformation_id" | translate }}</label>
+        <dx-select-box [dataSource]="PandemicSourceofInformationData" formControlName="source_ofinformation_id"
+            valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-6  margin-top5">
+        <label>{{ "pandemicreporting_type" | translate }}</label>
+        <dx-select-box [dataSource]="PandemicReportingTypeData" formControlName="pandemicreporting_type_id"
+            valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-6  margin-top5">
+        <label>{{ "reporting_period" | translate }}</label>
+        <dx-select-box [dataSource]="ReportingPeriodTypeData" formControlName="reporting_period_type_id" valueExpr="id"
+            [searchEnabled]="true" displayExpr="name">
+        </dx-select-box>
+    </div>
+    <div class="col-lg-3  margin-top5">
+        <label>{{ "reporting_period_from" | translate }}</label>
+        <dx-date-box formControlName="reporting_period_from">
+        </dx-date-box>
+    </div>
+    <div class="col-lg-3  margin-top5">
+        <label>{{ "reporting_period_to" | translate }}</label>
+        <dx-date-box formControlName="reporting_period_to">
+        </dx-date-box>
+    </div>
+
+    <div class="col-lg-12">
+        <label>{{ "reporting_sourceofpandemic_remarks" | translate }}</label>
+        <dx-text-area formControlName="description" [readOnly]="is_readonlyfield"></dx-text-area>
+    </div>
+
+</form>
+
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

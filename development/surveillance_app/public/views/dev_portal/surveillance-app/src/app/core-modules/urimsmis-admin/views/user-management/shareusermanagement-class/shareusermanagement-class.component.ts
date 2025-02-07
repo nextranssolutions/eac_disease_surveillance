@@ -10,7 +10,6 @@ import { UtilityService } from 'src/app/core-services/utilities/utility.service'
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
 import { ReportsService } from 'src/app/core-services/reports/reports.service';
-import { ExpressionOfInterestManagementService } from 'src/app/core-services/expresion-of-interest-management/expression-of-interest-management.service';
 @Component({
   selector: 'app-shareusermanagement-class',
   templateUrl: './shareusermanagement-class.component.html',
@@ -117,8 +116,7 @@ export class ShareusermanagementClassComponent {
     public modalService: NgxSmartModalService,
     private userManagementService: UserManagementService,
     private userservice:UserManagementService,
-    private reportingAnalytics: ReportsService,
-    private eoiService: ExpressionOfInterestManagementService
+    private reportingAnalytics: ReportsService
   ) {
     
     // this.table_name = 'exp_expertsprofile_information';

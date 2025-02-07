@@ -1,0 +1,151 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="./admin-mis">Home</a>
+            </li>
+            <li class="active">{{'initiate_diseaseoutbreak_reporting' | translate}}</li>
+
+            <li>
+
+
+            </li>
+        </ul><!-- /.breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="row">
+            <div class="col-lg-6">
+                <label style="font-weight: bold;margin: 5px; font-style:italics;font-size: 12px;font-style: italics; color: #000;">
+                    {{'reporting_ref_number' | translate}} : {{app_reference_no}} </label>
+            </div>
+            <div class="col-lg-6 ">
+                <dx-button text=" {{ 'viewpreviousreports' | translate }}" type="default" icon="fa fa-file"
+                    [elementAttr]="{ id: 'elementId', class: 'pull-right' }" (onClick)="funcViewmyPreviousReports()">
+                </dx-button>
+            </div>
+        </div>
+        <ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
+            <ng-wizard-step [title]="'step_one' | translate"
+                [description]="'pandemic_reporting_information' | translate" [canEnter]="isValidTypeBoolean">
+
+                <div class="container_div">
+                    <div class="scrollable-content">
+                        <!-- Your content goes here -->
+                        <div class="div_mainappcontent">
+                            <div class="div_content margin-top5">
+                                <app-pandemic-reporting-info [ReportingInfoForm]="ReportingInfoForm"
+                                    [is_readonlyfield]="is_readonlyfield"></app-pandemic-reporting-info>
+                                <div *ngIf="appworkflow_status_id !=1" class="row">
+                                    <h5>{{ 'reporting_submission_comments' | translate }}</h5>
+                                    <dx-data-grid [allowColumnReordering]="true" class="table row-border hover"
+                                        [wordWrapEnabled]="true" [dataSource]="pandemicInformationSubmissionCommetns"
+                                        [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true"
+                                        [columnHidingEnabled]="false" keyExpr="id"
+                                        (onToolbarPreparing)="onAdvancePandemicRegistrySearch($event)">
+                                        <!-- Search panel next to export button -->
+                                        <dxo-export [enabled]="true" fileName="Record"
+                                            [allowExportSelectedData]="true"></dxo-export>
+                                        <dxo-search-panel [visible]="false"></dxo-search-panel>
+
+                                        <!-- Other grid configurations -->
+                                        <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+
+                                        <dxo-paging [enabled]="true" [pageSize]="100">
+                                            <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)"
+                                                [showPageSizeSelector]="true" [allowedPageSizes]="[50,100]"></dxo-pager>
+                                        </dxo-paging>
+
+                                        <dxi-column dataField="previous_stage"
+                                            caption="{{'previous_process' | translate}}">
+
+                                        </dxi-column>
+                                        <dxi-column dataField="appworkflow_status"
+                                            caption="{{ 'nextreporting_status' | translate }}">
+                                        </dxi-column>
+                                        <dxi-column dataField="previous_user"
+                                            caption="{{ 'processed_by' | translate }}">
+                                        </dxi-column>
+                                        <dxi-column dataField="date_received"
+                                            caption="{{ 'date_submitted' | translate }}">
+                                        </dxi-column>
+                                        <dxi-column dataField="remarks" caption="{{ 'remarks' | translate }}">
+                                        </dxi-column>
+
+                                    </dx-data-grid>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add more content to see the scroll effect -->
+                    </div>
+                </div>
+                <div class="div_footer button-container  col-lg-12">
+
+                    <dx-button text="{{ 'return_to_dashboard' | translate }}" type="default" icon="fa fa-arrow-left"
+                        (onClick)="funcRedirectToRequest()">
+                    </dx-button>
+                    <dx-button *ngIf="appworkflow_status_id ==1"
+                        text="{{ 'save'  | translate }} {{ parameter_name | translate }}" type="default"
+                        icon="fa fa-save" (onClick)="onSavePandemicReportingInformation()">
+                    </dx-button>
+                    <dx-button text="{{'next_step' | translate}}" iconPosition="right" type="success"
+                        icon="fa fa-angle-double-right" [elementAttr]="{ id: 'elementId', }" (onClick)="nextStep()">
+                    </dx-button>
+                </div>
+
+            </ng-wizard-step>
+            <ng-wizard-step [title]="'step_two' | translate" [description]="'disease-outbreaks-information'| translate"
+                [canEnter]="isValidTypeBoolean">
+                <div class="container_div">
+
+                    <!-- Your content goes here -->
+                    <div class="div_mainappcontent">
+                        <div class="div_content1 margin-top5">
+                            <app-disease-outbreaks-info [ReportingInfoForm]="ReportingInfoForm"
+                                [pandemic_reportinginformation_id]="pandemic_reportinginformation_id"></app-disease-outbreaks-info>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="div_footer button-container float-right float-sm-right col-lg-12">
+                    <dx-button text="{{'previous_step' | translate}}" iconPosition="left" type="danger"
+                        icon="fa fa-angle-double-left" [elementAttr]="{ id: 'elementId', }" (onClick)="previousStep()">
+                    </dx-button>
+                    <dx-button text="{{'next_step' | translate}}" iconPosition="right" type="success"
+                        icon="fa fa-angle-double-right" [elementAttr]="{ id: 'elementId', }" (onClick)="nextStep()">
+                    </dx-button>
+
+                </div>
+            </ng-wizard-step>
+            <ng-wizard-step [title]="'final'| translate" [description]="'completion_&_submission'| translate"
+                [canEnter]="isValidTypeBoolean">
+                <div class="container_div">
+                    <div class="scrollable-content">
+                        <!-- Your content goes here -->
+                        <div>Step 1 content</div>
+                        <!-- Add more content to see the scroll effect -->
+                    </div>
+                </div>
+                <div class="div_footer button-container">
+                    <dx-button text="{{'previous_step' | translate}}" iconPosition="left" type="success"
+                        icon="fa fa-angle-double-left" [elementAttr]="{ id: 'elementId', }" (onClick)="previousStep()">
+                    </dx-button>
+                    <dx-button text="{{'submission' | translate}}" iconPosition="right" type="success"
+                        icon="fa fa-angle-double-right" [elementAttr]="{ id: 'elementId', }" (onClick)="nextStep()">
+                    </dx-button>
+
+                </div>
+            </ng-wizard-step>
+        </ng-wizard>
+
+    </div>
+</div>
+
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

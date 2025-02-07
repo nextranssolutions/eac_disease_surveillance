@@ -255,8 +255,6 @@ export class AppsignInComponent {
             let access_token = this.auth_response.access_token;
             let isLoggedIn = this.auth_response.isLoggedIn;
             if (access_token != '' && isLoggedIn) {
-              
-
               this.toastr.success(this.message, 'Success!');
               // this.isLoggedIn = this.auth_response.isLoggedIn;
               this.dashboard_name = this.auth_response.dashboard_name;
@@ -284,7 +282,7 @@ export class AppsignInComponent {
               localStorage.setItem('dashboard_link', this.auth_response.dashboard_link);
               localStorage.setItem('dashboard_name', this.auth_response.dashboard_name);
 
-              
+            
               this.isLoggedIn = true;
 
               this.router.navigate([this.dashboard_link]);

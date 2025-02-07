@@ -1,3 +1,10 @@
+.app-container {
+  position: relative;
+  min-height: 80vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
 .div-marginglogo {
   margin: 5px 0px !important
 }
@@ -26,6 +33,7 @@
 
 .cursor-pointer {
   cursor: pointer;
+
 }
 
 
@@ -70,22 +78,34 @@
 .cursor-pointer {
   cursor: pointer;
 }
+/* Custom styles for the dropdown */
+.dropdown-menu {
+  margin-left:-50px !important;
+  width: 160% !important;
+  padding: 5px !important;
+}
+.sign-in-form {
+  display: none;
+  padding: 15px;
+}
+.dropdown-item:focus + .sign-in-form, 
+.dropdown-item:active + .sign-in-form {
+  display: block;
+}
 
 /* Top bar styling */
 .top-bar {
   padding: 10px 15px;
 }
-
 /* Language option styling */
 .language-option {
   padding: 1px 1px;
   border-radius: 4px;
   font-weight: 500;
-  font-size: 0.7rem;
+  font-size: 1.5rem !important;
   transition: background-color 0.3s ease;
   color: #fff;
 }
-
 .language-option:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
@@ -102,7 +122,7 @@
 .user-info .username,
 .user-info .dashboard-link,
 .user-info .logout-link {
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   color: #000 !important;
   /* Light gray text color */
 }
@@ -127,6 +147,9 @@
 .topsecond-panel {
   /* padding: 1rem; */
   background-color: #fff !important;
+  padding-top:10px !important;
+  
+  padding-bottom:10px !important;
 }
 
 /* System title styling */

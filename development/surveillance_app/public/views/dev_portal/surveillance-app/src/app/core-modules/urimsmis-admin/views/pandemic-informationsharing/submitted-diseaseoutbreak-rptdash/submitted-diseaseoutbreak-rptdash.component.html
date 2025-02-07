@@ -1,0 +1,188 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="./admin-mis">Home</a>
+            </li>
+            <li class="active">{{'submitted_diseaseoutbreak_reports' | translate}}</li>
+        </ul><!-- /.breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="col-xs-12 ">
+
+            <dx-data-grid [allowColumnReordering]="true" [allowColumnReordering]="true" class="custom-datagrid hover"
+                (onExporting)="onExporting($event)" (onCellPrepared)="onCellPrepared($event)"
+                (onSelectionChanged)="selectionChanged($event)" [wordWrapEnabled]="true"
+                [dataSource]="diseaseOutbreakReportingInfo" [remoteOperations]="true" [showBorders]="true"
+                [allowColumnResizing]="true" [columnHidingEnabled]="false" keyExpr="id"
+                (onToolbarPreparing)="onAdvancePandemicRegistrySearch($event)">
+
+                <dxo-pager [showInfo]="true" infoText="{{ 'Page #{0}. Total: {1} ({2} items)' | translate }}"
+                    [showPageSizeSelector]="true" [allowedPageSizes]="[50,100]">
+                </dxo-pager>
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+
+                <dxo-export [enabled]="true" fileName="{{ 'records' | translate }}" [formats]="['pdf','xlsx']"
+                    [allowExportSelectedData]="true">
+                </dxo-export>
+                <dxo-grouping #expand [autoExpandAll]="true"></dxo-grouping>
+                <dxo-selection mode="multiple"></dxo-selection>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxi-column [width]=80 caption="{{'action' | translate }}" name="command-editing"
+                    [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplateSingle">
+                    <div *dxTemplate="let d of 'cellTemplateSingle'">
+                        <!--<dx-button text="{{getTranslation(d.data.action_name)}}"
+                                (click)="singleApplicationActionColClick(d.data)" type="default"
+                                icon="{{d.data.iconCls}}">
+                            </dx-button>
+                        -->
+                    </div>
+                </dxi-column>
+
+                <dxi-column [width]="50" dataField="appworkflow_status_id"
+                    caption="{{'reporting_status' | translate}}">
+                    <dxo-lookup [dataSource]="reportingStatuseData" displayExpr="name" valueExpr="id">
+                    </dxo-lookup>
+                </dxi-column>
+                <dxi-column dataField="app_reference_no" caption="{{ 'reporting_reference' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="reporting_year" caption="{{ 'reporting_year' | translate }}">
+                </dxi-column>
+
+                <dxi-column dataField="pandemicreporting_type" caption="{{ 'pandemicreporting_type' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="source_ofinformation" caption="{{ 'source_ofinformation' | translate }}">
+                </dxi-column>
+
+                <dxi-column dataType="date" 
+                format="yyyy-MM-dd" dataField="reporting_period_from" caption="{{ 'reporting_period_from' | translate }}">
+                </dxi-column>
+                <dxi-column dataType="date" 
+                format="yyyy-MM-dd" dataField="reporting_period_to" caption="{{ 'reporting_period_to' | translate }}">
+                </dxi-column>
+                <dxi-column dataType="date" 
+                format="yyyy-MM-dd" dataField="reported_on" caption="{{ 'date_of_reporting' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="noofreported_pandemics" caption="{{ 'noofreported_pandemics' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="submission_remarks" caption="{{ 'submission_remarks' | translate }}">
+                </dxi-column>
+                <dxi-column [width]=80 caption="{{ 'view' | translate }}" name="command-editing"
+                    [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplateprod">
+                    <div *dxTemplate="let d of 'cellTemplateprod'">
+                        <a href="javascript:void(0)"
+                            (click)="onviewReportedpandemics(d.data.pandemic_reportinginformation_id)">
+                            {{'viewreportedcases' | translate}}</a>
+                    </div>
+                </dxi-column>
+                <dxi-column [groupIndex]="0" dataField="country_name" caption="{{ 'partner_state' | translate }}">
+                </dxi-column>
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+                <dxo-paging [pageSize]="100"></dxo-paging>
+            </dx-data-grid>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<dx-popup [visible]="is_onviewreported_diseases" [width]="funcpopWidth(95)" [height]="funcpopHeight(85)"
+    [showTitle]="true" title="{{'reported_pandemicdiseases' | translate }} "
+    (onHidden)="is_onviewreported_diseases = false">
+    <dx-scroll-view>
+        <dx-data-grid [allowColumnReordering]="true" (onToolbarPreparing)="onAdvancePandemicRegistrySearch($event)"
+        class=" custom-datagrid" [wordWrapEnabled]="true" [dataSource]="pandemicDiseasesInformationData"
+            (onExporting)="onExporting($event)" [remoteOperations]="true" [showBorders]="true"
+            [allowColumnResizing]="true" [columnHidingEnabled]="false" keyExpr="id">
+            <!-- Search panel next to export button -->
+            <dxo-export [enabled]="true" fileName="{{ 'records' | translate }}" [formats]="['pdf','xlsx']"
+                [allowExportSelectedData]="true"></dxo-export>
+            <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+            <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
+            <dxo-paging [enabled]="true" [pageSize]="100">
+                <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
+                    [allowedPageSizes]="[50,100]"></dxo-pager>
+            </dxo-paging>
+
+            <dxi-column caption="{{ 'disease_information' | translate }}">
+
+                <dxi-column dataField="pandemic_prioritydisease" caption="{{ 'priority_disease' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="source_of_infection" caption="{{ 'suspected_sourceof_infection' | translate }}">
+
+                </dxi-column>
+                <dxi-column dataField="is_vaccinatable_disease" caption="{{ 'is_vaccinatable_disease' | translate }}">
+
+                </dxi-column>
+
+            </dxi-column>
+
+            <dxi-column caption="{{ 'geographic_location' | translate }}">
+                <dxi-column dataField="geographic_location"
+                    caption="{{ 'geographic_location' | translate }}"></dxi-column>
+                <dxi-column width="80" dataField="" caption="{{ 'add_geographic_location' | translate }}"></dxi-column>
+            </dxi-column>
+            <dxi-column caption="{{ 'timelines' | translate }}">
+                <dxi-column dataType="date" 
+                format="yyyy-MM-dd" dataField="date_of_confirmation" caption="{{ 'date_of_outbreakconfirmation' | translate }}">
+
+
+                </dxi-column>
+                <dxi-column dataField="date_of_lastcase_reported"
+                dataType="date" 
+                format="yyyy-MM-dd" caption="{{ 'date_of_lastcase_reported' | translate }}">
+
+
+                </dxi-column>
+                <dxi-column dataType="date" 
+                format="yyyy-MM-dd" dataField="expected_enddate" caption="{{ 'challenges' | translate }}">
+                </dxi-column>
+
+            </dxi-column>
+            <dxi-column caption="{{ 'statistics' | translate }}">
+                <dxi-column dataField="suspected_cases" caption="{{ 'suspected_cases' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="testsundertaken" caption="{{ 'testsundertaken' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="confirmed_cases" caption="{{ 'confirmed_cases' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="recovered_cases" caption="{{ 'recovered_cases' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="no_ofdeaths" caption="{{ 'no_ofdeaths' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="vaccine_dosesadministered"
+                    caption="{{ 'vaccine_dosesadministered' | translate }}">
+                </dxi-column>
+            </dxi-column>
+            <dxi-column caption="{{ 'interventions_challenges' | translate }}">
+                <dxi-column dataField="intenventions" caption="{{ 'intenventions' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="challenges" caption="{{ 'challenges' | translate }}">
+                </dxi-column>
+                <dxi-column dataField="other_comments" caption="{{ 'other_comments' | translate }}">
+                </dxi-column>
+            </dxi-column>
+            <dxo-selection mode="multiple"></dxo-selection>
+            <dxo-group-panel [visible]="true"></dxo-group-panel>
+        </dx-data-grid>
+
+    </dx-scroll-view>
+    <div class="popup-footer">
+        <button class="btn btn-danger" (click)="is_onviewreported_diseases = false"><i class="fa fa-window-close"
+                aria-hidden="true"></i>
+            {{'close' | translate}}</button>
+    </div>
+</dx-popup>
+
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#employee' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [message]="spinnerMessage" [hideOnOutsideClick]="false">
+</dx-load-panel>

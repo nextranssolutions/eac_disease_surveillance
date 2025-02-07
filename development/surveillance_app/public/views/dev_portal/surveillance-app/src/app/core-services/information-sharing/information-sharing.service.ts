@@ -95,7 +95,7 @@ export class InformationSharingService {
       }));
   }
 
-  onSaveInformationSharingDetails(table_name, data, action_url) {
+  onSavePandemicReportingInformation(table_name, data, action_url) {
     const loggedInUserId = localStorage.getItem('id');
     const loggedInUserName = localStorage.getItem('first_name');
     this.information = {

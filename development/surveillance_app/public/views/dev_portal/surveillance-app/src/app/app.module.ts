@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DxTabPanelModule } from 'devextreme-angular';
+import { DxMapModule, DxTabPanelModule } from 'devextreme-angular';
 
 import { DxActionSheetModule, DxTabsModule, DxButtonModule, DxFormModule, DxCheckBoxModule, DxContextMenuModule, DxDataGridModule, DxDateBoxModule, DxFileUploaderModule, DxMenuModule, DxNumberBoxModule, DxPopupModule, DxProgressBarModule, DxRadioGroupModule, DxScrollViewModule, DxSelectBoxModule, DxTagBoxModule, DxTextAreaModule, DxTextBoxModule, DxTreeListModule, DxChartModule, DxGalleryModule } from 'devextreme-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,7 +17,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { CompositeTranslateLoader } from './composite-translate-loader';
 import { AppRoutingModule } from './app-routing.module';
-
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { NgWizardConfig, NgWizardModule, THEME } from 'ng-wizard';
 @NgModule({
   declarations: [
     AppComponent
@@ -53,11 +54,12 @@ import { AppRoutingModule } from './app-routing.module';
     DxScrollViewModule,
     DxProgressBarModule,
     DxTabPanelModule,
-
+    DxMapModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
-    }),
+    }), LeafletModule,
     NgxPermissionsModule.forRoot(),
+    
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

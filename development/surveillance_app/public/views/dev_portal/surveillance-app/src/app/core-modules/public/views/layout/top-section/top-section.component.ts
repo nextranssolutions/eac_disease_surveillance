@@ -83,7 +83,6 @@ export class TopSectionComponent {
     
     this.userData = localStorage.getItem('user');
     let user_data = JSON.parse(this.userData);
-
     this.router.navigate([user_data.dashboard_link]);
     this.scrollToTop();
   }
@@ -99,7 +98,18 @@ export class TopSectionComponent {
     this.spinnerShow('Logging Out');
     this.authService.funcUserLogOut();
   }
+  showSignInForm: boolean = false;
+  showCreateAccountForm: boolean = false;
 
+  toggleSignInForm() {
+    this.showSignInForm = !this.showSignInForm;
+    this.showCreateAccountForm = false; // Hide Create Account form when Sign In form is shown
+  }
+
+  toggleCreateAccountForm() {
+    this.showCreateAccountForm = !this.showCreateAccountForm;
+    this.showSignInForm = false; // Hide Sign In form when Create Account form is shown
+  }
   spinnerShow(spinnerMessage) {
     this.loadingVisible = true;
     this.spinnerMessage = spinnerMessage;

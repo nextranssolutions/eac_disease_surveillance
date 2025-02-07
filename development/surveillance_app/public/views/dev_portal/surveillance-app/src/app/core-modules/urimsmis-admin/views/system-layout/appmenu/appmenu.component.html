@@ -32,7 +32,7 @@
           {{ getTranslation(childItem.name) }}
         </a>
         <b class="arrow"></b>
-        <ul class="submenu" [ngStyle]="{'display': !childItem.open ? 'block' : 'none'}">
+        <ul class="submenu" [ngStyle]="{'display': childItem.open ? 'block' : 'none'}">
 
           <li class="" *ngFor="let grandChildItem of childItem.children">
             <a href="javascript:void(0)" (click)="navigationClickEvent(grandChildItem)">

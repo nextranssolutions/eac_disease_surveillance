@@ -16,7 +16,7 @@
             <dxi-button name="today" location="after" [options]="passwordButton"></dxi-button>
         </dx-text-box>
     </div>
-
+<!--
     <div class="col-xs-12">
         <dx-button text="{{'send_otp' | translate}}" type="default" icon="fa fa-key"
             [elementAttr]="{ id: 'elementId', class: 'col-xs-12' }" (onClick)="onOtpRequest()">
@@ -30,28 +30,18 @@
             </dx-validator>
         </dx-number-box>
     </div>
-
-    <div class="col-xs-12 ">
+-->
+    <div class="col-xs-6 ">
         <dx-button text="{{'sign_in' | translate}}" type="default" icon="fas fa-sign-in-alt"
-            [elementAttr]="{ id: 'elementId', class: 'col-xs-12' }" (onClick)="onSignIn()">
+            [elementAttr]="{ id: 'elementId' }" (onClick)="onSignIn()">
         </dx-button>
     </div>
-
-    <div class="col-lg-8">
-
-        <span class="cursor-pointer mr-3 text-primary"><a href="javascript:void(0)" routerLink="/public/sign-up"
-                class="text-primary"><i class="fas fa-user-plus"></i>
-                {{ 'register'| translate}} </a></span>
+    <div class="col-xs-6 ">
+        <dx-button text=" {{'forgot_password' | translate}}" type="default" icon="fas fa-sign-in-alt"
+            [elementAttr]="{ id: 'elementId' }" (onClick)="funcLostPassord()">
+        </dx-button>
     </div>
-
-
-
-    <div class="col-lg-4">
-
-        <span class="cursor-pointer mr-3 text-primary"><a href="javascript:void(0)" (click)="funcLostPassord()"
-                class="text-primary"><i class="fa fa-key"></i>
-                {{'lost_password' | translate}} </a></span>
-    </div>
+  
 
 
 </form>

@@ -3,7 +3,6 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ExpertsprofileserviceService } from 'src/app/core-services/expertprofile/expertsprofileservice.service';
 import { WokflowManagementService } from 'src/app/core-services/workflow-management/wokflow-management.service';
 
 @Component({
@@ -31,7 +30,6 @@ export class SharedappProcesssubmissionComponent {
   constructor(
     private router: Router, 
     public toastr: ToastrService, http: HttpClient,
-    public expertService: ExpertsprofileserviceService, 
     public workflowService: WokflowManagementService
   ) {
 
@@ -115,7 +113,7 @@ export class SharedappProcesssubmissionComponent {
 
       let data = $event.selectedItem;
       let workflow_action_id = data.id;
-      this.onLoadWorkflowTransitionData(workflow_action_id);
+      //this.onLoadWorkflowTransitionData(workflow_action_id);
       
       if(workflow_action_id == 2){
        // this.has_reporting_remarks = false;
@@ -142,26 +140,7 @@ export class SharedappProcesssubmissionComponent {
 
   //   }
   // }
-  // 
-  onLoadWorkflowTransitionData(workflow_action_id) {
-    var data_submit = {
-      'table_name': 'wf_workflow_transitions',
-      'workflow_action_id': workflow_action_id
-    }
-    this.workflowService.getWorkflowConfigsUrl(data_submit, 'onLoadWorkflowTransitionData')
-      .subscribe(
-        data => {
-          this.data_record = data;
-          if (this.data_record.success) {
-            let workflow_transition = this.data_record.data;
-            this.appProcessSubmissionFrm.patchValue(workflow_transition);
-            this.onLoaduserInformationData(workflow_transition.nextworkflow_stage_id);
-        }
-      },
-      error => {
-        
-      });
-}
+  
   onLoadWorkflowStatusActions(){
     var data_submit = {
       'table_name': 'wf_workflowsubmission_actions',
@@ -223,23 +202,7 @@ export class SharedappProcesssubmissionComponent {
     this.loadingVisible = false;
   }
 
-  onLoaduserInformationData(workflow_stage_id) {
-    var data_submit = {
-      'table_name': 'usr_users_information'
-    }
-    //  this.spinnerShow('Loading User Information') 
-    this.expertService.getProcessessFilteredUsers(workflow_stage_id)
-      .subscribe(
-        data => {
-          this.data_record = data;
-          if (this.data_record.success) {
-            this.userInformationData = this.data_record.data;
-          }
-        },
-        error => {
-          
-        });
-  }
+  
   onApplicationProcessSubmission() {
 
     const formData = new FormData();

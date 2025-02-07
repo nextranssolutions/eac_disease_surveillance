@@ -16,20 +16,24 @@ use Modules\InformationSharing\App\Http\Controllers\InformationSharingController
 */
 
 Route::middleware(['XssSanitizer', 'clear_cache_config', 'firewall.all'])->prefix('informationsharing')->group(function () {
-    Route::get('onLoadExpertsPublicationManagement', [InformationSharingController::class, 'onLoadExpertsPublicationManagement']);
-    Route::get('onLoadExpertsResourceManagement', [InformationSharingController::class, 'onLoadExpertsResourceManagement']);
-    Route::get('onLoadInformationSharingConfig', [InformationSharingController::class, 'onLoadInformationSharingConfig']);
-    Route::get('onLoadKnowledgeCenterManagementData', [InformationSharingController::class, 'onLoadKnowledgeCenterManagementData']);
-    Route::get('funcFetchKnowledgeCenterCounter', [InformationSharingController::class, 'funcFetchKnowledgeCenterCounter']);
-    Route::get('funcFetchExpertPublicationsCounter', [InformationSharingController::class, 'funcFetchExpertPublicationsCounter']);
-    Route::get('funcFetchResourcesCounter', [InformationSharingController::class, 'funcFetchResourcesCounter']);
-
-    Route::post('onSaveExpertsPublicationManagement', [InformationSharingController::class, 'onSaveExpertsPublicationManagement']);
+   
     Route::post('onSaveResourceManagement', [InformationSharingController::class, 'onSaveResourceManagement']);
     Route::post('onFuncSaveKnowledgeCenterData', [InformationSharingController::class, 'onFuncSaveKnowledgeCenterData']);
     Route::post('onDeleteInfoSharingData', [InformationSharingController::class, 'onDeleteInfoSharingData']);
    
     Route::get('onloadapplicationWorkflowSubmissionCommetns', [InformationSharingController::class, 'onloadapplicationWorkflowSubmissionCommetns']);
     
+    Route::post('onSavePandemicReportingInformation', [InformationSharingController::class, 'onSavePandemicReportingInformation']);
+   
+    Route::get('onGetdiseaseOutbreakReportingInfo', [InformationSharingController::class, 'onGetdiseaseOutbreakReportingInfo']);
+    Route::get('onGetreportedDiseasesPandemicDetails', [InformationSharingController::class, 'onGetreportedDiseasesPandemicDetails']);
+    Route::get('onGetreportingDiseasesPandemicDetails', [InformationSharingController::class, 'onGetreportingDiseasesPandemicDetails']);
+    Route::get('onloadmyPreviousDataReportingReports', [InformationSharingController::class, 'onloadmyPreviousDataReportingReports']);
+    Route::post('onFuncSaveDiseasePandemicDetails', [InformationSharingController::class, 'onFuncSaveDiseasePandemicDetails']);
+    //graphs
+    Route::get('onGetdiseasepandemicGraphInformation', [InformationSharingController::class, 'onGetdiseasepandemicGraphInformation']);
+   
+    
 });
+
 

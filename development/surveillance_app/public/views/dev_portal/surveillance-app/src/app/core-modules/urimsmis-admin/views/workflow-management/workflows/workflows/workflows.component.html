@@ -51,17 +51,10 @@
     <dxi-column  dataField="description" caption="{{'description' | translate}}"> </dxi-column> 
     <dxo-selection mode="multiple"></dxo-selection>
     <dxo-group-panel [visible]="true"></dxo-group-panel>
-
     <dxo-paging [pageSize]="100"></dxo-paging>
-
 </dx-data-grid>
-
-
-
-
 <dx-popup [visible]="deletePopupVisible" [width]="funcpopWidth(30)" [height]="funcpopHeight(25)" [showTitle]="true"
     title="{{ 'delete_confirmation_of '+parameter_name | translate }}" (onHidden)="deletePopupVisible = false">
-
     <div>
         <p class="confirmation-text">
             {{ 'are_you_sure_you_want_to_delete' | translate }}
@@ -74,7 +67,6 @@
             </dx-button>
         </div>
     </div>
-
 </dx-popup>
 
 

@@ -8,7 +8,7 @@ export const routes: Routes = [
   { path: 'unified-dashboard', loadChildren: () => import('./core-modules/unifiedapp-module/unifiedapp-module.module').then(m => m.UnifiedappModuleModule) },
   { path: 'admin-mis', loadChildren: () => import('./core-modules/urimsmis-admin/urimsmis-admin.module').then(m => m.UrimsmisAdminModule) },
   { path: 'admin-mis/app-dashboard', loadChildren: () => import('./core-modules/urimsmis-admin/urimsmis-admin.module').then(m => m.UrimsmisAdminModule) },
-  { path: 'reports-analytics', loadChildren: () => import('./regulatory_modules/reports-analytics/reports-analytics.module').then(m => m.ReportsAnalyticsModule) }
+ // { path: 'reports-analytics', loadChildren: () => import('./regulatory_modules/reports-analytics/reports-analytics.module').then(m => m.ReportsAnalyticsModule) }
 ];
 
 @NgModule({

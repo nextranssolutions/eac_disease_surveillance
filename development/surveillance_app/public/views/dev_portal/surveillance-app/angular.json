@@ -39,8 +39,12 @@
               "src/dist/font-awesome/4.5.0/css/font-awesome.min.css",
               "src/dist/css/ace.min.css",
               "node_modules/ngx-toastr/toastr.css",
-              "src/styles.css"
-              
+		          "node_modules/leaflet/dist/leaflet.css",
+              "src/styles.css",
+              "src/dist/ng-wizard/themes/ng_wizard.min.css",
+              "src/dist/ng-wizard/themes/ng_wizard_theme_arrows.min.css",
+              "src/dist/ng-wizard/themes/ng_wizard_theme_circles.min.css",
+              "src/dist/ng-wizard/themes/ng_wizard_theme_dots.min.css"
             ],
             
             "scripts": [

@@ -18,6 +18,7 @@ export class NavigationComponent {
   response: any;
   navigation_items: any;
   decryptedPayload:any;
+  nav_data: any;
 
   toolbarItems: any[] = [
     {
@@ -45,28 +46,21 @@ export class NavigationComponent {
   ngOnInit(): void {
     this.getUserNavigationItems();
   }
-
-  // onLogout() {
-  //   this.authService.logout()
-  //     .then(() => {
-  //       setTimeout(() => {
-  //         this.authService.handleLogoutSuccess();
-  //         this.authService.logout();
-  //         this.isLoggedIn = this.authService.isLoggedIn; 
-  //       }, 500); 
-  //     })
-  //     .catch(() => {
-  //       this.authService.handleLogoutError();
-  //     });
-  // }
+  scrollToTop(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Smooth scrolling for better UX
+    });
+  }
   getUserNavigationItems() {
-    this.spinnerShow('Initialisation of the E-CRES Solution........')
+    this.spinnerShow('Initialisation of the Surveillance Solution........')
     this.publicService.getUserNavigationItems(this.navigation_type_id)
       .subscribe(
         data => {
           this.response = data;
           if (this.response.success) {
             // this.decryptedPayload=this.encryptionService.OnDecryptData(this.response.navigation_items);
+            // this.navigation_items = this.decryptedPayload;
             this.navigation_items = this.response.navigation_items;
           }
           this.spinnerHide();
@@ -75,6 +69,44 @@ export class NavigationComponent {
 
         });
 
+  }
+
+  navigationClickEvent(childGroup: any): void {
+
+    let navigation_id = childGroup.id,
+      navigation_name = childGroup.name,
+      routerlink = childGroup.routerlink,
+      user_group_id = childGroup.user_group_id,
+      is_super_admin = childGroup.is_super_admin,
+      access_level_id = childGroup.user_access_levels_id;
+    this.nav_data = {
+      navigation_id: navigation_id,
+      navigation_name: navigation_name,
+      user_group_id: user_group_id,
+      is_super_admin: is_super_admin,
+      access_level_id: access_level_id
+    };
+    
+    localStorage.setItem('nav_data', JSON.stringify(this.nav_data));
+    this.router.navigate(['./public/' + routerlink]);
+    this.scrollToTop();
+   
+  }
+
+  getTranslation(key: string): string {
+    if(key){
+      let translation: string = '';
+      this.translate.get(key).subscribe((res: string) => {
+        translation = res;
+      });
+      return translation;
+    }else{
+      return '';
+    }
+  }
+
+  toggleSubMenu(item: any) {
+    item.open = !item.open;
   }
   spinnerShow(spinnerMessage) {
     this.loadingVisible = true;

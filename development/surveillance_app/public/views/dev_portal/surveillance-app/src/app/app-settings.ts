@@ -11,8 +11,8 @@ if (window.location.hostname == 'localhost') {
 if (app_connection == 'development') {
   //nextrans-solutions\comesa-sws\development\web-application
 
-  base_url = 'http://localhost:86/unified-rims/development/urims-mis/public/index.php';
-  assets_url = 'http://localhost:86/unified-rims/development/urims-mis/public/index.php';
+  base_url = 'http://localhost:82/nextrans-solutions/eac_disease_surveillance/development/surveillance_app/public/index.php';
+  assets_url = 'http://localhost:82/nextrans-solutions/eac_disease_surveillance\development\surveillance_app/public/index.php';
   
   // base_url = 'http://localhost:82/uRIMS/nextrans-solutions/nextrans-solutions/unified-rims/development/urims-mis/public/index.php';
   // assets_url = 'http://localhost:82/uRIMS/nextrans-solutions/nextrans-solutions/unified-rims/development/urims-mis/public/index.php';
