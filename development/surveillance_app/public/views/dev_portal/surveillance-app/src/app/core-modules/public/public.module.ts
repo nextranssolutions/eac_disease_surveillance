@@ -6,7 +6,7 @@ import { NavigationComponent } from './views/layout/navigation/navigation.compon
 import { CenterPageComponent } from './views/layout/center-page/center-page.component';
 import { TopSectionComponent } from './views/layout/top-section/top-section.component';
 import { NgHttpLoaderModule } from 'ng-http-loader';
-import { DxActionSheetModule, DxGalleryModule, DxFileUploaderModule, DxDataGridModule, DxPopupModule, DxButtonModule, DxDateBoxModule, DxTextBoxModule, DxSelectBoxModule, DxTextAreaModule, DxContextMenuModule, DxMenuModule, DxCheckBoxModule, DxNumberBoxModule, DxTagBoxModule, DxTabPanelModule, DxFormModule, DxScrollViewModule, DxHtmlEditorModule, DxDropDownBoxModule, DxRadioGroupModule, DxProgressBarModule, DxLoadPanelModule, DxValidatorModule, DxToolbarModule, DxMapModule } from 'devextreme-angular';
+import { DxActionSheetModule, DxGalleryModule, DxFileUploaderModule, DxDataGridModule, DxPopupModule, DxButtonModule, DxDateBoxModule, DxTextBoxModule, DxSelectBoxModule, DxTextAreaModule, DxContextMenuModule, DxMenuModule, DxCheckBoxModule, DxNumberBoxModule, DxTagBoxModule, DxTabPanelModule, DxFormModule, DxScrollViewModule, DxHtmlEditorModule, DxDropDownBoxModule, DxRadioGroupModule, DxProgressBarModule, DxLoadPanelModule, DxValidatorModule, DxToolbarModule, DxMapModule, DxChartModule } from 'devextreme-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { AppsignInComponent } from './views/appsign-in/appsign-in.component';
@@ -34,7 +34,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     NgxCaptchaModule, DxLoadPanelModule,
     DxPopupModule, DxDataGridModule, DxActionSheetModule, DxFileUploaderModule, DxNumberBoxModule, DxCheckBoxModule, DxSelectBoxModule, DxTextAreaModule, DxContextMenuModule, DxMenuModule, DxTagBoxModule,
     DxDateBoxModule, DxTabPanelModule, DxFormModule, DxScrollViewModule,
-    DxTextBoxModule,
+    DxTextBoxModule,DxChartModule,
     DxDateBoxModule, DxDataGridModule,
     HttpClientModule, DxValidatorModule,
      DxToolbarModule,

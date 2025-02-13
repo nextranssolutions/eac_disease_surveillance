@@ -8,98 +8,25 @@
         <h3>{{'filter_on_all_infections_period' | translate}} </h3>
       </div>
       <div class="col-lg-12">
-        <dx-select-box class="col-lg-2" placeholder="{{'select_diseases' | translate}}"
-          [dataSource]="regulatory_functionsdata" [showClearButton]="true" valueExpr="id" [searchEnabled]="true"
-          displayExpr="name">
-        </dx-select-box>
-        <dx-select-box class="col-lg-2" placeholder="{{'selection_country' | translate}}" [dataSource]="countryData"
-          [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
-        </dx-select-box>
-        <div class="col-lg-2">
-          <dx-select-box placeholder="{{'select_reporting_period' | translate}}" [dataSource]="reportingPeriodData"
-            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
+        <form [formGroup]="reportFilterFrm">
+          <dx-select-box class="col-lg-4" formControlName="pandemic_prioritydisease_id"
+            placeholder="{{'select_diseases' | translate}}" [dataSource]="pandemicDiseaseData"
+            (onSelectionChanged)="onFilterDataSelectionChange($event)" [showClearButton]="true" valueExpr="id"
+            [searchEnabled]="true" displayExpr="name">
           </dx-select-box>
-        </div>
-        <div class="col-lg-3">
-          <dx-date-box></dx-date-box>
-        </div>
-        <div class="col-lg-3">
-          <dx-date-box></dx-date-box>
-        </div>
+          <dx-select-box class="col-lg-4" formControlName="partner_state_id"
+            placeholder="{{'select_partner_state' | translate}}" [dataSource]="partnerStateData"
+            [showClearButton]="true" (onSelectionChanged)="onFilterDataSelectionChange($event)" valueExpr="id"
+            [searchEnabled]="true" displayExpr="name">
+          </dx-select-box>
+          <dx-select-box class="col-lg-4" formControlName="source_of_infection_id"
+            placeholder="{{'select_source_of_pandemic' | translate}}" [dataSource]="pandemicDiseaseSourceData"
+            [showClearButton]="true" (onSelectionChanged)="onFilterDataSelectionChange($event)" valueExpr="id"
+            [searchEnabled]="true" displayExpr="name">
+          </dx-select-box>
+        </form>
       </div>
     </dxi-item>
-    <dxi-item title="{{ 'human_infections' | translate }}" icon="fa fa fa-group">
-      <div class="col-lg-12 label-colorred">
-        <h3>{{'filter_on_human_infections' | translate}} </h3>
-      </div>
-      <div class="col-lg-12">
-        <dx-select-box class="col-lg-2" placeholder="{{'select_diseases' | translate}}"
-          [dataSource]="regulatory_functionsdata" [showClearButton]="true" valueExpr="id" [searchEnabled]="true"
-          displayExpr="name">
-        </dx-select-box>
-        <dx-select-box class="col-lg-2" placeholder="{{'selection_country' | translate}}" [dataSource]="countryData"
-          [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
-        </dx-select-box>
-        <div class="col-lg-2">
-          <dx-select-box placeholder="{{'select_reporting_period' | translate}}" [dataSource]="reportingPeriodData"
-            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
-          </dx-select-box>
-        </div>
-        <div class="col-lg-3">
-          <dx-date-box></dx-date-box>
-        </div>
-        <div class="col-lg-3">
-          <dx-date-box></dx-date-box>
-        </div>
-      </div>
-    </dxi-item>
-    <dxi-item title="{{ 'animal_infections' | translate }}" icon="fa fa-clone">
-      <h3>{{'filter_on_animal_infections' | translate}} </h3>
-      <div class="col-lg-12">
-        <dx-select-box class="col-lg-2" placeholder="{{'select_diseases' | translate}}"
-          [dataSource]="regulatory_functionsdata" [showClearButton]="true" valueExpr="id" [searchEnabled]="true"
-          displayExpr="name">
-        </dx-select-box>
-        <dx-select-box class="col-lg-2" placeholder="{{'selection_country' | translate}}" [dataSource]="countryData"
-          [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
-        </dx-select-box>
-        <div class="col-lg-2">
-          <dx-select-box placeholder="{{'select_reporting_period' | translate}}" [dataSource]="reportingPeriodData"
-            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
-          </dx-select-box>
-        </div>
-        <div class="col-lg-3">
-          <dx-date-box></dx-date-box>
-        </div>
-        <div class="col-lg-3">
-          <dx-date-box></dx-date-box>
-        </div>
-      </div>
-    </dxi-item>
-    <dxi-item title="{{ 'environment' | translate }}" icon="fa fa-clone">
-      <h3>{{'filter_on_environment_related_infections' | translate}} </h3>
-      <div class="col-lg-12">
-        <dx-select-box class="col-lg-2" placeholder="{{'select_diseases' | translate}}"
-          [dataSource]="regulatory_functionsdata" [showClearButton]="true" valueExpr="id" [searchEnabled]="true"
-          displayExpr="name">
-        </dx-select-box>
-        <dx-select-box class="col-lg-2" placeholder="{{'selection_country' | translate}}" [dataSource]="countryData"
-          [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
-        </dx-select-box>
-        <div class="col-lg-2">
-          <dx-select-box placeholder="{{'select_reporting_period' | translate}}" [dataSource]="reportingPeriodData"
-            [showClearButton]="true" valueExpr="id" [searchEnabled]="true" displayExpr="name">
-          </dx-select-box>
-        </div>
-        <div class="col-lg-3">
-          <dx-date-box></dx-date-box>
-        </div>
-        <div class="col-lg-3">
-          <dx-date-box></dx-date-box>
-        </div>
-      </div>
-    </dxi-item>
-
   </dx-tab-panel>
   <div class="col-lg-12 div-margintop">
     <div class="geo-mappingdiv col-lg-8">
@@ -110,34 +37,80 @@
           <fa-icon [icon]="sections['mapFull'] ? faCompress : faExpand"></fa-icon>
         </button>
         <div style="height: 90%;width: 100%;" class="div-homemap col-lg-12" leaflet [leafletOptions]="options"
-          [leafletLayers]="layers" [leafletLayersControl]="layersControl" (leafletMapReady)="onMapReady($event)">
+          [leafletLayers]="layers"  (leafletMapReady)="onMapReady($event)">
 
         </div>
       </div>
-
     </div>
     <div class="col-lg-4">
-      <dx-data-grid class="col-lg-12 custom-datagrid"  [wordWrapEnabled]="true"
-        [dataSource]="surveillanceDetailsData" [remoteOperations]="true" [showBorders]="true"
-        [allowColumnResizing]="true" [columnHidingEnabled]="false">
-
-        <dxo-search-panel [visible]="false"></dxo-search-panel>
+      <dx-data-grid [allowColumnReordering]="true" class=" custom-datagrid" [wordWrapEnabled]="true"
+        [dataSource]="pandemicDiseasesInformationData" (onExporting)="onExporting($event)" [remoteOperations]="true"
+        [showBorders]="true" [allowColumnResizing]="true" [columnHidingEnabled]="false" keyExpr="id">
+        <!-- Search panel next to export button -->
+        <dxo-export [enabled]="true" fileName="{{ 'records' | translate }}" [formats]="['pdf','xlsx']"
+          [allowExportSelectedData]="true"></dxo-export>
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
 
         <dxo-filter-row [visible]="show_advancesearch"></dxo-filter-row>
-        <dxo-paging [enabled]="true">
+        <dxo-paging [enabled]="true" [pageSize]="100">
           <dxo-pager [showInfo]="true" infoText="Page #{0}. Total: {1} ({2} items)" [showPageSizeSelector]="true"
             [allowedPageSizes]="[50,100]"></dxo-pager>
         </dxo-paging>
-
-        <dxi-column dataField="description" caption="{{ 'partner_state' | translate }}"></dxi-column>
-        <dxi-column dataField="diseases" caption="{{ 'diseases' | translate }}"></dxi-column>
-        <dxi-column dataField="source_of_infection" caption="{{ 'source_of_infection' | translate }}"></dxi-column>
-
-        <dxi-column dataField="cases" caption="{{ 'cases' | translate }}"></dxi-column>
-        <dxi-column dataField="is_enabled" caption="{{ 'view_details' | translate }}">
+        <dxi-column [groupIndex]="0" dataField="pandemic_prioritydisease">
         </dxi-column>
+
+        <dxi-column caption="{{ 'disease_information' | translate }}">
+          <dxi-column dataField="country_name" caption="{{ 'partner_state' | translate }}">
+          </dxi-column>
+
+          <dxi-column dataField="source_of_infection" caption="{{ 'suspected_sourceof_infection' | translate }}">
+
+          </dxi-column>
+
+        </dxi-column>
+        <dxi-column caption="{{ 'timelines' | translate }}">
+          <dxi-column dataType="date" format="yyyy-MM-dd" dataField="date_of_confirmation"
+            caption="{{ 'date_of_outbreakconfirmation' | translate }}">
+          </dxi-column>
+        </dxi-column>
+        <dxi-column caption="{{ 'statistics' | translate }}">
+
+          <dxi-column dataField="recovered_cases" caption="{{ 'recovered_cases' | translate }}">
+          </dxi-column>
+          <dxi-column dataField="no_ofdeaths" caption="{{ 'no_ofdeaths' | translate }}">
+          </dxi-column>
+        </dxi-column>
+
+        <dxo-selection mode="single"></dxo-selection>
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
       </dx-data-grid>
     </div>
   </div>
+  <div class="col-lg-12">
+    <dx-chart id="pandemicReportingGrh" [dataSource]="diseasepandemicGraphData" (onPointClick)="showDataGrid($event)">
 
+      <dxo-common-series-settings argumentField="pandemic_prioritydisease" type="bar" hoverMode="allArgumentPoints"
+        selectionMode="allArgumentPoints" valueField="number_ofconfirmed_cases">
+        <dxo-label [visible]="true" [format]="{
+  type: 'fixedPoint'
+}">
+        </dxo-label>
+      </dxo-common-series-settings>
+      <dxo-series-template nameField="partner_state">
+
+
+      </dxo-series-template>
+      <dxo-argument-axis>
+        <dxo-title text="Confirmed Disease pandemic Cases"></dxo-title>
+      </dxo-argument-axis>
+      <dxi-value-axis>
+        <dxo-title text="{{'no_of_reported_products' | translate}}"></dxo-title>
+      </dxi-value-axis>
+      <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+
+      </dxo-legend>
+      <dxo-export [enabled]="true"></dxo-export>
+      <dxo-tooltip [enabled]="true" [customizeTooltip]="customizeTooltip"></dxo-tooltip>
+    </dx-chart>
+  </div>
 </div>

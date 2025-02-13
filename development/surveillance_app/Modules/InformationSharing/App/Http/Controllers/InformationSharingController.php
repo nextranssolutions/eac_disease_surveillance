@@ -452,7 +452,7 @@ public function getNumberofreportedPandemics($pandemic_reportinginformation_id)
                 ->leftJoin('cfg_pandemic_intenventions as t4', 't4.id', 't1.pandemic_intenvention_id')
                 ->join('txn_pandemic_reportinginformation as t5', 't5.id', 't1.pandemic_reportinginformation_id')
                 ->leftJoin('cfg_countries as t6', 't6.id', 't1.partner_state_id')
-                ->select(DB::raw("sum(t1.confirmed_cases) as number_ofconfirmed_cases,t6.name as partner_state, t2.name as pandemic_prioritydisease"));
+                ->select(DB::raw(" sum(t1.confirmed_cases) as number_ofconfirmed_cases,t6.name as partner_state, t2.name as pandemic_prioritydisease"));
                 $sql = $sql->groupBy('t2.name','t6.name');
            
                 if (validateIsNumeric($partner_state_id)) {
@@ -497,8 +497,8 @@ public function getNumberofreportedPandemics($pandemic_reportinginformation_id)
                 ->join('cfg_source_of_infections as t3', 't3.id', 't1.source_of_infection_id')
                 ->leftJoin('cfg_pandemic_intenventions as t4', 't4.id', 't1.pandemic_intenvention_id')
                 ->join('txn_pandemic_reportinginformation as t5', 't5.id', 't1.pandemic_reportinginformation_id')
-                ->leftJoin('cfg_countries as t6', 't6.id', 't1.partner_state_id')
-                ->select('t1.*', 't6.name as country_name', 't2.name as pandemic_prioritydisease', 't3.name as source_of_infection', 't4.name as pandemic_intenvention', 't5.appworkflow_status_id');
+                ->join('cfg_countries as t6', 't6.id', 't1.partner_state_id')
+                ->select(DB::raw("t6.latitude as geo_latitude,t6.longitude as geo_longitude, t1.*, t6.name as country_name, t2.name as pandemic_prioritydisease, t3.name as source_of_infection, t4.name as pandemic_intenvention, t5.appworkflow_status_id"));
 
                 if (validateIsNumeric($partner_state_id)) {
                     $sql->where('t1.partner_state_id', $partner_state_id);
@@ -518,7 +518,6 @@ public function getNumberofreportedPandemics($pandemic_reportinginformation_id)
             }else{
                 $data = $sql->get();
             }
-
             $res = array('success' => true, 'data' => $data);
 
         } catch (\Exception $exception) {
