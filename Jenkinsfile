@@ -152,9 +152,9 @@ stage('TRANSFER TO THE SERVER') {
                         cd /var/www/eac_disease_surveillance/development/surveillance_app/public/views/
                         rm -rf dev_portal
                         cd /var/www/eac_disease_surveillance
-                        find /var/www/eac_disease_surveillance -mindepth 1 -maxdepth 1 ! -name "developmentv2" -exec rm -rf {} +
-
-                        ## NOT NEEDED FOR COMESA
+                        
+                        ## NOT NEEDED
+                        #find /var/www/eac_disease_surveillance -mindepth 1 -maxdepth 1 ! -name "developmentv2" -exec rm -rf {} +
                         # find /var/www/jenkins_test/ppm_solutions_v2 -mindepth 1 -maxdepth 1 ! -name "development" -exec rm -rf {} +
 
                         #Reload Apache2 to apply changes
