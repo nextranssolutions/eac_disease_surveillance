@@ -62,7 +62,7 @@ stage('TRANSFER TO THE SERVER') {
                     steps {
                         sh '''#!/bin/bash
                         ###### PRODUCTION OF ANGULAR SIDE ####################
-                        cd /var/www/eac_disease_surveillance/development/surveillance_app/public/views/dev_portal/comesa-sws/src/app
+                        cd /var/www/eac_disease_surveillance/development/surveillance_app/public/views/dev_portal/surveillance-app/src/app
                         npm install --legacy-peer-deps
                         sed -i \'1s/development/production/\' app-settings.ts
                         cd ../../
