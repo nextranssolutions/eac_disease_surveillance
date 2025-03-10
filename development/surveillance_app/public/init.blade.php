@@ -53,5 +53,5 @@
 <script type="module" src="{{asset('views/front-end/polyfills-N6LQB2YD.js')}}"></script>
 <script type="module" src="{{asset('views/front-end/scripts-IMSJKM7I.js')}}"></script>
 <script type="module" src="{{asset('views/front-end/main-ZA5VYNDH.js')}}"></script>
-<script type="module" src="{{asset('assets/dist/js/jquery.js')}}"></script>
+<script type="module" src="{{asset('js/jquery.js')}}"></script>
 </html>
