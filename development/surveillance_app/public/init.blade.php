@@ -5,10 +5,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>AUDA-NEPAD e-CRES</title>
+    <title>EAC REGIONAL INFORMATION SHARING PLATFORM FOR DISEASE SURVEILLANCE AND EPIDEMIC INTELLIGENCE</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CONTINENTAL REGULATORY EXPERTS SOLUTION (E-CRES)</title>
+    <title>EAC REGIONAL INFORMATION SHARING PLATFORM FOR DISEASE SURVEILLANCE AND EPIDEMIC INTELLIGENCE</title>
 
     <link rel="icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -28,7 +28,7 @@
     <!-- hold-transition skin-blue sidebar-mini Font Awesome -->
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="dx-viewport dx-device-desktop dx-device-generic dx-theme-material dx-theme-material-typography dx-color-scheme-teal-light">
 
     <div class="loader_gif">
         <div class="loader">
@@ -40,7 +40,7 @@
 
             </div>
             <div class="center_title">
-                <h4 style="text-align:center">CONTINENTAL REGULATORY EXPERTS SOLUTION (E-CRES)</h4>
+                <h4 style="text-align:center">EAC REGIONAL INFORMATION SHARING PLATFORM FOR DISEASE SURVEILLANCE AND EPIDEMIC INTELLIGENCE</h4>
             </div>
 
         </div>
