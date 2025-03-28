@@ -22,7 +22,8 @@ pipeline {
                 }
             }
         }
-
+                stage('Run Backend and Frontend in Parallel') {
+            parallel {
         stage('PRODUCTION OF LARAVEL SIDE') {
                         when {
                 expression { return env.BUILD_LARAVEL == "true" }
@@ -160,6 +161,7 @@ pipeline {
                         '''
                     }
                 }
-
+            }
+        }
     }
   }
